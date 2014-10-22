@@ -11,6 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection;
 
+use Fxp\Component\RequireAsset\Assetic\Util\FileExtensionUtils;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -74,36 +75,7 @@ class FxpRequireAssetExtension extends Extension
     {
         if (!$default['replace_extensions']) {
             $def = $container->getDefinition('fxp_require_asset.assetic.config.file_extension_manager');
-            $def->addMethodCall('addDefaultExtensions', array($this->getDefaultExtensions()));
+            $def->addMethodCall('addDefaultExtensions', array(FileExtensionUtils::getDefaultConfigs()));
         }
-    }
-
-    /**
-     * Gets the default file extensions.
-     *
-     * @return array
-     */
-    private function getDefaultExtensions()
-    {
-        return array(
-            'map'  => array('debug' => true),
-            'js'   => array(),
-            'css'  => array(),
-            'eot'  => array(),
-            'svg'  => array(),
-            'ttf'  => array(),
-            'woff' => array(),
-            'jpg'  => array(),
-            'jpeg' => array(),
-            'png'  => array(),
-            'webp' => array(),
-            'mp3'  => array(),
-            'aac'  => array(),
-            'wav'  => array(),
-            'ogg'  => array(),
-            'webm' => array(),
-            'mp4'  => array(),
-            'ogv'  => array(),
-        );
     }
 }
