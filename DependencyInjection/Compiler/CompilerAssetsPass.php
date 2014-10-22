@@ -11,10 +11,10 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
-use Fxp\Bundle\RequireAssetBundle\Assetic\Config\FileExtensionInterface;
-use Fxp\Bundle\RequireAssetBundle\Assetic\Config\OutputManagerInterface;
-use Fxp\Bundle\RequireAssetBundle\Assetic\Config\PackageInterface;
-use Fxp\Bundle\RequireAssetBundle\Assetic\Util\Utils;
+use Fxp\Component\RequireAsset\Assetic\Config\FileExtensionInterface;
+use Fxp\Component\RequireAsset\Assetic\Config\OutputManagerInterface;
+use Fxp\Component\RequireAsset\Assetic\Config\PackageInterface;
+use Fxp\Component\RequireAsset\Assetic\Util\Utils;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Definition;
@@ -102,7 +102,7 @@ class CompilerAssetsPass implements CompilerPassInterface
 
         $definition = new Definition();
         $definition
-            ->setClass('Fxp\Bundle\RequireAssetBundle\Assetic\Factory\Resource\RequireAssetResource')
+            ->setClass('Fxp\Component\RequireAsset\Assetic\Factory\Resource\RequireAssetResource')
             ->setPublic(true)
             ->addArgument($name)
             ->addArgument($file->getLinkTarget())
