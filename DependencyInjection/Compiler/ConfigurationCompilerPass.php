@@ -30,55 +30,10 @@ class ConfigurationCompilerPass implements CompilerPassInterface
         /* @var ParameterBag $pb */
         $pb = $container->getParameterBag();
 
-        $this->configureFileExtensionManager($container, $pb);
-        $this->configurePatternManager($container, $pb);
-        $this->configureOutputManager($container, $pb);
-        $this->configurePackageManager($container, $pb);
-    }
-
-    /**
-     * Configure the default file extentions section.
-     *
-     * @param ContainerBuilder $container
-     * @param ParameterBag     $pb
-     */
-    protected function configureFileExtensionManager(ContainerBuilder $container, ParameterBag $pb)
-    {
-        $def = $container->getDefinition('fxp_require_asset.assetic.config.file_extension_manager');
-        $exts = $container->getParameter('fxp_require_asset.assetic.config.file_extensions');
-
-        $def->addMethodCall('addDefaultExtensions', array($exts));
-        $pb->remove('fxp_require_asset.assetic.config.file_extensions');
-    }
-
-    /**
-     * Configure the default pattern section.
-     *
-     * @param ContainerBuilder $container
-     * @param ParameterBag     $pb
-     */
-    protected function configurePatternManager(ContainerBuilder $container, ParameterBag $pb)
-    {
-        $def = $container->getDefinition('fxp_require_asset.assetic.config.pattern_manager');
-        $patterns = $container->getParameter('fxp_require_asset.assetic.config.patterns');
-
-        $def->addMethodCall('addDefaultPatterns', array($patterns));
-        $pb->remove('fxp_require_asset.assetic.config.patterns');
-    }
-
-    /**
-     * Configure the output rewrite section.
-     *
-     * @param ContainerBuilder $container
-     * @param ParameterBag     $pb
-     */
-    protected function configureOutputManager(ContainerBuilder $container, ParameterBag $pb)
-    {
-        $def = $container->getDefinition('fxp_require_asset.assetic.config.output_manager');
-        $patterns = $container->getParameter('fxp_require_asset.assetic.config.output_rewrites');
-
-        $def->addMethodCall('addOutputPatterns', array($patterns));
-        $pb->remove('fxp_require_asset.assetic.config.output_rewrites');
+        $this->configureManager($container, $pb, 'file_extension_manager', 'file_extensions');
+        $this->configureManager($container, $pb, 'pattern_manager',        'patterns');
+        $this->configureManager($container, $pb, 'output_manager',         'output_rewrites');
+        $this->configureManager($container, $pb, 'package_manager',        'packages');
     }
 
     /**
@@ -86,13 +41,15 @@ class ConfigurationCompilerPass implements CompilerPassInterface
      *
      * @param ContainerBuilder $container
      * @param ParameterBag     $pb
+     * @param string           $idManager
+     * @param string           $idParameters
      */
-    protected function configurePackageManager(ContainerBuilder $container, ParameterBag $pb)
+    protected function configureManager(ContainerBuilder $container, ParameterBag $pb, $idManager, $idParameters)
     {
-        $def = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
-        $packages = $container->getParameter('fxp_require_asset.assetic.config.packages');
+        $def = $container->getDefinition('fxp_require_asset.assetic.config.' . $idManager);
+        $packages = $container->getParameter('fxp_require_asset.assetic.config.' . $idParameters);
 
         $def->addMethodCall('addPackages', array($packages));
-        $pb->remove('fxp_require_asset.assetic.config.packages');
+        $pb->remove('fxp_require_asset.assetic.config.' . $idParameters);
     }
 }
