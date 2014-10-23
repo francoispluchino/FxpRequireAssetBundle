@@ -11,6 +11,9 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection;
 
+use Fxp\Component\RequireAsset\Config\FileExtensionConfiguration;
+use Fxp\Component\RequireAsset\Config\PackageConfiguration;
+use Fxp\Component\RequireAsset\Config\PatternConfiguration;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -56,7 +59,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->append($this->getDefaultForPackageNode())
             ->append($this->getOutputRewritesNode())
-            ->append($this->getPackagesNode())
+            ->append(PackageConfiguration::getConfigNode())
         ;
 
         return $treeBuilder;
@@ -76,28 +79,8 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('replace_extensions')->defaultFalse()->end()
-                ->arrayNode('extensions')
-                    ->useAttributeAsKey('name')
-                    ->normalizeKeys(false)
-                    ->prototype('array')
-                        ->children()
-                            ->arrayNode('filters')
-                                ->prototype('scalar')->end()
-                            ->end()
-                            ->arrayNode('options')
-                                ->useAttributeAsKey('name')
-                                ->normalizeKeys(false)
-                                ->prototype('variable')->end()
-                            ->end()
-                            ->scalarNode('extension')->defaultNull()->end()
-                            ->booleanNode('debug')->defaultFalse()->end()
-                            ->booleanNode('exclude')->defaultFalse()->end()
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('patterns')
-                    ->prototype('scalar')->end()
-                ->end()
+                ->append(FileExtensionConfiguration::getConfigNode())
+                ->append(PatternConfiguration::getConfigNode())
             ->end()
         ;
 
@@ -118,58 +101,6 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('name')
             ->normalizeKeys(false)
             ->prototype('variable')->end()
-        ;
-
-        return $node;
-    }
-
-    /**
-     * Get packages config node.
-     *
-     * @return NodeDefinition
-     */
-    private function getPackagesNode()
-    {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('packages');
-
-        $node
-            ->useAttributeAsKey('name')
-            ->normalizeKeys(false)
-            ->prototype('array')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->scalarNode('source_path')->defaultNull()->end()
-                    ->scalarNode('source_base')->defaultNull()->end()
-                    ->booleanNode('replace_default_extensions')->defaultFalse()->end()
-                    ->booleanNode('replace_default_patterns')->defaultFalse()->end()
-                    ->arrayNode('extensions')
-                        ->useAttributeAsKey('name')
-                        ->normalizeKeys(false)
-                        ->prototype('array')
-                            ->children()
-                                ->arrayNode('filters')
-                                ->prototype('scalar')->end()
-                            ->end()
-                            ->arrayNode('options')
-                                ->useAttributeAsKey('name')
-                                ->normalizeKeys(false)
-                                ->prototype('variable')->end()
-                                ->end()
-                            ->end()
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('extension')->defaultNull()->end()
-                                ->booleanNode('debug')->defaultFalse()->end()
-                                ->booleanNode('exclude')->defaultFalse()->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->arrayNode('patterns')
-                        ->prototype('scalar')->end()
-                    ->end()
-                ->end()
-            ->end()
         ;
 
         return $node;
