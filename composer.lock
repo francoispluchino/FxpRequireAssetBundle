@@ -132,17 +132,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/francoispluchino/fxp-require-asset.git",
-                "reference": "f130f74d6c436bcfd4a01175fcc25948f2bc46da"
+                "reference": "3688eb2c09a6d56e62123960b36316062614bd05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/f130f74d6c436bcfd4a01175fcc25948f2bc46da",
-                "reference": "f130f74d6c436bcfd4a01175fcc25948f2bc46da",
+                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/3688eb2c09a6d56e62123960b36316062614bd05",
+                "reference": "3688eb2c09a6d56e62123960b36316062614bd05",
                 "shasum": ""
             },
             "require": {
                 "kriswallsmith/assetic": "~1.2",
                 "php": ">=5.3.3",
+                "symfony/config": "~2.4",
                 "symfony/filesystem": "~2.4",
                 "symfony/finder": "~2.4",
                 "twig/twig": "~1.12"
@@ -183,7 +184,7 @@
                 "ui",
                 "user interface"
             ],
-            "time": "2014-10-22 18:54:16"
+            "time": "2014-10-23 15:28:20"
         },
         {
             "name": "kriswallsmith/assetic",
