@@ -59,7 +59,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->append($this->getDefaultForPackageNode())
             ->append($this->getOutputRewritesNode())
-            ->append(PackageConfiguration::getConfigNode())
+            ->append(PackageConfiguration::getNodeDefinition())
         ;
 
         return $treeBuilder;
@@ -79,8 +79,8 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('replace_extensions')->defaultFalse()->end()
-                ->append(FileExtensionConfiguration::getConfigNode())
-                ->append(PatternConfiguration::getConfigNode())
+                ->append(FileExtensionConfiguration::getNodeDefinition())
+                ->append(PatternConfiguration::getNodeDefinition())
             ->end()
         ;
 
