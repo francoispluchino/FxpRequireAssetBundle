@@ -4,7 +4,7 @@ Fxp RequireAssetBundle
 [![Latest Stable Version](https://poser.pugx.org/fxp/require-asset-bundle/v/stable.svg)](https://packagist.org/packages/fxp/require-asset-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/fxp/require-asset-bundle/v/unstable.svg)](https://packagist.org/packages/fxp/require-asset-bundle)
 [![Build Status](https://travis-ci.org/francoispluchino/FxpRequireAssetBundle.svg)](https://travis-ci.org/francoispluchino/FxpRequireAssetBundle)
-[![Coverage Status](https://coveralls.io/repos/francoispluchino/FxpRequireAssetBundle/badge.png)](https://coveralls.io/r/francoispluchino/FxpRequireAssetBundle)
+[![Coverage Status](https://img.shields.io/coveralls/francoispluchino/FxpRequireAssetBundle.svg)](https://coveralls.io/r/francoispluchino/FxpRequireAssetBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/francoispluchino/FxpRequireAssetBundle/badges/quality-score.png)](https://scrutinizer-ci.com/g/francoispluchino/FxpRequireAssetBundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/6819d453-7c5c-447f-ba5d-58e25409ac2d/mini.png)](https://insight.sensiolabs.com/projects/6819d453-7c5c-447f-ba5d-58e25409ac2d)
 
