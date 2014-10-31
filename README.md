@@ -37,6 +37,8 @@ The bulk of the documentation is located in the `Resources/doc/index.md`:
 
 [Read the Documentation](Resources/doc/index.md)
 
+[Read the Release Notes](https://github.com/francoispluchino/FxpRequireAssetBundle/releases)
+
 Installation
 ------------
 
