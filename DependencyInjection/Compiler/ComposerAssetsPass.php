@@ -33,12 +33,13 @@ class ComposerAssetsPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $baseDir = $container->getParameter('fxp_require_asset.base_dir');
+        $installedPath = $container->getParameter('fxp_require_asset.composer_installed_path');
 
-        if (!file_exists($baseDir . '/composer.json')) {
+        if (!file_exists($baseDir . '/composer.json') || !file_exists($installedPath)) {
             return;
         }
 
-        $composerInstalled = $this->getComposerInstalled($container->getParameter('fxp_require_asset.composer_installed_path'));
+        $composerInstalled = $this->getComposerInstalled($installedPath);
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
         $packages = array();
 
