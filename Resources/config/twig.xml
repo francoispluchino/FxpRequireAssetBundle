@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="twig.extension.fxp_require_asset.inline_asset.class">Fxp\Component\RequireAsset\Twig\Extension\InlineAssetExtension</parameter>
+        <parameter key="twig.extension.fxp_require_asset.class">Fxp\Component\RequireAsset\Twig\Extension\AssetExtension</parameter>
     </parameters>
 
     <services>
-        <service id="twig.extension.fxp_require_asset.inline_asset" class="%twig.extension.fxp_require_asset.inline_asset.class%" public="false">
+        <service id="twig.extension.fxp_require_asset" class="%twig.extension.fxp_require_asset.class%" public="false">
             <tag name="twig.extension" />
         </service>
     </services>

@@ -6,9 +6,9 @@ used the twig functions:
 
 - `inlineStylesheetsPosition()` in global html stylesheet template
 - `inlineJavascriptsPosition()` in global html javascript template
-- `renderInlineAssets()` in the end of tempalte
+- `renderAssets()` in the end of tempalte
 
-The `renderInlineAssets()` can replace the tag position of assets
+The `renderAssets()` can replace the tag position of assets
 (`inlineStylesheetsPosition()` and `inlineJavascriptsPosition()`) by the contents
 of each asset. This is for this reason that it must be executed last.
 
@@ -37,5 +37,5 @@ of each asset. This is for this reason that it must be executed last.
         </script>
     </body>
 <html>
-{{ renderInlineAssets() }}
+{{ renderAssets() }}
 ```

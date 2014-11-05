@@ -44,7 +44,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
     public function testCompileContainerWithExtension()
     {
         $container = $this->getContainer();
-        $this->assertTrue($container->hasDefinition('twig.extension.fxp_require_asset.inline_asset'));
+        $this->assertTrue($container->hasDefinition('twig.extension.fxp_require_asset'));
     }
 
     /**
