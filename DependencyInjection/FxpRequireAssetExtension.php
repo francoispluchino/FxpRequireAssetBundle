@@ -35,6 +35,7 @@ class FxpRequireAssetExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('twig.xml');
         $loader->load('assetic.xml');
+        $loader->load('assetic_filter.xml');
 
         $this->configureAssetic($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['base_dir']);
         $this->configureFileExtensionManager($container, $config['default']);

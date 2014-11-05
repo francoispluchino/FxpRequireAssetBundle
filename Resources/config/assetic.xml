@@ -4,10 +4,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="fxp_require_asset.assetic.filter.requirecssrewrite.class">Fxp\Component\RequireAsset\Assetic\Filter\RequireCssRewriteFilter</parameter>
-    </parameters>
-
     <services>
         <!-- Assetic Config File Extension Manager (only used during the container compilation) -->
         <service id="fxp_require_asset.assetic.config.file_extension_manager" class="Fxp\Component\RequireAsset\Assetic\Config\FileExtensionManager" public="false" />
@@ -29,11 +25,6 @@
         <!-- Assetic Require Asset Loader -->
         <service id="fxp_require_asset.assetic.require_asset_loader" class="Fxp\Component\RequireAsset\Assetic\Factory\Loader\RequireAssetLoader" public="false">
             <tag name="assetic.formula_loader" alias="fxp_require_asset_loader" />
-        </service>
-
-        <service id="fxp_require_asset.assetic.filter.requirecssrewrite" class="%fxp_require_asset.assetic.filter.requirecssrewrite.class%">
-            <tag name="assetic.filter" alias="requirecssrewrite" />
-            <argument type="service" id="assetic.asset_manager" />
         </service>
     </services>
 </container>
