@@ -17,7 +17,6 @@ use Fxp\Component\RequireAsset\Assetic\Util\ResourceUtils;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -27,11 +26,6 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class CompilerAssetsPass implements CompilerPassInterface
 {
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
     /**
      * @var OutputManagerInterface
      */
@@ -52,7 +46,6 @@ class CompilerAssetsPass implements CompilerPassInterface
         $manager = $container->get($idManager);
         $this->outputManager = $container->get($idOutputManager);
         $assetManagerDef = $container->getDefinition('assetic.asset_manager');
-        $this->filesystem = new Filesystem();
         $this->debug = (bool) $container->getParameter('assetic.debug');
 
         foreach ($manager->getPackages() as $package) {
