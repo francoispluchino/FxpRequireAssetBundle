@@ -9,9 +9,9 @@ Fxp RequireAssetBundle
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/6819d453-7c5c-447f-ba5d-58e25409ac2d/mini.png)](https://insight.sensiolabs.com/projects/6819d453-7c5c-447f-ba5d-58e25409ac2d)
 
 The Fxp RequireAssetBundle is a helper for assetic and twig to manage automatically the
-required assets. It allows to define the required assets (javascript, stylesheet) directly
-in the Twig template and adds the HTML links of the assets automatically to the right place
-in the template, while removing duplicates. The bundle retrieves automatically asset dependencies
+required assets. It allows to define the required assets (script, style) directly in the
+Twig template and adds the HTML links of the assets automatically to the right place in
+the template, while removing duplicates. The bundle retrieves automatically asset dependencies
 defined by [fxp/composer-asset-plugin](https://github.com/francoispluchino/composer-asset-plugin)
 and adds automatically the assets in the Assetic manager.
 

@@ -1,15 +1,15 @@
 Inline asset usage
 ==================
 
-For rendering automatically all javascripts and stylesheets of all block, you must
+For rendering automatically all scripts and styles of all block, you must
 used the twig functions:
 
-- `inlineStylesheetsPosition()` in global html stylesheet template
-- `inlineJavascriptsPosition()` in global html javascript template
+- `inlineStylesPosition()` in global html style template
+- `inlineScriptsPosition()` in global html script template
 - `renderAssets()` in the end of tempalte
 
 The `renderAssets()` can replace the tag position of assets
-(`inlineStylesheetsPosition()` and `inlineJavascriptsPosition()`) by the contents
+(`inlineStylesPosition()` and `inlineScriptsPosition()`) by the contents
 of each asset. This is for this reason that it must be executed last.
 
 **Twig example:**
@@ -18,21 +18,21 @@ of each asset. This is for this reason that it must be executed last.
 <html>
     <head>
         <style type="text/css">
-        {{ inlineStylesheetsPosition() }}
+        {{ inlineStylesPosition() }}
         </style>
     </head>
     <body>
         {% set foo: 'bar' %}
 
-        {% inline_javascript %}
+        {% inline_script %}
             <script>
             alert("Foo: {{ foo }}");
             </script>
-        {% endinline_javascript %}
+        {% endinline_script %}
 
         <script type="text/javascript">
             $( document ).ready( function() {
-                {{ inlineJavascriptsPosition() }}
+                {{ inlineScriptsPosition() }}
             });
         </script>
     </body>
