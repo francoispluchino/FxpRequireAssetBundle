@@ -29,6 +29,7 @@ the correct URL of asset, without your having to overload the Twig template.
 - Compiling the final list of asset in cache for increase performance
 - Updating the list of assets when the source files requires a cache refresh (`dev` mode)
 - Native support of the assetic manager (command `assetic:dump` and controller)
+- Native support of the symfony templating (base URL and version)
 - Configure (in global config or in container compiler pass):
   - the assetic filters of asset package by the extensions
   - the assetic filters for all asset packages
