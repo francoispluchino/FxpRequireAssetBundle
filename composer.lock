@@ -132,12 +132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/francoispluchino/fxp-require-asset.git",
-                "reference": "f26d089d7f5a9b79c28c093e5f2942fe18f3fcb9"
+                "reference": "907200ab1fb275b51ef89f9112f8c56283344507"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/f26d089d7f5a9b79c28c093e5f2942fe18f3fcb9",
-                "reference": "f26d089d7f5a9b79c28c093e5f2942fe18f3fcb9",
+                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/907200ab1fb275b51ef89f9112f8c56283344507",
+                "reference": "907200ab1fb275b51ef89f9112f8c56283344507",
                 "shasum": ""
             },
             "require": {
@@ -148,8 +148,6 @@
                 "symfony/finder": "~2.4"
             },
             "require-dev": {
-                "symfony/dependency-injection": "~2.4",
-                "symfony/templating": "~2.4",
                 "twig/twig": "~1.12"
             },
             "suggest": {
@@ -188,7 +186,7 @@
                 "ui",
                 "user interface"
             ],
-            "time": "2014-11-09 18:00:54"
+            "time": "2014-11-10 15:16:26"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1506,12 +1504,12 @@
             "version": "v1.16.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Twig.git",
+                "url": "https://github.com/twigphp/Twig.git",
                 "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/42f758d9fe2146d1f0470604fc05ee43580873fc",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/42f758d9fe2146d1f0470604fc05ee43580873fc",
                 "reference": "42f758d9fe2146d1f0470604fc05ee43580873fc",
                 "shasum": ""
             },
