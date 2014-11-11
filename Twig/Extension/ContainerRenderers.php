@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Fxp Require Asset package.
+ * This file is part of the Fxp RequireAssetBundle package.
  *
  * (c) François Pluchino <francois.pluchino@gmail.com>
  *
