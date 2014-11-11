@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Fxp\Component\RequireAsset\Tests\Twig\Extension;
+namespace Fxp\Bundle\RequireAssetBundle\Tests\Twig\Extension;
 
 use Fxp\Bundle\RequireAssetBundle\Twig\Extension\AssetExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
