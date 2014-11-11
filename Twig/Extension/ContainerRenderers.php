@@ -11,7 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\Twig\Extension;
 
-use Fxp\Component\RequireAsset\Twig\Renderer\AssetRendererInterface;
+use Fxp\Component\RequireAsset\Tag\Renderer\TagRendererInterface;
 
 /**
  * Container Renderers for twig extension (to avoid the circular reference).
@@ -26,13 +26,13 @@ class ContainerRenderers
     protected $renderers = array();
 
     /**
-     * Add twig asset renderer.
+     * Add template tag renderer.
      *
-     * @param AssetRendererInterface $renderer The renderer
+     * @param TagRendererInterface $renderer The template tag renderer
      *
      * @return self
      */
-    public function addRenderer(AssetRendererInterface $renderer)
+    public function addRenderer(TagRendererInterface $renderer)
     {
         $this->renderers[] = $renderer;
 
@@ -40,9 +40,9 @@ class ContainerRenderers
     }
 
     /**
-     * Get the twig asset renderers.
+     * Get the template tag renderers.
      *
-     * @return AssetRendererInterface[]
+     * @return TagRendererInterface[]
      */
     public function getRenderers()
     {

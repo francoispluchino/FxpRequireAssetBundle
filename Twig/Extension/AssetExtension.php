@@ -29,14 +29,14 @@ class AssetExtension extends BaseAssetExtension
     /**
      * {@inheritdoc}
      */
-    public function renderAssets()
+    public function renderTags()
     {
         if (null !== $this->container) {
-            $id = 'twig.extension.fxp_require_asset.container_renderers';
+            $id = 'twig.extension.fxp_require_asset.container_tag_renderers';
             $this->setRenderers($this->container->get($id)->getRenderers());
             $this->container = null;
         }
 
-        parent::renderAssets();
+        parent::renderTags();
     }
 }

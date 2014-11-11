@@ -32,11 +32,11 @@ class AssetRendererPass implements CompilerPassInterface
             $definition = new Definition('Fxp\Bundle\RequireAssetBundle\Twig\Extension\ContainerRenderers');
             $definition->setPublic(true);
 
-            foreach ($container->findTaggedServiceIds('fxp_require_asset.renderer') as $serviceId => $tag) {
+            foreach ($container->findTaggedServiceIds('fxp_require_asset.tag_renderer') as $serviceId => $tag) {
                 $definition->addMethodCall('addRenderer', array(new Reference($serviceId)));
             }
 
-            $container->setDefinition('twig.extension.fxp_require_asset.container_renderers', $definition);
+            $container->setDefinition('twig.extension.fxp_require_asset.container_tag_renderers', $definition);
         }
     }
 }

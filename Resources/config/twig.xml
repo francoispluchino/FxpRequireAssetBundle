@@ -14,12 +14,12 @@
             <property name="container" type="service" id="service_container" />
         </service>
 
-        <service id="fxp_require_asset.renderer.inline_asset" class="Fxp\Component\RequireAsset\Twig\Renderer\AssetInlineRenderer" public="false">
-            <tag name="fxp_require_asset.renderer" />
+        <service id="fxp_require_asset.tag_renderer.inline_asset" class="Fxp\Component\RequireAsset\Tag\Renderer\InlineTagRenderer" public="false">
+            <tag name="fxp_require_asset.tag_renderer" />
         </service>
 
-        <service id="fxp_require_asset.renderer.require_asset" class="Fxp\Bundle\RequireAssetBundle\Twig\Renderer\AssetRequireRenderer" public="false">
-            <tag name="fxp_require_asset.renderer" />
+        <service id="fxp_require_asset.tag_renderer.require_asset" class="Fxp\Bundle\RequireAssetBundle\Tag\Renderer\RequireTagRenderer" public="false">
+            <tag name="fxp_require_asset.tag_renderer" />
             <argument type="service" id="assetic.asset_manager" />
             <argument type="service" id="templating.helper.assets" strict="false" />
         </service>

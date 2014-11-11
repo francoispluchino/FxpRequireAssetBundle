@@ -26,7 +26,7 @@ class AssetExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testContainerServiceWithoutContainerRenderers()
     {
-        $mess = 'The service definition "twig.extension.fxp_require_asset.container_renderers" does not exist';
+        $mess = 'The service definition "twig.extension.fxp_require_asset.container_tag_renderers" does not exist';
         $this->setExpectedException('Symfony\Component\DependencyInjection\Exception\InvalidArgumentException', $mess);
 
         $ext = new AssetExtension();
@@ -35,7 +35,7 @@ class AssetExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $ext->getRenderers());
         $ext->container = $this->getContainer();
 
-        $ext->renderAssets();
+        $ext->renderTags();
     }
 
     public function testContainerService()
@@ -46,7 +46,7 @@ class AssetExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $ext->getRenderers());
         $ext->container = $this->getContainer(true);
 
-        $ext->renderAssets();
+        $ext->renderTags();
 
         $this->assertCount(1, $ext->getRenderers());
         $this->assertNull($ext->container);
@@ -71,12 +71,12 @@ class AssetExtensionTest extends \PHPUnit_Framework_TestCase
         )));
 
         if ($useContainerRenderers) {
-            $renderer = new Definition($this->getMockClass('Fxp\Component\RequireAsset\Twig\Renderer\AssetRendererInterface'));
+            $renderer = new Definition($this->getMockClass('Fxp\Component\RequireAsset\Tag\Renderer\TagRendererInterface'));
             $container->setDefinition('fxp_require_asset_test.twig.mock_renderer', $renderer);
 
             $renderers = new Definition('Fxp\Bundle\RequireAssetBundle\Twig\Extension\ContainerRenderers');
             $renderers->addMethodCall('addRenderer', array(new Reference('fxp_require_asset_test.twig.mock_renderer')));
-            $container->setDefinition('twig.extension.fxp_require_asset.container_renderers', $renderers);
+            $container->setDefinition('twig.extension.fxp_require_asset.container_tag_renderers', $renderers);
         }
 
         $container->getCompilerPassConfig()->setOptimizationPasses(array());

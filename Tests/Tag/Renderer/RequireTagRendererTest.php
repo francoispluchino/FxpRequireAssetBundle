@@ -9,28 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace Fxp\Bundle\RequireAssetBundle\Tests\Twig\Renderer;
+namespace Fxp\Bundle\RequireAssetBundle\Tests\Tag\Renderer;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\AssetManager;
-use Fxp\Bundle\RequireAssetBundle\Twig\Renderer\AssetRequireRenderer;
-use Fxp\Component\RequireAsset\Twig\Asset\TwigAssetInterface;
+use Fxp\Bundle\RequireAssetBundle\Tag\Renderer\RequireTagRenderer;
+use Fxp\Component\RequireAsset\Tag\TagInterface;
 use Symfony\Component\Templating\Asset\Package;
 use Symfony\Component\Templating\Helper\CoreAssetsHelper;
 
 /**
- * Asset Require Renderer Tests.
+ * Require Tag Renderer Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class AssetRequireRendererTest extends \PHPUnit_Framework_TestCase
+class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetTargetPathWithTemplatingHelper()
     {
         $manager = new AssetManager();
         $packageDefault = new Package('v2');
         $helper = new CoreAssetsHelper($packageDefault);
-        $renderer = new AssetRequireRenderer($manager, $helper);
+        $renderer = new RequireTagRenderer($manager, $helper);
 
         $asset = $this->getMock('Assetic\Asset\AssetInterface');
         $asset->expects($this->any())
@@ -45,7 +45,7 @@ class AssetRequireRendererTest extends \PHPUnit_Framework_TestCase
         /* @var AssetInterface $asset */
         $manager->set('foo_bar_js', $asset);
 
-        $tag = $this->getMock('Fxp\Component\RequireAsset\Twig\Asset\TwigRequireAssetInterface');
+        $tag = $this->getMock('Fxp\Component\RequireAsset\Tag\RequireTagInterface');
         $tag->expects($this->any())
             ->method('getHtmlTag')
             ->will($this->returnValue('script'));
@@ -62,7 +62,7 @@ class AssetRequireRendererTest extends \PHPUnit_Framework_TestCase
             ->method('getPath')
             ->will($this->returnValue('foo/bar.js'));
 
-        /* @var TwigAssetInterface $tag */
+        /* @var TagInterface $tag */
         $output = $renderer->render($tag);
 
         $this->assertSame('<script src="foo/bar.js?v2"></script>', $output);

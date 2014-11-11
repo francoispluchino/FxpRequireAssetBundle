@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Fxp\Bundle\RequireAssetBundle\Twig\Renderer;
+namespace Fxp\Bundle\RequireAssetBundle\Tag\Renderer;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\AssetManager;
-use Fxp\Component\RequireAsset\Twig\Renderer\AssetRequireRenderer as BaseAssetRequireRenderer;
+use Fxp\Component\RequireAsset\Tag\Renderer\RequireTagRenderer as BaseRequireTagRenderer;
 use Symfony\Component\Templating\Helper\CoreAssetsHelper;
 
 /**
- * Asset require renderer with templating asset helper.
+ * Require tag renderer with templating asset helper.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class AssetRequireRenderer extends BaseAssetRequireRenderer
+class RequireTagRenderer extends BaseRequireTagRenderer
 {
     /**
      * @var CoreAssetsHelper
