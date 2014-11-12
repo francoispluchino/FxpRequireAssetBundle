@@ -11,7 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle;
 
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\AssetRendererPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TagRendererPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\BundleAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CompilerAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ComposerAssetsPass;
@@ -32,7 +32,7 @@ class FxpRequireAssetBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new AssetRendererPass());
+        $container->addCompilerPass(new TagRendererPass());
         $container->addCompilerPass(new ComposerAssetsPass());
         $container->addCompilerPass(new BundleAssetsPass());
         $container->addCompilerPass(new ConfigurationCompilerPass(), PassConfig::TYPE_OPTIMIZE);

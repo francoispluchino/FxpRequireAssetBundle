@@ -17,11 +17,11 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Include the twig asset renderer into the twig extension.
+ * Include the tag renderer into the twig extension.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class AssetRendererPass implements CompilerPassInterface
+class TagRendererPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
