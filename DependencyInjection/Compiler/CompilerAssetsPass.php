@@ -51,10 +51,12 @@ class CompilerAssetsPass implements CompilerPassInterface
         foreach ($manager->getPackages() as $package) {
             $this->addPackageAssets($assetManagerDef, $package);
         }
+
+        $this->addCommonAssets($assetManagerDef, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
     }
 
     /**
-     * Gets the assets of packages.
+     * Adds the assets of packages.
      *
      * @param Definition       $assetManagerDef The asset manager
      * @param PackageInterface $package         The asset package instance
@@ -87,6 +89,44 @@ class CompilerAssetsPass implements CompilerPassInterface
             ->addArgument($c[2])
             ->addArgument($c[3])
             ->addArgument($c[4])
+        ;
+
+        return $definition;
+    }
+
+    /**
+     * Adds the common assets.
+     *
+     * @param Definition $assetManagerDef The asset manager
+     * @param array      $commonAssets    The config of common assets
+     */
+    protected function addCommonAssets(Definition $assetManagerDef, array $commonAssets)
+    {
+        foreach ($commonAssets as $formulaeName => $commonAsset) {
+            $commonAssetDef = $this->createCommonAssetDefinition($formulaeName, $commonAsset);
+            $assetManagerDef->addMethodCall('addResource', array($commonAssetDef, 'fxp_require_asset_loader'));
+        }
+    }
+
+    /**
+     * Creates the commin asset definition.
+     *
+     * @param string $formulaeName   The formulae name of common asset
+     * @param array  $formulaeConfig The formulae config of common asset (inputs, output, filters, options)
+     *
+     * @return Definition
+     */
+    protected function createCommonAssetDefinition($formulaeName, array $formulaeConfig)
+    {
+        $definition = new Definition();
+        $definition
+            ->setClass('Fxp\Component\RequireAsset\Assetic\Factory\Resource\CommonRequireAssetResource')
+            ->setPublic(true)
+            ->addArgument($formulaeName)
+            ->addArgument($formulaeConfig['inputs'])
+            ->addArgument($this->outputManager->convertOutput(trim($formulaeConfig['output'], '/')))
+            ->addArgument($formulaeConfig['filters'])
+            ->addArgument($formulaeConfig['options'])
         ;
 
         return $definition;

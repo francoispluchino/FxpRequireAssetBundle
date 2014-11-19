@@ -11,6 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection;
 
+use Fxp\Component\RequireAsset\Config\CommonAssetConfiguration;
 use Fxp\Component\RequireAsset\Config\FileExtensionConfiguration;
 use Fxp\Component\RequireAsset\Config\PackageConfiguration;
 use Fxp\Component\RequireAsset\Config\PatternConfiguration;
@@ -60,6 +61,7 @@ class Configuration implements ConfigurationInterface
             ->append($this->getDefaultForPackageNode())
             ->append($this->getOutputRewritesNode())
             ->append(PackageConfiguration::getNodeDefinition())
+            ->append(CommonAssetConfiguration::getNodeDefinition())
         ;
 
         return $treeBuilder;

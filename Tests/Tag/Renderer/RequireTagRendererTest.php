@@ -12,7 +12,8 @@
 namespace Fxp\Bundle\RequireAssetBundle\Tests\Tag\Renderer;
 
 use Assetic\Asset\AssetInterface;
-use Assetic\AssetManager;
+use Assetic\Factory\AssetFactory;
+use Assetic\Factory\LazyAssetManager;
 use Fxp\Bundle\RequireAssetBundle\Tag\Renderer\RequireTagRenderer;
 use Fxp\Component\RequireAsset\Tag\TagInterface;
 use Symfony\Component\Templating\Asset\Package;
@@ -27,7 +28,8 @@ class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetTargetPathWithTemplatingHelper()
     {
-        $manager = new AssetManager();
+        $factory = new AssetFactory('web');
+        $manager = new LazyAssetManager($factory);
         $packageDefault = new Package('v2');
         $helper = new CoreAssetsHelper($packageDefault);
         $renderer = new RequireTagRenderer($manager, $helper);
@@ -46,6 +48,9 @@ class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
         $manager->set('foo_bar_js', $asset);
 
         $tag = $this->getMock('Fxp\Component\RequireAsset\Tag\RequireTagInterface');
+        $tag->expects($this->any())
+            ->method('getInputs')
+            ->will($this->returnValue(array()));
         $tag->expects($this->any())
             ->method('getHtmlTag')
             ->will($this->returnValue('script'));

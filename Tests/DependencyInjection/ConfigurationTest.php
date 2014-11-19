@@ -46,6 +46,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             ),
             'output_rewrites'         => array(),
             'packages'                => array(),
+            'common_assets'           => array(),
         );
     }
 }
