@@ -12,7 +12,7 @@
 namespace Fxp\Bundle\RequireAssetBundle\Tag\Renderer;
 
 use Assetic\Asset\AssetInterface;
-use Assetic\AssetManager;
+use Assetic\Factory\LazyAssetManager;
 use Fxp\Component\RequireAsset\Tag\Renderer\RequireTagRenderer as BaseRequireTagRenderer;
 use Symfony\Component\Templating\Helper\CoreAssetsHelper;
 
@@ -31,10 +31,10 @@ class RequireTagRenderer extends BaseRequireTagRenderer
     /**
      * Constructor.
      *
-     * @param AssetManager     $manager The assetic manager
+     * @param LazyAssetManager $manager The assetic manager
      * @param CoreAssetsHelper $helper  The templating asset helper
      */
-    public function __construct(AssetManager $manager, CoreAssetsHelper $helper)
+    public function __construct(LazyAssetManager $manager, CoreAssetsHelper $helper)
     {
         parent::__construct($manager);
 
