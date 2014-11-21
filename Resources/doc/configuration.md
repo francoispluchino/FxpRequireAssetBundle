@@ -168,6 +168,32 @@ fxp_require_asset:
             replace_default_patterns: true
 ```
 
+#### Edit the common assets configuration
+
+You can create common assets, which are reality the assetic formulae dedicated to the require
+assets.
+
+**Example:**
+
+```yaml
+fxp_require_asset:
+    common_assets:
+        common_asset_js_name:
+            output: "/common.js"
+            filters: [?closure]
+            options: { debug: false }
+            inputs:
+                - @asset/source/path/file1.js
+                - @asset/source/path/file2.js
+```
+
+In `debug` mode, the list of the require assets will be added to template with each link for
+each asset. In contrast, in `prod` mode, only the link defined in the `output` parameter is
+added.
+
+Of course, any asset included in the asset commons will not be added twice if the template
+also required a specific asset.
+
 ### Rewrite the output path of asset files
 
 You can completely change the target path of each asset via a list of `Glob` pattern. In this way,
