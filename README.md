@@ -35,6 +35,7 @@ the correct URL of asset, without your having to overload the Twig template.
   - the assetic filters for all asset packages
   - the custom asset package
   - the rewrite output path of asset
+  - the common assets (assetic formulae dedicated to the require assets)
 
 Documentation
 -------------
