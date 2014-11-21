@@ -60,6 +60,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         $this->createFixtures();
         $container = $this->getContainer();
         $this->includeAssetPackageDefinition($container);
+        $this->includeCommonAssetDefinition($container);
 
         $managerDef = $container->getDefinition('assetic.asset_manager');
         $methodCalls = $managerDef->getMethodCalls();
@@ -77,6 +78,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
             realpath($pkgSource . 'dist/fonts/font-family-regular.svg'),
             realpath($pkgSource . 'dist/fonts/font-family-regular.ttf'),
             realpath($pkgSource . 'dist/fonts/font-family-regular.woff'),
+            'assets/common.js',
         );
 
         $this->assertCount(count($valid), $methodCalls);
@@ -88,7 +90,8 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
             /* @var Definition $methodDef */
             $methodArgs = $methodDef->getArguments();
             $this->assertCount(5, $methodArgs);
-            $this->assertTrue(in_array($methodArgs[1], $valid));
+            $output = is_array($methodArgs[1]) ? $methodArgs[2] : $methodArgs[1];
+            $this->assertTrue(in_array($output, $valid));
         }
     }
 
@@ -114,6 +117,24 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         );
 
         $packageManagerDef->addMethodCall('addPackage', array($package));
+    }
+
+    protected function includeCommonAssetDefinition(ContainerBuilder $container)
+    {
+        //TODO
+        $commons = array(
+            'common_js' => array(
+                'output'  => 'common.js',
+                'filters' => array(),
+                'options' => array(),
+                'inputs'  => array(
+                    '@foobar/js/component-a.js',
+                    '@foobar/js/component-b.js',
+                ),
+            ),
+        );
+
+        $container->setParameter('fxp_require_asset.assetic.config.common_assets', $commons);
     }
 
     /**
