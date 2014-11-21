@@ -180,7 +180,7 @@ fxp_require_asset:
     common_assets:
         common_asset_js_name:
             output: "/common.js"
-            filters: [?closure]
+            filters: [ '?closure' ]
             options: { debug: false }
             inputs:
                 - @asset/source/path/file1.js
