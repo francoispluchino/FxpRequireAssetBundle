@@ -32,7 +32,7 @@ class BundleAssetsPass implements CompilerPassInterface
 
         foreach ($bundles as $name => $class) {
             $ref = new \ReflectionClass($class);
-            $path = realpath(dirname($ref->getFileName()) . '/Resources');
+            $path = realpath(dirname($ref->getFileName()).'/Resources');
 
             if ($path) {
                 $package = $this->createPackageConfig($name, $path);

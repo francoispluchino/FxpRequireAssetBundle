@@ -46,7 +46,7 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir() . '/require_asset_bundle_assets_pass_tests';
+        $this->rootDir = sys_get_temp_dir().'/require_asset_bundle_assets_pass_tests';
         $this->servicePrefix = 'fxp_require_asset.assetic.config.';
         $this->fs = new Filesystem();
         $this->pass = new ConfigurationCompilerPass();
@@ -72,17 +72,17 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
         );
 
         foreach ($configs as $config) {
-            $this->assertTrue($container->hasDefinition($this->servicePrefix . $config[0]));
-            $this->assertTrue($container->hasParameter($this->servicePrefix . $config[1]));
-            $this->assertCount(0, $container->getDefinition($this->servicePrefix . $config[0])->getMethodCalls());
+            $this->assertTrue($container->hasDefinition($this->servicePrefix.$config[0]));
+            $this->assertTrue($container->hasParameter($this->servicePrefix.$config[1]));
+            $this->assertCount(0, $container->getDefinition($this->servicePrefix.$config[0])->getMethodCalls());
         }
 
         $this->pass->process($container);
 
         foreach ($configs as $config) {
-            $this->assertTrue($container->hasDefinition($this->servicePrefix . $config[0]));
-            $this->assertFalse($container->hasParameter($this->servicePrefix . $config[1]));
-            $methodCalls = $container->getDefinition($this->servicePrefix . $config[0])->getMethodCalls();
+            $this->assertTrue($container->hasDefinition($this->servicePrefix.$config[0]));
+            $this->assertFalse($container->hasParameter($this->servicePrefix.$config[1]));
+            $methodCalls = $container->getDefinition($this->servicePrefix.$config[0])->getMethodCalls();
             $this->assertCount(1, $methodCalls);
 
             foreach ($methodCalls as $methodCall) {
@@ -99,7 +99,7 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->rootDir. '/cache',
+            'kernel.cache_dir'   => $this->rootDir.'/cache',
             'kernel.debug'       => false,
             'kernel.environment' => 'test',
             'kernel.name'        => 'kernel',
@@ -127,7 +127,7 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
     protected function configureManager(ContainerBuilder $container, $idManager, $idParameters)
     {
         $managerDef = new Definition('Foobar\Manager');
-        $container->setDefinition($this->servicePrefix . $idManager, $managerDef);
-        $container->setParameter($this->servicePrefix . $idParameters, array());
+        $container->setDefinition($this->servicePrefix.$idManager, $managerDef);
+        $container->setParameter($this->servicePrefix.$idParameters, array());
     }
 }

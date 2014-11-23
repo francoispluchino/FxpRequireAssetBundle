@@ -42,7 +42,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir() . '/require_asset_compiler_assets_pass_tests';
+        $this->rootDir = sys_get_temp_dir().'/require_asset_compiler_assets_pass_tests';
         $this->fs = new Filesystem();
         $this->pass = new CompilerAssetsPass();
     }
@@ -69,15 +69,15 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         $this->pass->process($container);
 
         $methodCalls = $managerDef->getMethodCalls();
-        $pkgSource = $this->rootDir . '/vendor/asset-asset/foobar/';
+        $pkgSource = $this->rootDir.'/vendor/asset-asset/foobar/';
         $valid = array(
-            realpath($pkgSource . 'dist/js/foobar.js'),
-            realpath($pkgSource . 'dist/css/foobar.css'),
-            realpath($pkgSource . 'dist/css/foobar-theme.css'),
-            realpath($pkgSource . 'dist/fonts/font-family-regular.eot'),
-            realpath($pkgSource . 'dist/fonts/font-family-regular.svg'),
-            realpath($pkgSource . 'dist/fonts/font-family-regular.ttf'),
-            realpath($pkgSource . 'dist/fonts/font-family-regular.woff'),
+            realpath($pkgSource.'dist/js/foobar.js'),
+            realpath($pkgSource.'dist/css/foobar.css'),
+            realpath($pkgSource.'dist/css/foobar-theme.css'),
+            realpath($pkgSource.'dist/fonts/font-family-regular.eot'),
+            realpath($pkgSource.'dist/fonts/font-family-regular.svg'),
+            realpath($pkgSource.'dist/fonts/font-family-regular.ttf'),
+            realpath($pkgSource.'dist/fonts/font-family-regular.woff'),
             'assets/common.js',
         );
 
@@ -100,7 +100,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
         $package = array(
             'name' => 'acme_demo_package',
-            'source_path' => realpath($this->rootDir . '/vendor/asset-asset/foobar'),
+            'source_path' => realpath($this->rootDir.'/vendor/asset-asset/foobar'),
             'extensions' => array(
                 'js',
                 'css',
@@ -145,7 +145,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->rootDir. '/cache',
+            'kernel.cache_dir'   => $this->rootDir.'/cache',
             'kernel.debug'       => false,
             'kernel.environment' => 'test',
             'kernel.name'        => 'kernel',
@@ -168,7 +168,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
     protected function createFixtures()
     {
         foreach ($this->getFixtureFiles() as $filename) {
-            $this->fs->dumpFile($this->rootDir . '/vendor/asset-asset/' . $filename, '');
+            $this->fs->dumpFile($this->rootDir.'/vendor/asset-asset/'.$filename, '');
         }
     }
 

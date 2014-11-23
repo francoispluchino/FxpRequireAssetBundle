@@ -47,10 +47,10 @@ class ConfigurationCompilerPass implements CompilerPassInterface
      */
     protected function configureManager(ContainerBuilder $container, ParameterBag $pb, $idManager, $idParameters, $methodCall)
     {
-        $def = $container->getDefinition('fxp_require_asset.assetic.config.' . $idManager);
-        $packages = $container->getParameter('fxp_require_asset.assetic.config.' . $idParameters);
+        $def = $container->getDefinition('fxp_require_asset.assetic.config.'.$idManager);
+        $packages = $container->getParameter('fxp_require_asset.assetic.config.'.$idParameters);
 
         $def->addMethodCall($methodCall, array($packages));
-        $pb->remove('fxp_require_asset.assetic.config.' . $idParameters);
+        $pb->remove('fxp_require_asset.assetic.config.'.$idParameters);
     }
 }

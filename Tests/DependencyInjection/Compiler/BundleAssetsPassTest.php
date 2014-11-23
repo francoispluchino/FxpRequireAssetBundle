@@ -41,7 +41,7 @@ class BundleAssetsPassTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir() . '/require_asset_bundle_assets_pass_tests';
+        $this->rootDir = sys_get_temp_dir().'/require_asset_bundle_assets_pass_tests';
         $this->fs = new Filesystem();
         $this->pass = new BundleAssetsPass();
     }
@@ -95,7 +95,7 @@ class BundleAssetsPassTest extends \PHPUnit_Framework_TestCase
     protected function getContainer(array $bundles)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->rootDir. '/cache',
+            'kernel.cache_dir'   => $this->rootDir.'/cache',
             'kernel.debug'       => false,
             'kernel.environment' => 'test',
             'kernel.name'        => 'kernel',

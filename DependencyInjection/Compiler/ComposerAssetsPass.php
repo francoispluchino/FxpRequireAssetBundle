@@ -35,7 +35,7 @@ class ComposerAssetsPass implements CompilerPassInterface
         $baseDir = $container->getParameter('fxp_require_asset.base_dir');
         $installedPath = $container->getParameter('fxp_require_asset.composer_installed_path');
 
-        if (!file_exists($baseDir . '/composer.json') || !file_exists($installedPath)) {
+        if (!file_exists($baseDir.'/composer.json') || !file_exists($installedPath)) {
             return;
         }
 
@@ -73,16 +73,16 @@ class ComposerAssetsPass implements CompilerPassInterface
      */
     protected function getAssetBasePath($type, $baseDir)
     {
-        $composer = json_decode(file_get_contents($baseDir . '/composer.json'), true);
+        $composer = json_decode(file_get_contents($baseDir.'/composer.json'), true);
 
-        if (isset($composer['extra']['asset-installer-paths'][$type . '-asset-library'])) {
-            $path = $baseDir . '/';
-            $path .= $composer['extra']['asset-installer-paths'][$type . '-asset-library'];
+        if (isset($composer['extra']['asset-installer-paths'][$type.'-asset-library'])) {
+            $path = $baseDir.'/';
+            $path .= $composer['extra']['asset-installer-paths'][$type.'-asset-library'];
 
             return rtrim($path, '/');
         }
 
-        return $baseDir . '/vendor/' . $type . '-asset';
+        return $baseDir.'/vendor/'.$type.'-asset';
     }
 
     /**
@@ -100,12 +100,12 @@ class ComposerAssetsPass implements CompilerPassInterface
 
         foreach ($installed as $package) {
             $name = $package['name'];
-            $prefix = $type . '-asset/';
+            $prefix = $type.'-asset/';
 
             if (0 === strpos($name, $prefix)) {
                 $name = substr($name, strlen($prefix));
                 $name = str_replace(array('[', ']'), '-', $name);
-                $packages['@' . $type . '/' . $name] = $path . '/' . $name;
+                $packages['@'.$type.'/'.$name] = $path.'/'.$name;
             }
         }
 
