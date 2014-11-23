@@ -107,7 +107,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
                 'eot',
                 'svg',
                 'ttf',
-                'woff'
+                'woff',
             ),
             'patterns' => array(
                 'dist/*',
