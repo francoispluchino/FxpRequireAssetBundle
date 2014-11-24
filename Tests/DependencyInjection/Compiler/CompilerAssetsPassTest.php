@@ -153,6 +153,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
             'kernel.charset'     => 'UTF-8',
             'assetic.debug'      => false,
             'kernel.bundles'     => array(),
+            'locale'             => 'en',
         )));
 
         $extension = new FxpRequireAssetExtension();

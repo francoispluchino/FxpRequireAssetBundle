@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\Tag\Renderer;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Factory\LazyAssetManager;
+use Fxp\Component\RequireAsset\Assetic\RequireLocaleManagerInterface;
 use Fxp\Component\RequireAsset\Tag\Renderer\RequireTagRenderer as BaseRequireTagRenderer;
 use Symfony\Component\Templating\Helper\CoreAssetsHelper;
 
@@ -31,12 +32,13 @@ class RequireTagRenderer extends BaseRequireTagRenderer
     /**
      * Constructor.
      *
-     * @param LazyAssetManager $manager The assetic manager
-     * @param CoreAssetsHelper $helper  The templating asset helper
+     * @param LazyAssetManager                   $manager       The assetic manager
+     * @param CoreAssetsHelper                   $helper        The templating asset helper
+     * @param RequireLocaleManagerInterface|null $localeManager The require locale asset manager
      */
-    public function __construct(LazyAssetManager $manager, CoreAssetsHelper $helper)
+    public function __construct(LazyAssetManager $manager, CoreAssetsHelper $helper, RequireLocaleManagerInterface $localeManager = null)
     {
-        parent::__construct($manager);
+        parent::__construct($manager, $localeManager);
 
         $this->helper = $helper;
     }

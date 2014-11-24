@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection;
 
 use Fxp\Component\RequireAsset\Config\CommonAssetConfiguration;
 use Fxp\Component\RequireAsset\Config\FileExtensionConfiguration;
+use Fxp\Component\RequireAsset\Config\LocaleConfiguration;
 use Fxp\Component\RequireAsset\Config\PackageConfiguration;
 use Fxp\Component\RequireAsset\Config\PatternConfiguration;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
@@ -32,13 +33,20 @@ class Configuration implements ConfigurationInterface
     protected $rootDir;
 
     /**
+     * @var string
+     */
+    protected $defaultLocale;
+
+    /**
      * Constructor.
      *
      * @param string $rootDir
+     * @param string $defaultLocale
      */
-    public function __construct($rootDir)
+    public function __construct($rootDir, $defaultLocale)
     {
         $this->rootDir = $rootDir;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -57,10 +65,13 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue($this->rootDir.'/../vendor/composer/installed.json')
                     ->end()
                 ->scalarNode('base_dir')->defaultValue($this->rootDir.'/..')->end()
+                ->scalarNode('default_locale')->defaultValue($this->defaultLocale)->end()
+                ->scalarNode('fallback_locale')->defaultNull()->end()
             ->end()
             ->append($this->getDefaultForPackageNode())
             ->append($this->getOutputRewritesNode())
             ->append(PackageConfiguration::getNodeDefinition())
+            ->append(LocaleConfiguration::getNodeDefinition())
             ->append(CommonAssetConfiguration::getNodeDefinition())
         ;
 

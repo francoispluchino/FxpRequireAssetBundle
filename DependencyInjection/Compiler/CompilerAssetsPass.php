@@ -17,6 +17,7 @@ use Fxp\Component\RequireAsset\Assetic\Util\ResourceUtils;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -45,14 +46,20 @@ class CompilerAssetsPass implements CompilerPassInterface
         $idOutputManager = 'fxp_require_asset.assetic.config.output_manager';
         $manager = $container->get($idManager);
         $this->outputManager = $container->get($idOutputManager);
+        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.locale_manager');
         $assetManagerDef = $container->getDefinition('assetic.asset_manager');
         $this->debug = (bool) $container->getParameter('assetic.debug');
 
         foreach ($manager->getPackages() as $package) {
             $this->addPackageAssets($assetManagerDef, $package);
         }
-
+        $this->addLocaleAssets($localeManagerDef, $container->getParameter('fxp_require_asset.assetic.config.locales'));
         $this->addCommonAssets($assetManagerDef, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
+
+        /* @var ParameterBag $pb*/
+        $pb = $container->getParameterBag();
+        $pb->remove('fxp_require_asset.assetic.config.locales');
+        $pb->remove('fxp_require_asset.assetic.config.common_assets');
     }
 
     /**
@@ -92,6 +99,23 @@ class CompilerAssetsPass implements CompilerPassInterface
         ;
 
         return $definition;
+    }
+
+    /**
+     * Adds the common assets.
+     *
+     * @param Definition $localeManagerDef The locale manager
+     * @param array      $localeAssets     The config of locale assets
+     */
+    protected function addLocaleAssets(Definition $localeManagerDef, array $localeAssets)
+    {
+        /* @var array $assetConfigs */
+        foreach ($localeAssets as $locale => $assetConfigs) {
+            /* @var array $localizedAssets */
+            foreach ($assetConfigs as $assetSource => $localizedAssets) {
+                $localeManagerDef->addMethodCall('addLocaliszedAsset', array($assetSource, $locale, $localizedAssets));
+            }
+        }
     }
 
     /**

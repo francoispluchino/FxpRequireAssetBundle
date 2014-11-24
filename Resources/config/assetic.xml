@@ -22,6 +22,12 @@
             <argument type="service" id="fxp_require_asset.assetic.config.pattern_manager" />
         </service>
 
+        <!-- Assetic Require Locale Asset Manager -->
+        <service id="fxp_require_asset.assetic.locale_manager" class="Fxp\Component\RequireAsset\Assetic\RequireLocaleManager" public="true">
+            <argument>%fxp_require_asset.assetic.config.default_locale%</argument>
+            <argument>%fxp_require_asset.assetic.config.fallback_locale%</argument>
+        </service>
+
         <!-- Assetic Require Asset Loader -->
         <service id="fxp_require_asset.assetic.require_asset_loader" class="Fxp\Component\RequireAsset\Assetic\Factory\Loader\RequireAssetLoader" public="false">
             <tag name="assetic.formula_loader" alias="fxp_require_asset_loader" />

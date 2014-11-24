@@ -63,6 +63,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
             'kernel.charset'     => 'UTF-8',
             'assetic.debug'      => false,
             'kernel.bundles'     => array(),
+            'locale'             => 'en',
         )));
 
         $asseticManager = new Definition('Assetic\Factory\LazyAssetManager');

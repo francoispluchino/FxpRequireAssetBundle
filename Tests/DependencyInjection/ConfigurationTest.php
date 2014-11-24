@@ -24,7 +24,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testDefaultConfig()
     {
         $processor = new Processor();
-        $config = $processor->processConfiguration(new Configuration('ROOT_DIR'), array(array()));
+        $config = $processor->processConfiguration(new Configuration('ROOT_DIR', 'en'), array(array()));
 
         $this->assertEquals(
             array_merge(array(), self::getBundleDefaultConfig()),
@@ -47,6 +47,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'output_rewrites'         => array(),
             'packages'                => array(),
             'common_assets'           => array(),
+            'default_locale'          => 'en',
+            'fallback_locale'         => null,
+            'locales'                 => array(),
         );
     }
 }

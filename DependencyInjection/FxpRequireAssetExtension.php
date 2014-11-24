@@ -29,7 +29,7 @@ class FxpRequireAssetExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration($container->getParameter('kernel.root_dir'));
+        $configuration = new Configuration($container->getParameter('kernel.root_dir'), $container->getParameter('locale'));
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -46,6 +46,9 @@ class FxpRequireAssetExtension extends Extension
         $container->setParameter('fxp_require_asset.assetic.config.output_rewrites', $config['output_rewrites']);
         $container->setParameter('fxp_require_asset.assetic.config.packages', $config['packages']);
         $container->setParameter('fxp_require_asset.assetic.config.common_assets', $config['common_assets']);
+        $container->setParameter('fxp_require_asset.assetic.config.default_locale', $config['default_locale']);
+        $container->setParameter('fxp_require_asset.assetic.config.fallback_locale', $config['fallback_locale']);
+        $container->setParameter('fxp_require_asset.assetic.config.locales', $config['locales']);
     }
 
     /**
