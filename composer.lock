@@ -132,12 +132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/francoispluchino/fxp-require-asset.git",
-                "reference": "7cc652e4ef88bb4cc15558566a83f1b4c429e50d"
+                "reference": "c49d5930f55a6a5e983b233727aaf4cfdb6cb89c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/7cc652e4ef88bb4cc15558566a83f1b4c429e50d",
-                "reference": "7cc652e4ef88bb4cc15558566a83f1b4c429e50d",
+                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/c49d5930f55a6a5e983b233727aaf4cfdb6cb89c",
+                "reference": "c49d5930f55a6a5e983b233727aaf4cfdb6cb89c",
                 "shasum": ""
             },
             "require": {
@@ -186,7 +186,7 @@
                 "ui",
                 "user interface"
             ],
-            "time": "2014-11-21 14:10:03"
+            "time": "2014-11-24 12:00:19"
         },
         {
             "name": "kriswallsmith/assetic",
