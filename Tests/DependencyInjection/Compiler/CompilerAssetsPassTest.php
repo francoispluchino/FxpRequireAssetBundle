@@ -60,6 +60,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         $this->createFixtures();
         $container = $this->getContainer();
         $this->includeAssetPackageDefinition($container);
+        $this->includeLocaleAssetDefinition($container);
         $this->includeCommonAssetDefinition($container);
 
         $managerDef = $container->getDefinition('assetic.asset_manager');
@@ -93,6 +94,19 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
             $output = is_array($methodArgs[1]) ? $methodArgs[2] : $methodArgs[1];
             $this->assertTrue(in_array($output, $valid));
         }
+
+        // locale manager
+        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.locale_manager');
+        $localeMethodCalls = $localeManagerDef->getMethodCalls();
+
+        foreach ($localeMethodCalls as $methodCall) {
+            $this->assertCount(2, $methodCall);
+            $this->assertSame('addLocaliszedAsset', $methodCall[0]);
+            $this->assertCount(3, $methodCall[1]);
+            $this->assertTrue(is_string($methodCall[1][0]));
+            $this->assertTrue(is_string($methodCall[1][1]));
+            $this->assertTrue(is_array($methodCall[1][2]));
+        }
     }
 
     protected function includeAssetPackageDefinition(ContainerBuilder $container)
@@ -117,6 +131,17 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         );
 
         $packageManagerDef->addMethodCall('addPackage', array($package));
+    }
+
+    protected function includeLocaleAssetDefinition(ContainerBuilder $container)
+    {
+        $locales = array(
+            'fr' => array(
+                '@foobar/js/component-a.js'  => array('@foobar/js/component-a-fr.js'),
+            ),
+        );
+
+        $container->setParameter('fxp_require_asset.assetic.config.locales', $locales);
     }
 
     protected function includeCommonAssetDefinition(ContainerBuilder $container)
