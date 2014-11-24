@@ -121,7 +121,6 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
 
     protected function includeCommonAssetDefinition(ContainerBuilder $container)
     {
-        //TODO
         $commons = array(
             'common_js' => array(
                 'output'  => 'common.js',
