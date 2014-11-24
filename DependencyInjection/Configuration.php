@@ -16,6 +16,7 @@ use Fxp\Component\RequireAsset\Config\FileExtensionConfiguration;
 use Fxp\Component\RequireAsset\Config\LocaleConfiguration;
 use Fxp\Component\RequireAsset\Config\PackageConfiguration;
 use Fxp\Component\RequireAsset\Config\PatternConfiguration;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -68,14 +69,26 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('default_locale')->defaultValue($this->defaultLocale)->end()
                 ->scalarNode('fallback_locale')->defaultNull()->end()
             ->end()
+        ;
+        $this->appendGlobalConfig($rootNode);
+
+        return $treeBuilder;
+    }
+
+    /**
+     * Append global config.
+     *
+     * @param ArrayNodeDefinition $rootNode
+     */
+    private function appendGlobalConfig(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
             ->append($this->getDefaultForPackageNode())
             ->append($this->getOutputRewritesNode())
             ->append(PackageConfiguration::getNodeDefinition())
             ->append(LocaleConfiguration::getNodeDefinition())
             ->append(CommonAssetConfiguration::getNodeDefinition())
         ;
-
-        return $treeBuilder;
     }
 
     /**
