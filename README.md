@@ -35,6 +35,7 @@ the correct URL of asset, without your having to overload the Twig template.
   - the custom asset package
   - the rewrite output path of asset
   - the common assets (assetic formulae dedicated to the require assets)
+  - the locale asset defined by each asset and/or common assets
 
 Documentation
 -------------
