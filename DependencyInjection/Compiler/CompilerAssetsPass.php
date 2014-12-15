@@ -13,6 +13,8 @@ namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
 use Fxp\Component\RequireAsset\Assetic\Config\OutputManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\PackageInterface;
+use Fxp\Component\RequireAsset\Assetic\RequireLocaleManagerInterface;
+use Fxp\Component\RequireAsset\Assetic\Util\LocaleUtils;
 use Fxp\Component\RequireAsset\Assetic\Util\ResourceUtils;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -54,7 +56,7 @@ class CompilerAssetsPass implements CompilerPassInterface
             $this->addPackageAssets($assetManagerDef, $package);
         }
         $this->addLocaleAssets($localeManagerDef, $container->getParameter('fxp_require_asset.assetic.config.locales'));
-        $this->addCommonAssets($assetManagerDef, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
+        $this->addCommonAssets($assetManagerDef, $container->getParameter('fxp_require_asset.assetic.config.common_assets'), $localeManagerDef, $container->get('fxp_require_asset.assetic.locale_manager'));
 
         /* @var ParameterBag $pb */
         $pb = $container->getParameterBag();
@@ -121,38 +123,96 @@ class CompilerAssetsPass implements CompilerPassInterface
     /**
      * Adds the common assets.
      *
-     * @param Definition $assetManagerDef The asset manager
-     * @param array      $commonAssets    The config of common assets
+     * @param Definition                    $assetManagerDef  The asset manager
+     * @param array                         $commonAssets     The config of common assets
+     * @param Definition                    $localeManagerDef The locale manager definition
+     * @param RequireLocaleManagerInterface $localeManager    The locale manager
      */
-    protected function addCommonAssets(Definition $assetManagerDef, array $commonAssets)
+    protected function addCommonAssets(Definition $assetManagerDef, array $commonAssets, Definition $localeManagerDef, RequireLocaleManagerInterface $localeManager)
     {
-        foreach ($commonAssets as $formulaeName => $commonAsset) {
-            $commonAssetDef = $this->createCommonAssetDefinition($formulaeName, $commonAsset);
+        foreach ($commonAssets as $commonName => $commonConfig) {
+            $commonAssetDef = $this->createCommonAssetDefinition($commonName, $commonConfig);
             $assetManagerDef->addMethodCall('addResource', array($commonAssetDef, 'fxp_require_asset_loader'));
+
+            if (!preg_match('/__[A-Za-z]{2}$|__[A-Za-z]{2}_[A-Za-z]{2}$/', $commonName)) {
+                $this->addLocaleCommonAssets($assetManagerDef, $localeManagerDef, $commonName, $commonConfig, $localeManager, $commonAssets);
+            } else {
+                $name = substr($commonName, 0, strrpos($commonName, '__'));
+                $locale = substr($commonName, strrpos($commonName, '__') + 2);
+                $localeManagerDef->addMethodCall('addLocaliszedAsset', array($name, $locale, array($commonName)));
+            }
         }
     }
 
     /**
-     * Creates the commin asset definition.
+     * Adds the locale common assets of common asset.
      *
-     * @param string $formulaeName   The formulae name of common asset
-     * @param array  $formulaeConfig The formulae config of common asset (inputs, output, filters, options)
+     * @param Definition                    $assetManagerDef  The asset manager
+     * @param Definition                    $localeManagerDef The locale manager definition
+     * @param string                        $commonName       The formulae name of common asset
+     * @param array                         $commonConfig     The formulae config of common asset (inputs, output, filters, options)
+     * @param RequireLocaleManagerInterface $localeManager    The locale manager
+     * @param array                         $commonAssets     The common asset configs
+     */
+    protected function addLocaleCommonAssets(Definition $assetManagerDef, Definition $localeManagerDef, $commonName, array $commonConfig, RequireLocaleManagerInterface $localeManager, array $commonAssets)
+    {
+        $locales = LocaleUtils::findCommonAssetLocales($commonConfig['inputs'], $localeManager);
+
+        foreach ($locales as $locale) {
+            $localeName = LocaleUtils::formatLocaleCommonName($commonName, $locale);
+            if (!isset($commonAssets[$localeName])) {
+                $commonAssetDef = $this->createLocaleCommonAssetDefinition(
+                    $commonName,
+                    $commonConfig,
+                    $locale,
+                    $localeManager
+                );
+                $assetManagerDef->addMethodCall('addResource', array($commonAssetDef, 'fxp_require_asset_loader'));
+                $localeManagerDef->addMethodCall('addLocaliszedAsset', array($commonName, $locale, array($localeName)));
+            }
+        }
+    }
+
+    /**
+     * Creates the common asset definition.
+     *
+     * @param string $commonName   The formulae name of common asset
+     * @param array  $commonConfig The formulae config of common asset (inputs, output, filters, options)
      *
      * @return Definition
      */
-    protected function createCommonAssetDefinition($formulaeName, array $formulaeConfig)
+    protected function createCommonAssetDefinition($commonName, array $commonConfig)
     {
         $definition = new Definition();
         $definition
             ->setClass('Fxp\Component\RequireAsset\Assetic\Factory\Resource\CommonRequireAssetResource')
             ->setPublic(true)
-            ->addArgument($formulaeName)
-            ->addArgument($formulaeConfig['inputs'])
-            ->addArgument($this->outputManager->convertOutput(trim($formulaeConfig['output'], '/')))
-            ->addArgument($formulaeConfig['filters'])
-            ->addArgument($formulaeConfig['options'])
+            ->addArgument($commonName)
+            ->addArgument($commonConfig['inputs'])
+            ->addArgument($this->outputManager->convertOutput(trim($commonConfig['output'], '/')))
+            ->addArgument($commonConfig['filters'])
+            ->addArgument($commonConfig['options'])
         ;
 
         return $definition;
+    }
+
+    /**
+     * Creates the locale common asset definition with the common asset config.
+     *
+     * @param string                        $commonName    The formulae name of common asset
+     * @param array                         $commonConfig  The formulae config of common asset (inputs, output, filters, options)
+     * @param string                        $locale        The locale
+     * @param RequireLocaleManagerInterface $localeManager The locale manager
+     *
+     * @return Definition
+     */
+    protected function createLocaleCommonAssetDefinition($commonName, array $commonConfig, $locale, RequireLocaleManagerInterface $localeManager)
+    {
+        $commonName = LocaleUtils::formatLocaleCommonName($commonName, $locale);
+        $commonConfig['inputs'] = LocaleUtils::getLocaleCommonInputs($commonConfig['inputs'], $locale, $localeManager);
+        $commonConfig['output'] = LocaleUtils::convertLocaleTartgetPath($commonConfig['output'], $locale);
+
+        return $this->createCommonAssetDefinition($commonName, $commonConfig);
     }
 }

@@ -80,6 +80,8 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
             realpath($pkgSource.'dist/fonts/font-family-regular.ttf'),
             realpath($pkgSource.'dist/fonts/font-family-regular.woff'),
             'assets/common.js',
+            'assets/common-fr.js',
+            'assets/common-fr-fr.js',
         );
 
         $this->assertCount(count($valid), $methodCalls);
@@ -154,6 +156,14 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
                 'inputs'  => array(
                     '@foobar/js/component-a.js',
                     '@foobar/js/component-b.js',
+                ),
+            ),
+            'common_js__fr_fr' => array(
+                'output'  => 'common-fr-fr.js',
+                'filters' => array(),
+                'options' => array(),
+                'inputs'  => array(
+                    '@foobar/js/component-a-fr.js',
                 ),
             ),
         );
