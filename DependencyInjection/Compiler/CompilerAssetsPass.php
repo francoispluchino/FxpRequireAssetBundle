@@ -56,7 +56,9 @@ class CompilerAssetsPass implements CompilerPassInterface
             $this->addPackageAssets($assetManagerDef, $package);
         }
         $this->addLocaleAssets($localeManagerDef, $container->getParameter('fxp_require_asset.assetic.config.locales'));
-        $this->addCommonAssets($assetManagerDef, $container->getParameter('fxp_require_asset.assetic.config.common_assets'), $localeManagerDef, $container->get('fxp_require_asset.assetic.locale_manager'));
+        /* @var RequireLocaleManagerInterface $localeManager */
+        $localeManager = $container->get('fxp_require_asset.assetic.locale_manager');
+        $this->addCommonAssets($assetManagerDef, $container->getParameter('fxp_require_asset.assetic.config.common_assets'), $localeManagerDef, $localeManager);
 
         /* @var ParameterBag $pb */
         $pb = $container->getParameterBag();
