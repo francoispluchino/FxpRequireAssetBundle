@@ -25,6 +25,7 @@ the correct URL of asset, without your having to overload the Twig template.
 - Automatically copy all assets:
   - of NPM/Bower packages in the assetic public directory
   - defined in resources section of a Symfony2 Bundle (except `config`, `doc`, `license(s)`, `meta`, `public`, `skeleton`, `views`)
+- Automatic addition of localized commons assets
 - Compiling the final list of asset in cache for increase performance
 - Updating the list of assets when the source files requires a cache refresh (`dev` mode)
 - Native support of the assetic manager (command `assetic:dump` and controller)
@@ -36,6 +37,7 @@ the correct URL of asset, without your having to overload the Twig template.
   - the rewrite output path of asset
   - the common assets (assetic formulae dedicated to the require assets)
   - the locale asset defined by each asset and/or common assets
+  - the locale common assets (automatic, but can be overridden)
 
 Documentation
 -------------
