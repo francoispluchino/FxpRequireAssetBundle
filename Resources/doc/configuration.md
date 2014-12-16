@@ -194,6 +194,60 @@ added.
 Of course, any asset included in the asset commons will not be added twice if the template
 also required a specific asset.
 
+### Edit the localized asset
+
+You can edit the config of the locale for each asset.
+
+**Example:**
+
+```yaml
+fxp_require_asset:
+    locale:
+        fr_fr:
+            @package1/asset1.js: @package1/locale/asset1-fr-fr.js
+        fr_ca:
+            @package1/asset1.js: @package1/locale/asset1-fr-ca.js
+        fr:
+            @package1/asset1.js: @package1/locale/asset1-fr.js
+        it:
+            @package2/asset1.js:
+                - @package2/locale/asset1-it-part1.js
+                - @package2/locale/asset1-it-part2.js
+```
+
+### Edit the localized common asset
+
+By default, the localized common assets are automatically added. Each localized common
+asset is added for each local available for each input.
+
+However, you can manually add or overwrite the configuration.
+
+For override the localized config of an common asset, you must named the localized
+common asset with the name of common asset, followed by `__` and the locale in lowercase
+(`fr` or `fr_fr`).
+
+**Example:**
+
+```yaml
+fxp_require_asset:
+    locale:
+        fr_fr:
+    common_assets:
+        common_js:
+            output: "/js/common.js"
+            filters: [?closure]
+            inputs:
+                - @asset/source/path.js
+                - @asset/source/path2.js
+        common_js__fr:
+            output: "/js/common-fr2.js"
+            filters: [?closure]
+            inputs:
+                - @asset/source/path-fr.js
+                - @asset/source/path2-fr.js
+                - @asset/source/path2-fr-part2.js
+```
+
 ### Rewrite the output path of asset files
 
 You can completely change the target path of each asset via a list of `Glob` pattern. In this way,
