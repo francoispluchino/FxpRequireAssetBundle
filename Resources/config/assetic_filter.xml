@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="fxp_require_asset.assetic.filter.requirecssrewrite.class">Fxp\Component\RequireAsset\Assetic\Filter\RequireCssRewriteFilter</parameter>
         <parameter key="fxp_require_asset.assetic.filter.parameter_bag.class">Fxp\Bundle\RequireAssetBundle\Assetic\Filter\ParameterBagFilter</parameter>
+        <parameter key="fxp_require_asset.assetic.filter.less_variable.class">Fxp\Bundle\RequireAssetBundle\Assetic\Filter\LessVariableFilter</parameter>
     </parameters>
 
     <services>
@@ -17,6 +18,11 @@
 
         <service id="fxp_require_asset.assetic.filter.parameter_bag" class="%fxp_require_asset.assetic.filter.parameter_bag.class%">
             <tag name="assetic.filter" alias="parameterbag" />
+            <property name="container" type="service" id="service_container" />
+        </service>
+
+        <service id="fxp_require_asset.assetic.filter.less_variable" class="%fxp_require_asset.assetic.filter.less_variable.class%">
+            <tag name="assetic.filter" alias="lessvariable" />
             <property name="container" type="service" id="service_container" />
         </service>
     </services>

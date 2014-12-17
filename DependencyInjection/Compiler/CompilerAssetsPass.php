@@ -13,8 +13,10 @@ namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
 use Fxp\Component\RequireAsset\Assetic\Config\OutputManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\PackageInterface;
+use Fxp\Component\RequireAsset\Assetic\Config\PackageManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\RequireLocaleManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Util\LocaleUtils;
+use Fxp\Component\RequireAsset\Assetic\Util\PackageUtils;
 use Fxp\Component\RequireAsset\Assetic\Util\ResourceUtils;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -46,6 +48,7 @@ class CompilerAssetsPass implements CompilerPassInterface
     {
         $idManager = 'fxp_require_asset.assetic.config.package_manager';
         $idOutputManager = 'fxp_require_asset.assetic.config.output_manager';
+        /* @var PackageManagerInterface $manager */
         $manager = $container->get($idManager);
         $this->outputManager = $container->get($idOutputManager);
         $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.locale_manager');
@@ -64,6 +67,7 @@ class CompilerAssetsPass implements CompilerPassInterface
         $pb = $container->getParameterBag();
         $pb->remove('fxp_require_asset.assetic.config.locales');
         $pb->remove('fxp_require_asset.assetic.config.common_assets');
+        $pb->set('fxp_require_asset.package_dirs', PackageUtils::getPackagePaths($manager));
     }
 
     /**
