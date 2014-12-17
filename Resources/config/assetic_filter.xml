@@ -6,12 +6,18 @@
 
     <parameters>
         <parameter key="fxp_require_asset.assetic.filter.requirecssrewrite.class">Fxp\Component\RequireAsset\Assetic\Filter\RequireCssRewriteFilter</parameter>
+        <parameter key="fxp_require_asset.assetic.filter.parameter_bag.class">Fxp\Bundle\RequireAssetBundle\Assetic\Filter\ParameterBagFilter</parameter>
     </parameters>
 
     <services>
         <service id="fxp_require_asset.assetic.filter.requirecssrewrite" class="%fxp_require_asset.assetic.filter.requirecssrewrite.class%">
             <tag name="assetic.filter" alias="requirecssrewrite" />
             <argument type="service" id="assetic.asset_manager" />
+        </service>
+
+        <service id="fxp_require_asset.assetic.filter.parameter_bag" class="%fxp_require_asset.assetic.filter.parameter_bag.class%">
+            <tag name="assetic.filter" alias="parameterbag" />
+            <property name="container" type="service" id="service_container" />
         </service>
     </services>
 </container>
