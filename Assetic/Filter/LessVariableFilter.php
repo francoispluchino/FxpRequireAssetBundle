@@ -53,7 +53,7 @@ class LessVariableFilter extends BaseLessVariableFilter implements HashableInter
     protected function init()
     {
         if (null !== $this->container) {
-            $this->packages = $this->container->getParameter('fxp_require_asset.package_dirs');
+            $this->packages = (array) $this->container->getParameter('fxp_require_asset.package_dirs');
             $this->container = null;
         }
     }
