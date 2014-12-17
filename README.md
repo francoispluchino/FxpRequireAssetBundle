@@ -30,6 +30,9 @@ the correct URL of asset, without your having to overload the Twig template.
 - Updating the list of assets when the source files requires a cache refresh (`dev` mode)
 - Native support of the assetic manager (command `assetic:dump` and controller)
 - Native support of the symfony templating (base URL and version)
+- Assetic filters:
+  - `parameterbag`: for replace the symfony parameters in assets
+  - `lessvariable`: for inject the asset package paths as variables
 - Configure (in global config or in container compiler pass):
   - the assetic filters of asset package by the extensions
   - the assetic filters for all asset packages
