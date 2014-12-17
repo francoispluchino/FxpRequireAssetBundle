@@ -300,6 +300,40 @@ fxp_require_asset:
             css: { filters: [requirecssrewrite] }
 ```
 
+### Replace the symfony parameters in assets
+
+You can replace the symfony parameters in asset file.
+
+**Example of configuration for used the Parameter Bag Filter:**
+
+```yaml
+fxp_require_asset:
+    default:
+        extensions:
+            less: { filters: [parameterbag, lessphp], extension: "css" }
+```
+
+In your asset file, use the `%` before et after the symfony parameter name.
+
+**Example:**
+
+```
+@vendor-dir: "%kernel.root_dir%/../vendor";
+```
+
+### Using the asset package paths in LESS files
+
+You can add the source paths of asset packages in variables to the beginning of the file.
+
+**Example of configuration for used the Less Variable Filter:**
+
+```yaml
+fxp_require_asset:
+    default:
+        extensions:
+            less: { filters: [lessvariable, lessphp], extension: "css" }
+```
+
 ### Change the output prefix
 
 By default, the assets are copied to two different folders depending on the debug mode:
