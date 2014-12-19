@@ -22,8 +22,8 @@
             <argument type="service" id="fxp_require_asset.assetic.config.pattern_manager" />
         </service>
 
-        <!-- Assetic Require Locale Asset Manager -->
-        <service id="fxp_require_asset.assetic.locale_manager" class="Fxp\Component\RequireAsset\Assetic\RequireLocaleManager" public="true">
+        <!-- Assetic Config Locale Asset Manager -->
+        <service id="fxp_require_asset.assetic.config.locale_manager" class="Fxp\Component\RequireAsset\Assetic\Config\LocaleManager" public="true">
             <argument>%fxp_require_asset.assetic.config.default_locale%</argument>
             <argument>%fxp_require_asset.assetic.config.fallback_locale%</argument>
         </service>

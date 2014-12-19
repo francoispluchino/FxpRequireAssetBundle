@@ -98,7 +98,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         }
 
         // locale manager
-        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.locale_manager');
+        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.locale_manager');
         $localeMethodCalls = $localeManagerDef->getMethodCalls();
 
         foreach ($localeMethodCalls as $methodCall) {
