@@ -103,7 +103,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
 
         foreach ($localeMethodCalls as $methodCall) {
             $this->assertCount(2, $methodCall);
-            $this->assertSame('addLocaliszedAsset', $methodCall[0]);
+            $this->assertSame('addLocalizedAsset', $methodCall[0]);
             $this->assertCount(3, $methodCall[1]);
             $this->assertTrue(is_string($methodCall[1][0]));
             $this->assertTrue(is_string($methodCall[1][1]));
