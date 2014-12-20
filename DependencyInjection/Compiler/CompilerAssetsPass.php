@@ -52,7 +52,7 @@ class CompilerAssetsPass implements CompilerPassInterface
         $debug = (bool) $container->getParameter('assetic.debug');
         $ram = $this->getRequireAssetManager($container);
 
-        $this->addCommonAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
+        $this->addConfigCommonAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
         $this->addConfigLocaleAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.locales'));
 
         $configs = $ram->getAsseticConfigResources($debug);
@@ -65,6 +65,25 @@ class CompilerAssetsPass implements CompilerPassInterface
         }
 
         $this->doProcessParameters($container, $ram->getPackageManager());
+    }
+
+    /**
+     * Add the common asset config in require asset manager.
+     *
+     * @param RequireAssetManagerInterface $ram          The require asset manager
+     * @param array                        $commonAssets The common asset configs
+     */
+    protected function addConfigCommonAssets(RequireAssetManagerInterface $ram, array $commonAssets)
+    {
+        foreach ($commonAssets as $commonName => $commonConfig) {
+            $ram->addCommonAsset(
+                $commonName,
+                $commonConfig['inputs'],
+                $commonConfig['output'],
+                $commonConfig['filters'],
+                $commonConfig['options']
+            );
+        }
     }
 
     /**
@@ -98,25 +117,6 @@ class CompilerAssetsPass implements CompilerPassInterface
             foreach ($assetConfigs as $assetSource => $localizedAssets) {
                 $localeManagerDef->addMethodCall('addLocalizedAsset', array($assetSource, $locale, $localizedAssets));
             }
-        }
-    }
-
-    /**
-     * Add the common asset config in require asset manager.
-     *
-     * @param RequireAssetManagerInterface $ram          The require asset manager
-     * @param array                        $commonAssets The common asset configs
-     */
-    protected function addCommonAssets(RequireAssetManagerInterface $ram, array $commonAssets)
-    {
-        foreach ($commonAssets as $commonName => $commonConfig) {
-            $ram->addCommonAsset(
-                $commonName,
-                $commonConfig['inputs'],
-                $commonConfig['output'],
-                $commonConfig['filters'],
-                $commonConfig['options']
-            );
         }
     }
 
