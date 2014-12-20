@@ -22,6 +22,9 @@
             <argument type="service" id="fxp_require_asset.assetic.config.pattern_manager" />
         </service>
 
+        <!-- Assetic Config Asset Replacement Manager (only used during the container compilation) -->
+        <service id="fxp_require_asset.assetic.config.asset_replacement_manager" class="Fxp\Component\RequireAsset\Assetic\Config\AssetReplacementManager" public="false" />
+
         <!-- Assetic Config Locale Asset Manager -->
         <service id="fxp_require_asset.assetic.config.locale_manager" class="Fxp\Component\RequireAsset\Assetic\Config\LocaleManager" public="true">
             <argument>%fxp_require_asset.assetic.config.default_locale%</argument>

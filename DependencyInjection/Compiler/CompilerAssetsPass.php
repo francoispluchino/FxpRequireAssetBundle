@@ -11,6 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
+use Fxp\Component\RequireAsset\Assetic\Config\AssetReplacementManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\AssetResourceInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\FileExtensionManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\LocaleManagerInterface;
@@ -52,6 +53,7 @@ class CompilerAssetsPass implements CompilerPassInterface
         $debug = (bool) $container->getParameter('assetic.debug');
         $ram = $this->getRequireAssetManager($container);
 
+        $ram->getAssetReplacementManager()->addReplacements($container->getParameter('fxp_require_asset.assetic.config.asset_replacement'));
         $this->addConfigCommonAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
         $this->addConfigLocaleAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.locales'));
 
@@ -155,12 +157,15 @@ class CompilerAssetsPass implements CompilerPassInterface
         $localeManager = $container->get($prefixId.'locale_manager');
         /* @var PackageManagerInterface $packageManager */
         $packageManager = $container->get($prefixId.'package_manager');
+        /* @var AssetReplacementManagerInterface $replacementManager */
+        $replacementManager = $container->get($prefixId.'asset_replacement_manager');
 
         $ram = new RequireAssetManager();
         $ram->setFileExtensionManager($extManager)
             ->setPatternManager($patternManager)
             ->setOutputManager($outputManager)
             ->setLocaleManager($localeManager)
+            ->setAssetReplacementManager($replacementManager)
             ->setPackageManager($packageManager);
 
         return $ram;
@@ -178,6 +183,7 @@ class CompilerAssetsPass implements CompilerPassInterface
         $pb = $container->getParameterBag();
         $pb->remove('fxp_require_asset.assetic.config.locales');
         $pb->remove('fxp_require_asset.assetic.config.common_assets');
+        $pb->remove('fxp_require_asset.assetic.config.asset_replacement');
         $pb->set('fxp_require_asset.package_dirs', PackageUtils::getPackagePaths($manager));
     }
 }

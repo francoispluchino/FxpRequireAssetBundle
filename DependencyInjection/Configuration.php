@@ -11,6 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection;
 
+use Fxp\Component\RequireAsset\Config\AssetReplacementConfiguration;
 use Fxp\Component\RequireAsset\Config\CommonAssetConfiguration;
 use Fxp\Component\RequireAsset\Config\FileExtensionConfiguration;
 use Fxp\Component\RequireAsset\Config\LocaleConfiguration;
@@ -86,6 +87,7 @@ class Configuration implements ConfigurationInterface
             ->append($this->getDefaultForPackageNode())
             ->append($this->getOutputRewritesNode())
             ->append(PackageConfiguration::getNodeDefinition())
+            ->append(AssetReplacementConfiguration::getNodeDefinition())
             ->append(LocaleConfiguration::getNodeDefinition())
             ->append(CommonAssetConfiguration::getNodeDefinition())
         ;

@@ -50,6 +50,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'default_locale'          => 'en',
             'fallback_locale'         => null,
             'locales'                 => array(),
+            'asset_replacement'       => array(),
         );
     }
 }

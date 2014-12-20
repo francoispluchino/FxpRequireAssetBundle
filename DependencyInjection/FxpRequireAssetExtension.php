@@ -45,6 +45,7 @@ class FxpRequireAssetExtension extends Extension
         $container->setParameter('fxp_require_asset.assetic.config.patterns', $default['patterns']);
         $container->setParameter('fxp_require_asset.assetic.config.output_rewrites', $config['output_rewrites']);
         $container->setParameter('fxp_require_asset.assetic.config.packages', $config['packages']);
+        $container->setParameter('fxp_require_asset.assetic.config.asset_replacement', $config['asset_replacement']);
         $container->setParameter('fxp_require_asset.assetic.config.common_assets', $config['common_assets']);
         $container->setParameter('fxp_require_asset.assetic.config.default_locale', $config['default_locale']);
         $container->setParameter('fxp_require_asset.assetic.config.fallback_locale', $config['fallback_locale']);
