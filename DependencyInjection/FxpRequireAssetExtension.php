@@ -39,7 +39,17 @@ class FxpRequireAssetExtension extends Extension
 
         $this->configureAssetic($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['base_dir']);
         $this->configureFileExtensionManager($container, $config['default']);
+        $this->loadParameters($container, $config);
+    }
 
+    /**
+     * Load the parameters in container.
+     *
+     * @param ContainerBuilder $container
+     * @param array            $config
+     */
+    protected function loadParameters(ContainerBuilder $container, array $config)
+    {
         $default = $config['default'];
         $container->setParameter('fxp_require_asset.assetic.config.file_extensions', $default['extensions']);
         $container->setParameter('fxp_require_asset.assetic.config.patterns', $default['patterns']);
