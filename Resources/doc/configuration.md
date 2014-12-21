@@ -349,6 +349,18 @@ fxp_require_asset:
     output_prefix_debug: "custom-assets-dev"
 ```
 
+### Replace an asset by another asset
+
+You can indicate to the require asset manager that an asset to be replaced by another asset:
+
+```yaml
+fxp_require_asset:
+    asset_replacement:
+        "@asset1/path.ext": "acme_demo_bundle/asset/path.ext"
+```
+
+For this example, the `@asset1/path.ext` will be replace by the `acme_demo_bundle/asset/path.ext`.
+
 ### Change the composer installed path
 
 You can manually define composer installed file with the parameter `fxp_require_asset.composer_installed_path`.
