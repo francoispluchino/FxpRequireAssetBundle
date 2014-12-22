@@ -69,6 +69,8 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('base_dir')->defaultValue($this->rootDir.'/..')->end()
                 ->scalarNode('default_locale')->defaultValue($this->defaultLocale)->end()
                 ->scalarNode('fallback_locale')->defaultNull()->end()
+                ->booleanNode('auto_configuration')->defaultTrue()->end()
+                ->scalarNode('less_assetic_filter')->defaultValue('less')->end()
             ->end()
         ;
         $this->appendGlobalConfig($rootNode);

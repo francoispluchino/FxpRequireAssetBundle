@@ -60,6 +60,8 @@ class FxpRequireAssetExtension extends Extension
         $container->setParameter('fxp_require_asset.assetic.config.default_locale', $config['default_locale']);
         $container->setParameter('fxp_require_asset.assetic.config.fallback_locale', $config['fallback_locale']);
         $container->setParameter('fxp_require_asset.assetic.config.locales', $config['locales']);
+        $container->setParameter('fxp_require_asset.config.auto_configuration', $config['auto_configuration']);
+        $container->setParameter('fxp_require_asset.assetic.config.less_filter', $config['less_assetic_filter']);
     }
 
     /**

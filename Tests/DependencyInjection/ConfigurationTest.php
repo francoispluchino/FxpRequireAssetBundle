@@ -51,6 +51,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'fallback_locale'         => null,
             'locales'                 => array(),
             'asset_replacement'       => array(),
+            'auto_configuration'      => true,
+            'less_assetic_filter'     => 'less',
         );
     }
 }
