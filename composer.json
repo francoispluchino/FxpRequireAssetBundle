@@ -16,7 +16,7 @@
         "symfony/framework-bundle": "~2.4",
         "symfony/assetic-bundle": "~2.4",
         "symfony/twig-bundle": "~2.4",
-        "fxp/require-asset": "~1.0@dev"
+        "fxp/require-asset": "1.0.*@dev"
     },
     "suggest": {
         "fxp/composer-asset-plugin": "For manage NPM/Bower dependencies with Composer"
