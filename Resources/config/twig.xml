@@ -12,6 +12,7 @@
         <service id="twig.extension.fxp_require_asset" class="%twig.extension.fxp_require_asset.class%" public="false">
             <tag name="twig.extension" />
             <property name="container" type="service" id="service_container" />
+            <argument type="service" id="fxp_require_asset.assetic.config.asset_replacement_manager" />
         </service>
 
         <service id="fxp_require_asset.tag_renderer.inline_asset" class="Fxp\Component\RequireAsset\Tag\Renderer\InlineTagRenderer" public="false">

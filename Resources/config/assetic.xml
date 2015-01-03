@@ -22,7 +22,7 @@
             <argument type="service" id="fxp_require_asset.assetic.config.pattern_manager" />
         </service>
 
-        <!-- Assetic Config Asset Replacement Manager (only used during the container compilation) -->
+        <!-- Assetic Config Asset Replacement Manager -->
         <service id="fxp_require_asset.assetic.config.asset_replacement_manager" class="Fxp\Component\RequireAsset\Assetic\Config\AssetReplacementManager" public="false" />
 
         <!-- Assetic Config Locale Asset Manager -->

@@ -34,6 +34,7 @@ class ConfigurationCompilerPass implements CompilerPassInterface
         $this->configureManager($container, $pb, 'pattern_manager',        'patterns',        'addDefaultPatterns');
         $this->configureManager($container, $pb, 'output_manager',         'output_rewrites', 'addOutputPatterns');
         $this->configureManager($container, $pb, 'package_manager',        'packages',        'addPackages');
+        $this->configureReplacement($container);
     }
 
     /**
@@ -52,5 +53,17 @@ class ConfigurationCompilerPass implements CompilerPassInterface
 
         $def->addMethodCall($methodCall, array($packages));
         $pb->remove('fxp_require_asset.assetic.config.'.$idParameters);
+    }
+
+    /**
+     * Configure the asset replacement.
+     *
+     * @param ContainerBuilder $container
+     */
+    protected function configureReplacement(ContainerBuilder $container)
+    {
+        $def = $container->getDefinition('fxp_require_asset.assetic.config.asset_replacement_manager');
+        $replacement = $container->getParameter('fxp_require_asset.assetic.config.asset_replacement');
+        $def->addMethodCall('addReplacements', array($replacement));
     }
 }
