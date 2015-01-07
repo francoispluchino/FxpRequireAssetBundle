@@ -37,6 +37,8 @@ class LessVariableFilterTest extends \PHPUnit_Framework_TestCase
         $validContent = '@asset-package1-path: "path_to_package1";'.PHP_EOL
             .'@asset-package2-path: "path_to_package2";'.PHP_EOL
             .'@vendor-asset-bundle-path: "path_to_bundle";'.PHP_EOL
+            .'@custom-variable1: "value1";'.PHP_EOL
+            .'@custom-variable2: "value2";'.PHP_EOL
             .$content;
 
         $this->assertEquals($validContent, $asset->getContent());
@@ -46,7 +48,9 @@ class LessVariableFilterTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new LessVariableFilter();
         $filter->container = $this->getContainer();
-        $validFilter = new LessVariableFilter($filter->container->getParameter('fxp_require_asset.package_dirs'));
+        $packages = $filter->container->getParameter('fxp_require_asset.package_dirs');
+        $variables = $filter->container->getParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables');
+        $validFilter = new LessVariableFilter($packages, $variables);
 
         $this->assertSame(serialize($validFilter), $filter->hash());
     }
@@ -69,6 +73,10 @@ class LessVariableFilterTest extends \PHPUnit_Framework_TestCase
                 '@asset/package1'     => 'path_to_package1',
                 '@asset/package2'     => 'path_to_package2',
                 'vendor_asset_bundle' => 'path_to_bundle',
+            ),
+            'fxp_require_asset.assetic_filter.lessvariable.custom_variables' => array(
+                'custom-variable1' => 'value1',
+                'custom-variable2' => 'value2',
             ),
         )));
 

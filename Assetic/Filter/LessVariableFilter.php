@@ -54,6 +54,7 @@ class LessVariableFilter extends BaseLessVariableFilter implements HashableInter
     {
         if (null !== $this->container) {
             $this->packages = (array) $this->container->getParameter('fxp_require_asset.package_dirs');
+            $this->variables = (array) $this->container->getParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables');
             $this->container = null;
         }
     }
