@@ -95,16 +95,40 @@ class CustomAssetsPass implements CompilerPassInterface
      */
     protected function validateArguments($serviceId, array $arguments)
     {
-        if (!isset($arguments[0]) || !is_string($arguments[0])) {
-            $mess = sprintf('The first argument "filename" is required and must be a string for the "%s" service', $serviceId);
-            throw new InvalidArgumentException($mess);
-        }
-
-        if (!isset($arguments[1]) || !is_array($arguments[1])) {
-            $mess = sprintf('The second argument "inputs" is required and must be a array for the "%s" service', $serviceId);
-            throw new InvalidArgumentException($mess);
-        }
+        $this->validateArgument($arguments, 0, 'string', 'filename', $serviceId);
+        $this->validateArgument($arguments, 1, 'array', 'inputs', $serviceId);
 
         return $arguments;
+    }
+
+    /**
+     * Validate the argument.
+     *
+     * @param array  $arguments The arguments
+     * @param string $position  The position of argument
+     * @param string $type      The type of argument
+     * @param string $name      The name of argument
+     * @param string $serviceId The service id of custom asset
+     */
+    protected function validateArgument(array $arguments, $position, $type, $name, $serviceId)
+    {
+        if (!isset($arguments[$position]) || !$this->validateType($type, $arguments[$position])) {
+            $mess = sprintf('The argument %s "%s" is required and must be a %s for the "%s" service', $position + 1, $name, $type, $serviceId);
+            throw new InvalidArgumentException($mess);
+        }
+    }
+
+    /**
+     * Validate the type of argument.
+     *
+     * @param string $type  The type of argument
+     * @param mixed  $value The value of argument
+     *
+     * @return bool
+     */
+    protected function validateType($type, $value)
+    {
+        return 'string' === $type && is_string($value)
+            || 'array' === $type && is_array($value);
     }
 }

@@ -125,7 +125,7 @@ EOF;
 
     public function testInvalidFirstArgument()
     {
-        $this->setExpectedException('Fxp\Component\RequireAsset\Exception\InvalidArgumentException', 'The first argument "filename" is required and must be a string for the "asset_test" service');
+        $this->setExpectedException('Fxp\Component\RequireAsset\Exception\InvalidArgumentException', 'The argument 1 "filename" is required and must be a string for the "asset_test" service');
         $container = $this->getContainer();
 
         $def = new Definition();
@@ -140,7 +140,7 @@ EOF;
 
     public function testInvalidSecondArgument()
     {
-        $this->setExpectedException('Fxp\Component\RequireAsset\Exception\InvalidArgumentException', 'The second argument "inputs" is required and must be a array for the "asset_test" service');
+        $this->setExpectedException('Fxp\Component\RequireAsset\Exception\InvalidArgumentException', 'The argument 2 "inputs" is required and must be a array for the "asset_test" service');
         $container = $this->getContainer();
 
         $def = new Definition();
