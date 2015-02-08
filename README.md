@@ -4,7 +4,7 @@ Fxp RequireAssetBundle
 [![Latest Version](https://img.shields.io/packagist/v/fxp/require-asset-bundle.svg)](https://packagist.org/packages/fxp/require-asset-bundle)
 [![Build Status](https://img.shields.io/travis/francoispluchino/FxpRequireAssetBundle/master.svg)](https://travis-ci.org/francoispluchino/FxpRequireAssetBundle)
 [![Coverage Status](https://img.shields.io/coveralls/francoispluchino/FxpRequireAssetBundle/master.svg)](https://coveralls.io/r/francoispluchino/FxpRequireAssetBundle?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/francoispluchino/FxpRequireAssetBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/francoispluchino/FxpRequireAssetBundle?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/francoispluchino/FxpRequireAssetBundle/master.svg)](https://scrutinizer-ci.com/g/francoispluchino/FxpRequireAssetBundle?branch=master)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/6819d453-7c5c-447f-ba5d-58e25409ac2d.svg)](https://insight.sensiolabs.com/projects/6819d453-7c5c-447f-ba5d-58e25409ac2d)
 
 The Fxp RequireAssetBundle is a helper for assetic and twig to manage automatically the
