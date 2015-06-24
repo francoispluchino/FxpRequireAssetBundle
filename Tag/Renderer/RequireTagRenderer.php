@@ -15,7 +15,7 @@ use Assetic\Asset\AssetInterface;
 use Assetic\Factory\LazyAssetManager;
 use Fxp\Component\RequireAsset\Assetic\Config\LocaleManagerInterface;
 use Fxp\Component\RequireAsset\Tag\Renderer\RequireTagRenderer as BaseRequireTagRenderer;
-use Symfony\Component\Templating\Helper\CoreAssetsHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Require tag renderer with templating asset helper.
@@ -25,7 +25,7 @@ use Symfony\Component\Templating\Helper\CoreAssetsHelper;
 class RequireTagRenderer extends BaseRequireTagRenderer
 {
     /**
-     * @var CoreAssetsHelper
+     * @var AssetsHelper
      */
     protected $helper;
 
@@ -33,10 +33,10 @@ class RequireTagRenderer extends BaseRequireTagRenderer
      * Constructor.
      *
      * @param LazyAssetManager            $manager       The assetic manager
-     * @param CoreAssetsHelper            $helper        The templating asset helper
+     * @param AssetsHelper                $helper        The assets helper
      * @param LocaleManagerInterface|null $localeManager The require locale asset manager
      */
-    public function __construct(LazyAssetManager $manager, CoreAssetsHelper $helper, LocaleManagerInterface $localeManager = null)
+    public function __construct(LazyAssetManager $manager, AssetsHelper $helper, LocaleManagerInterface $localeManager = null)
     {
         parent::__construct($manager, $localeManager);
 

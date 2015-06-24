@@ -16,8 +16,10 @@ use Assetic\Factory\AssetFactory;
 use Assetic\Factory\LazyAssetManager;
 use Fxp\Bundle\RequireAssetBundle\Tag\Renderer\RequireTagRenderer;
 use Fxp\Component\RequireAsset\Tag\TagInterface;
-use Symfony\Component\Templating\Asset\Package;
-use Symfony\Component\Templating\Helper\CoreAssetsHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
 
 /**
  * Require Tag Renderer Tests.
@@ -30,8 +32,10 @@ class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new AssetFactory('web');
         $manager = new LazyAssetManager($factory);
-        $packageDefault = new Package('v2');
-        $helper = new CoreAssetsHelper($packageDefault);
+        $versionStrategy = new StaticVersionStrategy('v2');
+        $defaultPackage = new Package($versionStrategy);
+        $packages = new Packages($defaultPackage);
+        $helper = new AssetsHelper($packages);
         $renderer = new RequireTagRenderer($manager, $helper);
 
         $asset = $this->getMock('Assetic\Asset\AssetInterface');
