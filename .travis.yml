@@ -19,6 +19,8 @@ matrix:
         - php: nightly
         - php: hhvm
 
+    fast_finish: true
+
 before_script:
     - composer self-update
     - composer global require --prefer-source fxp/composer-asset-plugin:@beta
