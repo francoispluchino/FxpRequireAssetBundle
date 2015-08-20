@@ -66,6 +66,8 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('composer_installed_path')
                     ->defaultValue($this->rootDir.'/../vendor/composer/installed.json')
                     ->end()
+                ->booleanNode('native_bower')->defaultTrue()->end()
+                ->booleanNode('native_npm')->defaultTrue()->end()
                 ->scalarNode('base_dir')->defaultValue($this->rootDir.'/..')->end()
                 ->scalarNode('default_locale')->defaultValue($this->defaultLocale)->end()
                 ->scalarNode('fallback_locale')->defaultNull()->end()

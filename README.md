@@ -11,7 +11,8 @@ The Fxp RequireAssetBundle is a helper for assetic and twig to manage automatica
 required assets. It allows to define the required assets (script, style) directly in the
 Twig template and adds the HTML links of the assets automatically to the right place in
 the template, while removing duplicates. The bundle retrieves automatically asset dependencies
-defined by [fxp/composer-asset-plugin](https://github.com/francoispluchino/composer-asset-plugin)
+defined by [fxp/composer-asset-plugin](https://github.com/francoispluchino/composer-asset-plugin),
+or by natives NPM and Bower.
 and adds automatically the assets in the Assetic manager.
 
 The configuration included in the bundles can be overloaded in the global configuration,
@@ -23,7 +24,7 @@ the correct URL of asset, without your having to overload the Twig template.
 
 - All features of [Fxp Require Asset](https://github.com/francoispluchino/fxp-require-asset)
 - Automatically copy all assets:
-  - of NPM/Bower packages in the assetic public directory
+  - of NPM/Bower packages by Fxp Composer Asset Plugin or natives NPM and Bower in the assetic public directory
   - defined in resources section of a Symfony2 Bundle (except `config`, `doc`, `license(s)`, `meta`, `public`, `skeleton`, `views`)
 - Automatic addition of localized commons assets
 - Compiling the final list of asset in cache for increase performance

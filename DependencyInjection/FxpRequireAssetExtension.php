@@ -37,7 +37,7 @@ class FxpRequireAssetExtension extends Extension
         $loader->load('assetic.xml');
         $loader->load('assetic_filter.xml');
 
-        $this->configureAssetic($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['base_dir']);
+        $this->configureAssetic($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['native_npm'], $config['native_bower'], $config['base_dir']);
         $this->configureFileExtensionManager($container, $config['default']);
         $this->loadParameters($container, $config);
     }
@@ -71,15 +71,19 @@ class FxpRequireAssetExtension extends Extension
      * @param string           $output
      * @param string           $outputDebug
      * @param string           $composerInstalled
+     * @param bool             $nativeNpm
+     * @param bool             $nativeBower
      * @param string           $baseDir
      */
-    protected function configureAssetic(ContainerBuilder $container, $output, $outputDebug, $composerInstalled, $baseDir)
+    protected function configureAssetic(ContainerBuilder $container, $output, $outputDebug, $composerInstalled, $nativeNpm, $nativeBower, $baseDir)
     {
         $debug = $container->getParameter('assetic.debug');
         $output = $debug ? $outputDebug : $output;
 
         $container->setParameter('fxp_require_asset.output_prefix', (string) $output);
         $container->setParameter('fxp_require_asset.composer_installed_path', $composerInstalled);
+        $container->setParameter('fxp_require_asset.native_npm', $nativeNpm);
+        $container->setParameter('fxp_require_asset.native_bower', $nativeBower);
         $container->setParameter('fxp_require_asset.base_dir', $baseDir);
     }
 

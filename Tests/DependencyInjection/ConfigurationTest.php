@@ -38,6 +38,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'output_prefix'           => 'assets',
             'output_prefix_debug'     => 'assets-dev',
             'composer_installed_path' => 'ROOT_DIR/../vendor/composer/installed.json',
+            'native_npm'              => true,
+            'native_bower'            => true,
             'base_dir'                => 'ROOT_DIR/..',
             'default'                 => array(
                 'replace_extensions' => false,

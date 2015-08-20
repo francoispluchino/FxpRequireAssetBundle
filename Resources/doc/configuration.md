@@ -379,6 +379,26 @@ fxp_require_asset:
     base_dir: %kernel.root_dir%/../../
 ```
 
+### Disable the packages search for the native NPM
+
+By default, the bundle research the NPM packages, and adds the packages path in the require asset manager.
+But you can disable this search:
+
+```yaml
+fxp_require_asset:
+    native_npm: false
+```
+
+### Disable the packages search for the native Bower
+
+By default, the bundle research the Bower packages, and adds the packages path in the require asset manager.
+But you can disable this search:
+
+```yaml
+fxp_require_asset:
+    native_bower: false
+```
+
 Special configuration
 ---------------------
 

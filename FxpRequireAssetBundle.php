@@ -11,8 +11,10 @@
 
 namespace Fxp\Bundle\RequireAssetBundle;
 
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\BowerAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CustomAssetsPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\NpmAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TagRendererPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\BundleAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CompilerAssetsPass;
@@ -37,6 +39,8 @@ class FxpRequireAssetBundle extends Bundle
 
         $container->addCompilerPass(new TagRendererPass());
         $container->addCompilerPass(new ComposerAssetsPass());
+        $container->addCompilerPass(new NpmAssetsPass());
+        $container->addCompilerPass(new BowerAssetsPass());
         $container->addCompilerPass(new BundleAssetsPass());
         $container->addCompilerPass(new ConfigurationPass());
         $container->addCompilerPass(new TwigCompilerPass());

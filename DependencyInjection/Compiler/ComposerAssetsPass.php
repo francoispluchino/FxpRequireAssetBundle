@@ -13,7 +13,6 @@ namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * Adds all NPM and Bower package installed by Composer.
@@ -25,7 +24,10 @@ class ComposerAssetsPass implements CompilerPassInterface
     /**
      * @var array
      */
-    protected $types = array('npm', 'bower');
+    protected $types = array(
+        'npm' => 'package.json',
+        'bower' => 'bower.json',
+    );
 
     /**
      * {@inheritdoc}
@@ -43,12 +45,12 @@ class ComposerAssetsPass implements CompilerPassInterface
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
         $packages = array();
 
-        foreach ($this->types as $type) {
+        foreach ($this->types as $type => $filename) {
             $path = $this->getAssetBasePath($type, $baseDir);
-            $packages = array_merge($packages, $this->findAssetPackages($type, $path, $composerInstalled));
+            $packages = array_merge($packages, $this->findAssetPackages($type, $filename, $path, $composerInstalled));
         }
 
-        $this->addPackages($packageManagerDef, $packages);
+        AssetUtils::addPackages($packageManagerDef, $packages);
     }
 
     /**
@@ -89,12 +91,13 @@ class ComposerAssetsPass implements CompilerPassInterface
      * Finds the source paths of asset packages.
      *
      * @param string $type      The asset type
+     * @param string $filename  The filename of asset config
      * @param string $path      The path of source asset type
      * @param array  $installed The installed composer packages
      *
      * @return array The map of asset package name and path
      */
-    protected function findAssetPackages($type, $path, array $installed)
+    protected function findAssetPackages($type, $filename, $path, array $installed)
     {
         $packages = array();
 
@@ -105,28 +108,13 @@ class ComposerAssetsPass implements CompilerPassInterface
             if (0 === strpos($name, $prefix)) {
                 $name = substr($name, strlen($prefix));
                 $name = str_replace(array('[', ']'), '-', $name);
-                $packages['@'.$type.'/'.$name] = $path.'/'.$name;
+                $assetPath = $path.'/'.$name;
+                $assetName = AssetUtils::getPackageName($type, $assetPath.'/'.$filename, 'name');
+
+                $packages[$assetName] = $assetPath;
             }
         }
 
         return $packages;
-    }
-
-    /**
-     * Adds composer package.
-     *
-     * @param Definition $packageManagerDef
-     * @param array      $packages
-     */
-    protected function addPackages(Definition $packageManagerDef, array $packages)
-    {
-        foreach ($packages as $name => $path) {
-            $package = array(
-                'name'        => $name,
-                'source_path' => $path,
-                'source_base' => null,
-            );
-            $packageManagerDef->addMethodCall('addPackage', array($package));
-        }
     }
 }
