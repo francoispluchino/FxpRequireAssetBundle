@@ -109,7 +109,7 @@ class ComposerAssetsPass implements CompilerPassInterface
                 $name = substr($name, strlen($prefix));
                 $name = str_replace(array('[', ']'), '-', $name);
                 $assetPath = $path.'/'.$name;
-                $assetName = AssetUtils::getPackageName($type, $assetPath.'/'.$filename, 'name');
+                $assetName = AssetUtils::getPackageName($type, $assetPath.'/'.$filename);
 
                 $packages[$assetName] = $assetPath;
             }

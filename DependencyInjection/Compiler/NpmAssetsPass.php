@@ -33,7 +33,7 @@ class NpmAssetsPass implements CompilerPassInterface
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
         $baseDir = $container->getParameter('fxp_require_asset.base_dir');
         $dir = rtrim(str_replace('\\', '/', $baseDir.'/node_modules'), '/');
-        $packages = AssetUtils::findPackages('npm', 'package.json', $dir, 'name');
+        $packages = AssetUtils::findPackages('npm', 'package.json', $dir);
 
         AssetUtils::addPackages($packageManagerDef, $packages);
     }

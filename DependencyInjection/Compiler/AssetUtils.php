@@ -59,33 +59,26 @@ abstract class AssetUtils
     /**
      * Get the asset package name.
      *
-     * @param string $type         The asset type
-     * @param string $path         The path of asset config
-     * @param string $propertyName The name of property for get the name of package
+     * @param string $type The asset type
+     * @param string $path The path of asset config
      *
      * @return string
      */
-    public static function getPackageName($type, $path, $propertyName = 'name')
+    public static function getPackageName($type, $path)
     {
-        $config = static::loadJsonFile($path);
-        $name = isset($config[$propertyName])
-            ? $config[$propertyName]
-            : basename(dirname($path));
-
-        return '@'.$type.'/'.$name;
+        return '@'.$type.'/'.basename(dirname($path));
     }
 
     /**
      * Find the native asset packages.
      *
-     * @param string $type         The asset type
-     * @param string $filename     The filename of asset config
-     * @param string $directory    The installation directory of assets
-     * @param string $propertyName The name of property for get the name of package
+     * @param string $type      The asset type
+     * @param string $filename  The filename of asset config
+     * @param string $directory The installation directory of assets
      *
      * @return array The map of package name and path
      */
-    public static function findPackages($type, $filename, $directory, $propertyName = 'name')
+    public static function findPackages($type, $filename, $directory)
     {
         $packages = array();
         $finder = Finder::create()->ignoreVCS(true)->ignoreDotFiles(false);
@@ -97,7 +90,7 @@ abstract class AssetUtils
             /* @var SplFileInfo $file */
             foreach ($paths as $file) {
                 $path = dirname($file->getRealPath());
-                $name = static::getPackageName($type, $file->getRealPath(), $propertyName);
+                $name = static::getPackageName($type, $file->getRealPath());
 
                 $packages[$name] = $path;
             }

@@ -32,7 +32,7 @@ class BowerAssetsPass implements CompilerPassInterface
 
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
         $dir = $this->getBowerDirectory($container);
-        $packages = AssetUtils::findPackages('bower', '.bower.json', $dir, 'name');
+        $packages = AssetUtils::findPackages('bower', '.bower.json', $dir);
 
         AssetUtils::addPackages($packageManagerDef, $packages);
     }
