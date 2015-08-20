@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection;
+namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection\Compiler;
 
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ComposerAssetsPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
