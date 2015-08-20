@@ -363,11 +363,21 @@ For this example, the `@asset1/path.ext` will be replace by the `acme_demo_bundl
 
 ### Change the composer installed path
 
-You can manually define composer installed file with the parameter `fxp_require_asset.composer_installed_path`.
+You can manually define composer installed file with the parameter `fxp_require_asset.composer_installed_path`:
+
+```yaml
+fxp_require_asset:
+    composer_installed_path: %kernel.root_dir%/../custom-vendor/composer/installed.json
+```
 
 ### Change the project base directory
 
-You can manually define the project root with the parameter `fxp_require_asset.base_dir`.
+You can manually define the project root with the parameter `fxp_require_asset.base_dir`:
+
+```yaml
+fxp_require_asset:
+    base_dir: %kernel.root_dir%/../../
+```
 
 Special configuration
 ---------------------
