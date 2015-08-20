@@ -45,11 +45,11 @@ class ConfigurationPass implements CompilerPassInterface
         $lessFilter = $container->getParameter('fxp_require_asset.assetic.config.less_filter');
         $extManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.file_extension_manager');
         $configs = array(
-            'css'  => array(
-                'filters'   => array('requirecssrewrite'),
+            'css' => array(
+                'filters' => array('requirecssrewrite'),
             ),
             'less' => array(
-                'filters'   => array('lessvariable', 'parameterbag', $lessFilter, 'requirecssrewrite'),
+                'filters' => array('lessvariable', 'parameterbag', $lessFilter, 'requirecssrewrite'),
                 'extension' => 'css',
             ),
         );

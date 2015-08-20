@@ -81,14 +81,14 @@ abstract class BaseNativeAssetsPassTest extends \PHPUnit_Framework_TestCase
     protected function getContainer($active = true)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->rootDir.'/cache',
-            'kernel.debug'       => false,
+            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name'        => 'kernel',
-            'kernel.root_dir'    => $this->rootDir,
-            'kernel.charset'     => 'UTF-8',
-            'assetic.debug'      => false,
-            'kernel.bundles'     => array(),
+            'kernel.name' => 'kernel',
+            'kernel.root_dir' => $this->rootDir,
+            'kernel.charset' => 'UTF-8',
+            'assetic.debug' => false,
+            'kernel.bundles' => array(),
         )));
 
         $container->setParameter('fxp_require_asset.base_dir', $this->rootDir);

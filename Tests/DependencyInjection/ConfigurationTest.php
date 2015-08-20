@@ -35,26 +35,26 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     protected static function getBundleDefaultConfig()
     {
         return array(
-            'output_prefix'           => 'assets',
-            'output_prefix_debug'     => 'assets-dev',
+            'output_prefix' => 'assets',
+            'output_prefix_debug' => 'assets-dev',
             'composer_installed_path' => 'ROOT_DIR/../vendor/composer/installed.json',
-            'native_npm'              => true,
-            'native_bower'            => true,
-            'base_dir'                => 'ROOT_DIR/..',
-            'default'                 => array(
+            'native_npm' => true,
+            'native_bower' => true,
+            'base_dir' => 'ROOT_DIR/..',
+            'default' => array(
                 'replace_extensions' => false,
-                'extensions'         => array(),
-                'patterns'           => array(),
+                'extensions' => array(),
+                'patterns' => array(),
             ),
-            'output_rewrites'         => array(),
-            'packages'                => array(),
-            'common_assets'           => array(),
-            'default_locale'          => 'en',
-            'fallback_locale'         => null,
-            'locales'                 => array(),
-            'asset_replacement'       => array(),
-            'auto_configuration'      => true,
-            'less_assetic_filter'     => 'less',
+            'output_rewrites' => array(),
+            'packages' => array(),
+            'common_assets' => array(),
+            'default_locale' => 'en',
+            'fallback_locale' => null,
+            'locales' => array(),
+            'asset_replacement' => array(),
+            'auto_configuration' => true,
+            'less_assetic_filter' => 'less',
         );
     }
 }

@@ -76,14 +76,14 @@ class TwigCompilerPassTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->rootDir.'/cache',
-            'kernel.debug'       => false,
+            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name'        => 'kernel',
-            'kernel.root_dir'    => $this->rootDir,
-            'kernel.charset'     => 'UTF-8',
-            'assetic.debug'      => false,
-            'kernel.bundles'     => array(),
+            'kernel.name' => 'kernel',
+            'kernel.root_dir' => $this->rootDir,
+            'kernel.charset' => 'UTF-8',
+            'assetic.debug' => false,
+            'kernel.bundles' => array(),
         )));
 
         $aeDef = new Definition('Fxp\Component\RequireAsset\Twig\Extension\AssetExtension');

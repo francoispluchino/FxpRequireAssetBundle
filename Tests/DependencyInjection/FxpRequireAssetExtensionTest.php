@@ -55,15 +55,15 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->cacheDir,
-            'kernel.debug'       => false,
+            'kernel.cache_dir' => $this->cacheDir,
+            'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name'        => 'kernel',
-            'kernel.root_dir'    => __DIR__,
-            'kernel.charset'     => 'UTF-8',
-            'assetic.debug'      => false,
-            'kernel.bundles'     => array(),
-            'locale'             => 'en',
+            'kernel.name' => 'kernel',
+            'kernel.root_dir' => __DIR__,
+            'kernel.charset' => 'UTF-8',
+            'assetic.debug' => false,
+            'kernel.bundles' => array(),
+            'locale' => 'en',
         )));
 
         $asseticManager = new Definition('Assetic\Factory\LazyAssetManager');

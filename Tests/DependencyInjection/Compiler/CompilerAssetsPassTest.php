@@ -139,7 +139,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
     {
         $locales = array(
             'fr' => array(
-                '@foobar/js/component-a.js'  => array('@foobar/js/component-a-fr.js'),
+                '@foobar/js/component-a.js' => array('@foobar/js/component-a-fr.js'),
             ),
         );
 
@@ -150,19 +150,19 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
     {
         $commons = array(
             'common_js' => array(
-                'output'  => 'common.js',
+                'output' => 'common.js',
                 'filters' => array(),
                 'options' => array(),
-                'inputs'  => array(
+                'inputs' => array(
                     '@foobar/js/component-a.js',
                     '@foobar/js/component-b.js',
                 ),
             ),
             'common_js__fr_fr' => array(
-                'output'  => 'common-fr-fr.js',
+                'output' => 'common-fr-fr.js',
                 'filters' => array(),
                 'options' => array(),
-                'inputs'  => array(
+                'inputs' => array(
                     '@foobar/js/component-a-fr.js',
                 ),
             ),
@@ -179,15 +179,15 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->rootDir.'/cache',
-            'kernel.debug'       => false,
+            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name'        => 'kernel',
-            'kernel.root_dir'    => $this->rootDir,
-            'kernel.charset'     => 'UTF-8',
-            'assetic.debug'      => false,
-            'kernel.bundles'     => array(),
-            'locale'             => 'en',
+            'kernel.name' => 'kernel',
+            'kernel.root_dir' => $this->rootDir,
+            'kernel.charset' => 'UTF-8',
+            'assetic.debug' => false,
+            'kernel.bundles' => array(),
+            'locale' => 'en',
         )));
 
         $extension = new FxpRequireAssetExtension();

@@ -33,7 +33,7 @@ abstract class AssetUtils
     {
         foreach ($packages as $name => $path) {
             $package = array(
-                'name'        => $name,
+                'name' => $name,
                 'source_path' => $path,
                 'source_base' => null,
             );

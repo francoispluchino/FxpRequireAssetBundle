@@ -59,12 +59,12 @@ class ParameterBagFilterTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.debug'       => false,
+            'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name'        => 'kernel',
-            'kernel.root_dir'    => __DIR__,
-            'kernel.charset'     => 'UTF-8',
-            'assetic.debug'      => false,
+            'kernel.name' => 'kernel',
+            'kernel.root_dir' => __DIR__,
+            'kernel.charset' => 'UTF-8',
+            'assetic.debug' => false,
         )));
 
         $container->getCompilerPassConfig()->setOptimizationPasses(array());

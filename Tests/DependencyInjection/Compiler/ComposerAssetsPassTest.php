@@ -68,7 +68,7 @@ class ComposerAssetsPassTest extends \PHPUnit_Framework_TestCase
             array(array(
                 'extra' => array(
                     'asset-installer-paths' => array(
-                        'npm-asset-library'   => 'custom',
+                        'npm-asset-library' => 'custom',
                         'bower-asset-library' => 'custom',
                     ),
                 ),
@@ -99,14 +99,14 @@ class ComposerAssetsPassTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir'   => $this->rootDir.'/cache',
-            'kernel.debug'       => false,
+            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name'        => 'kernel',
-            'kernel.root_dir'    => $this->rootDir,
-            'kernel.charset'     => 'UTF-8',
-            'assetic.debug'      => false,
-            'kernel.bundles'     => array(),
+            'kernel.name' => 'kernel',
+            'kernel.root_dir' => $this->rootDir,
+            'kernel.charset' => 'UTF-8',
+            'assetic.debug' => false,
+            'kernel.bundles' => array(),
         )));
 
         $container->setParameter('fxp_require_asset.base_dir', $this->rootDir);
@@ -125,23 +125,23 @@ class ComposerAssetsPassTest extends \PHPUnit_Framework_TestCase
     {
         $installed = array(
             array(
-                'name'    => 'acme/demo',
+                'name' => 'acme/demo',
                 'version' => '0.1.0',
-                'type'    => 'library',
+                'type' => 'library',
                 'require' => array(
                     'bower-asset/foobar' => '1.0.0',
-                    'npm-asset/barfoo'   => '1.0.0',
+                    'npm-asset/barfoo' => '1.0.0',
                 ),
             ),
             array(
-                'name'    => 'bower-asset/foobar',
+                'name' => 'bower-asset/foobar',
                 'version' => '1.0.0',
-                'type'    => 'bower-asset-library',
+                'type' => 'bower-asset-library',
             ),
             array(
-                'name'    => 'npm-asset/barfoo',
+                'name' => 'npm-asset/barfoo',
                 'version' => '2.3.0',
-                'type'    => 'npm-asset-library',
+                'type' => 'npm-asset-library',
             ),
         );
 

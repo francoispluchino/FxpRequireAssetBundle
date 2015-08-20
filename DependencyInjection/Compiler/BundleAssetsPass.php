@@ -56,10 +56,10 @@ class BundleAssetsPass implements CompilerPassInterface
         $sourceBase = str_replace('_', '', $sourceBase);
 
         return array(
-            'name'        => $id,
+            'name' => $id,
             'source_path' => $path,
             'source_base' => $sourceBase,
-            'patterns'    => array(
+            'patterns' => array(
                 '!config/*',
                 '!doc/*',
                 '!license/*',
