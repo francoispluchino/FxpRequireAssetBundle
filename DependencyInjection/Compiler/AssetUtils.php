@@ -11,7 +11,6 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
-use Fxp\Component\RequireAsset\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
