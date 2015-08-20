@@ -34,7 +34,7 @@ abstract class ContainerUtils
     {
         $pattern = static::REGEX_PARAMETER_BAG;
 
-        return CssUtils::filterCommentless($content, function ($part) use (& $callback, $pattern) {
+        return CssUtils::filterCommentless($content, function ($part) use (&$callback, $pattern) {
             return preg_replace_callback($pattern, $callback, $part);
         });
     }
