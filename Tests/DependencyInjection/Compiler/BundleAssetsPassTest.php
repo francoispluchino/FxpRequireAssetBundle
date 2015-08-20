@@ -64,6 +64,7 @@ class BundleAssetsPassTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getBundles
+     *
      * @param array $bundles
      */
     public function testProcess(array $bundles)

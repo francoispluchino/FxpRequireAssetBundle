@@ -78,6 +78,7 @@ class ComposerAssetsPassTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getComposerConfig
+     *
      * @param array $composer
      */
     public function testProcessWithPackages(array $composer)
