@@ -49,11 +49,13 @@ abstract class AssetUtils
      */
     public static function loadJsonFile($path)
     {
-        $config = @json_decode(@file_get_contents($path), true);
+        if (file_exists($path)) {
+            if (is_array($json = json_decode(file_get_contents($path), true))) {
+                return $json;
+            }
+        }
 
-        return is_array($config)
-            ? $config
-            : array();
+        return array();
     }
 
     /**
