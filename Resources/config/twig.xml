@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="twig.extension.fxp_require_asset.class">Fxp\Bundle\RequireAssetBundle\Twig\Extension\AssetExtension</parameter>
+        <parameter key="twig.extension.fxp_require_asset_url.class">Fxp\Bundle\RequireAssetBundle\Twig\Extension\RequireAssetExtension</parameter>
     </parameters>
 
     <services>
@@ -13,6 +14,11 @@
             <tag name="twig.extension" />
             <property name="container" type="service" id="service_container" />
             <argument type="service" id="fxp_require_asset.assetic.config.asset_replacement_manager" />
+        </service>
+
+        <service id="twig.extension.fxp_require_asset_url" class="%twig.extension.fxp_require_asset_url.class%" public="false">
+            <tag name="twig.extension" />
+            <property name="container" type="service" id="service_container" />
         </service>
 
         <service id="fxp_require_asset.tag_renderer.inline_asset" class="Fxp\Component\RequireAsset\Tag\Renderer\InlineTagRenderer" public="false">
