@@ -37,6 +37,7 @@ class FxpRequireAssetExtension extends Extension
         $loader->load('assetic.xml');
         $loader->load('assetic_filter.xml');
 
+        $this->removeDisabledCommonAssets($config['common_assets']);
         $this->configureAssetic($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['native_npm'], $config['native_bower'], $config['base_dir']);
         $this->configureFileExtensionManager($container, $config['default']);
         $this->loadParameters($container, $config);
@@ -98,6 +99,22 @@ class FxpRequireAssetExtension extends Extension
         if (!$default['replace_extensions']) {
             $def = $container->getDefinition('fxp_require_asset.assetic.config.file_extension_manager');
             $def->addMethodCall('addDefaultExtensions', array(FileExtensionUtils::getDefaultConfigs()));
+        }
+    }
+
+    /**
+     * Remove the disabled common assets.
+     *
+     * @param array $commonAssets The config of common assets
+     */
+    protected function removeDisabledCommonAssets(array &$commonAssets)
+    {
+        foreach ($commonAssets as $name => &$config) {
+            if (array_key_exists('disabled', $config['options']) && $config['options']['disabled']) {
+                unset($commonAssets[$name]);
+            }
+
+            unset($config['options']['disabled']);
         }
     }
 }

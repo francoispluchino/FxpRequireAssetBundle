@@ -47,12 +47,34 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($container->hasDefinition('twig.extension.fxp_require_asset'));
     }
 
+    public function testRemoveDisabledCommonAssets()
+    {
+        $config = array(
+            'common_assets' => array(
+                'common_css' => array(
+                    'output' => '/js/common.js',
+                    'filters' => array(),
+                    'inputs' => array(
+                        '@acme_demo/js/asset.js',
+                    ),
+                    'options' => array(
+                        'disabled' => true,
+                    ),
+                ),
+            ),
+        );
+
+        $this->getContainer($config);
+    }
+
     /**
      * Gets the container.
      *
+     * @param array $config the container config
+     *
      * @return ContainerBuilder
      */
-    protected function getContainer()
+    protected function getContainer(array $config = array())
     {
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => $this->cacheDir,
@@ -74,7 +96,6 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
 
         $extension = new FxpRequireAssetExtension();
         $container->registerExtension($extension);
-        $config = array();
         $extension->load(array($config), $container);
 
         $container->getCompilerPassConfig()->setOptimizationPasses(array());
