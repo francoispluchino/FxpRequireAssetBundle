@@ -67,14 +67,35 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
         $this->getContainer($config);
     }
 
+    public function testDebugCommonAssets()
+    {
+        $config = array(
+            'common_assets' => array(
+                'common_css' => array(
+                    'output' => '/js/common.js',
+                    'filters' => array(),
+                    'inputs' => array(
+                        '@acme_demo/js/asset.js',
+                    ),
+                    'options' => array(
+                        'require_debug' => true,
+                    ),
+                ),
+            ),
+        );
+
+        $this->getContainer($config, true);
+    }
+
     /**
      * Gets the container.
      *
      * @param array $config the container config
+     * @param bool  $debug  The debug mode
      *
      * @return ContainerBuilder
      */
-    protected function getContainer(array $config = array())
+    protected function getContainer(array $config = array(), $debug = false)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => $this->cacheDir,
@@ -83,7 +104,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
             'kernel.name' => 'kernel',
             'kernel.root_dir' => __DIR__,
             'kernel.charset' => 'UTF-8',
-            'assetic.debug' => false,
+            'assetic.debug' => $debug,
             'kernel.bundles' => array(),
             'locale' => 'en',
         )));

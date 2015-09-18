@@ -32,13 +32,16 @@ class RequireTagRenderer extends BaseRequireTagRenderer
     /**
      * Constructor.
      *
-     * @param LazyAssetManager            $manager       The assetic manager
-     * @param AssetsHelper                $helper        The assets helper
-     * @param LocaleManagerInterface|null $localeManager The require locale asset manager
+     * @param LazyAssetManager            $manager           The assetic manager
+     * @param AssetsHelper                $helper            The assets helper
+     * @param LocaleManagerInterface|null $localeManager     The require locale asset manager
+     * @param array                       $debugCommonAssets The common assets for debug mode without assetic common parts
      */
-    public function __construct(LazyAssetManager $manager, AssetsHelper $helper, LocaleManagerInterface $localeManager = null)
+    public function __construct(LazyAssetManager $manager, AssetsHelper $helper,
+                                LocaleManagerInterface $localeManager = null,
+                                array $debugCommonAssets = array())
     {
-        parent::__construct($manager, $localeManager);
+        parent::__construct($manager, $localeManager, $debugCommonAssets);
 
         $this->helper = $helper;
     }
