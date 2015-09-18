@@ -134,12 +134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/francoispluchino/fxp-require-asset.git",
-                "reference": "ed2aeced9ae6976dd2b05898c52de364635191da"
+                "reference": "dc3525c09fa27d221e22e671b08a36ba8318a515"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/ed2aeced9ae6976dd2b05898c52de364635191da",
-                "reference": "ed2aeced9ae6976dd2b05898c52de364635191da",
+                "url": "https://api.github.com/repos/francoispluchino/fxp-require-asset/zipball/dc3525c09fa27d221e22e671b08a36ba8318a515",
+                "reference": "dc3525c09fa27d221e22e671b08a36ba8318a515",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +188,7 @@
                 "ui",
                 "user interface"
             ],
-            "time": "2015-09-15 12:44:46"
+            "time": "2015-09-18 16:57:07"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1615,16 +1615,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.21.2",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3"
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
                 "shasum": ""
             },
             "require": {
@@ -1637,7 +1637,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.21-dev"
+                    "dev-master": "1.22-dev"
                 }
             },
             "autoload": {
@@ -1672,7 +1672,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-09 05:28:51"
+            "time": "2015-09-15 06:50:16"
         }
     ],
     "packages-dev": [],
