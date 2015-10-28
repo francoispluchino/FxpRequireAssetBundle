@@ -83,7 +83,7 @@ abstract class AssetUtils
     public static function findPackages($type, $filename, $directory)
     {
         $packages = array();
-        $finder = Finder::create()->ignoreVCS(true)->ignoreDotFiles(false);
+        $finder = Finder::create()->ignoreVCS(true)->ignoreDotFiles(false)->depth(1);
         $finder->name($filename);
 
         if (is_dir($directory)) {

@@ -87,21 +87,31 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
         $this->getContainer($config, true);
     }
 
+    public function testNotAddCompilerForKernelNameWithoutUnderscore()
+    {
+        $container = $this->getContainer(array(), false, 'kernel_');
+        $this->assertGreaterThan(1, count($container->getCompilerPassConfig()->getPasses()));
+
+        $container = $this->getContainer(array(), false, 'kernel');
+        $this->assertCount(1, $container->getCompilerPassConfig()->getPasses());
+    }
+
     /**
      * Gets the container.
      *
-     * @param array $config the container config
-     * @param bool  $debug  The debug mode
+     * @param array  $config     The container config
+     * @param bool   $debug      The debug mode
+     * @param string $kernelName The name of kernel
      *
      * @return ContainerBuilder
      */
-    protected function getContainer(array $config = array(), $debug = false)
+    protected function getContainer(array $config = array(), $debug = false, $kernelName = 'kernel_')
     {
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => $this->cacheDir,
             'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name' => 'kernel',
+            'kernel.name' => $kernelName,
             'kernel.root_dir' => __DIR__,
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => $debug,

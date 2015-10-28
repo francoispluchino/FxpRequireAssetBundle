@@ -38,7 +38,7 @@ class ParameterBagFilterTest extends \PHPUnit_Framework_TestCase
 
         $validContent = '@param1 = "test";'.PHP_EOL
             .'@param2 = "'.__DIR__.'/test/";'.PHP_EOL
-            .'@param3 = "kernel";'.PHP_EOL;
+            .'@param3 = "kernel_";'.PHP_EOL;
 
         $this->assertEquals($validContent, $asset->getContent());
     }
@@ -61,7 +61,7 @@ class ParameterBagFilterTest extends \PHPUnit_Framework_TestCase
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name' => 'kernel',
+            'kernel.name' => 'kernel_',
             'kernel.root_dir' => __DIR__,
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,

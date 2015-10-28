@@ -37,6 +37,13 @@ class FxpRequireAssetBundle extends Bundle
     {
         parent::build($container);
 
+        $kernelName = $container->getParameter('kernel.name');
+        $pos = strrpos($kernelName, '_');
+
+        if (false === $pos || '_' !== substr($kernelName, $pos)) {
+            return;
+        }
+
         $container->addCompilerPass(new TagRendererPass());
         $container->addCompilerPass(new ComposerAssetsPass());
         $container->addCompilerPass(new NpmAssetsPass());

@@ -103,7 +103,7 @@ class ComposerAssetsPassTest extends \PHPUnit_Framework_TestCase
             'kernel.cache_dir' => $this->rootDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name' => 'kernel',
+            'kernel.name' => 'kernel_',
             'kernel.root_dir' => $this->rootDir,
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
