@@ -11,6 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
+use Fxp\Bundle\RequireAssetBundle\Assetic\Cache\ConfigAssetResourceCache;
 use Fxp\Component\RequireAsset\Assetic\Config\AssetReplacementManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\AssetResourceInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\FileExtensionManagerInterface;
@@ -49,24 +50,70 @@ class CompilerAssetsPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $assetManagerDef = $container->getDefinition('assetic.asset_manager');
-        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.locale_manager');
-        $debug = (bool) $container->getParameter('assetic.debug');
         $ram = $this->getRequireAssetManager($container);
 
         $ram->getAssetReplacementManager()->addReplacements($container->getParameter('fxp_require_asset.assetic.config.asset_replacement'));
         $this->addConfigCommonAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
         $this->addConfigLocaleAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.locales'));
 
-        $configs = $ram->getAsseticConfigResources($debug);
+        $resources = $this->getAssetResources($container, $ram);
 
-        $this->addLocaleAssets($localeManagerDef, $ram->getLocaleManager()->getLocalizedAssets());
-
-        foreach ($configs->getResources() as $resource) {
+        foreach ($resources as $resource) {
             $assetDef = $this->createAssetDefinition($resource);
             $assetManagerDef->addMethodCall('addResource', array($assetDef, $resource->getLoader()));
         }
 
         $this->doProcessParameters($container, $ram->getPackageManager());
+    }
+
+    /**
+     * Get the config asset resources.
+     *
+     * @param ContainerBuilder             $container The container service
+     * @param RequireAssetManagerInterface $ram       The require asset manager
+     *
+     * @return AssetResourceInterface[]
+     */
+    protected function getAssetResources(ContainerBuilder $container, RequireAssetManagerInterface $ram)
+    {
+        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.locale_manager');
+        $debug = (bool) $container->getParameter('assetic.debug');
+        $cache = $this->getConfigAssetCache($container);
+
+        if ($cache->hasResources()) {
+            $resources = $cache->getResources();
+            $currentCache = new ConfigAssetResourceCache($container->getParameter('assetic.cache_dir'));
+            $currentCache->setResources($resources);
+        } else {
+            $configs = $ram->getAsseticConfigResources($debug);
+            $this->addLocaleAssets($localeManagerDef, $ram->getLocaleManager()->getLocalizedAssets());
+            $resources = $configs->getResources();
+            $cache->setResources($resources);
+        }
+
+        return $resources;
+    }
+
+    /**
+     * Get the first config asset resource cache.
+     *
+     * @param ContainerBuilder $container The container service
+     *
+     * @return ConfigAssetResourceCache
+     */
+    protected function getConfigAssetCache(ContainerBuilder $container)
+    {
+        $dir = str_replace('\\', '/', $container->getParameter('assetic.cache_dir'));
+        $kernelName = $container->getParameter('kernel.name');
+        $pos = strrpos($kernelName, '_');
+
+        if (false !== $pos && '_' === substr($kernelName, $pos)) {
+            $env = $container->getParameter('kernel.environment');
+            $tmpEnv = substr($env, 0, strlen($env) - 1).'_';
+            $dir = str_replace('/'.$tmpEnv.'/', '/'.$env.'/', $dir);
+        }
+
+        return new ConfigAssetResourceCache($dir);
     }
 
     /**

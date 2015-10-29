@@ -102,10 +102,11 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
             'kernel.cache_dir' => $this->rootDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name' => 'kernel_',
+            'kernel.name' => 'kernel',
             'kernel.root_dir' => $this->rootDir,
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
+            'assetic.cache_dir' => $this->rootDir.'/cache/assetic',
             'kernel.bundles' => array(),
         )));
 

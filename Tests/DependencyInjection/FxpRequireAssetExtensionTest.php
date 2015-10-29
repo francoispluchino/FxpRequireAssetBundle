@@ -93,7 +93,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan(1, count($container->getCompilerPassConfig()->getPasses()));
 
         $container = $this->getContainer(array(), false, 'kernel');
-        $this->assertCount(1, $container->getCompilerPassConfig()->getPasses());
+        $this->assertGreaterThan(1, $container->getCompilerPassConfig()->getPasses());
     }
 
     /**
@@ -105,7 +105,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
      *
      * @return ContainerBuilder
      */
-    protected function getContainer(array $config = array(), $debug = false, $kernelName = 'kernel_')
+    protected function getContainer(array $config = array(), $debug = false, $kernelName = 'kernel')
     {
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => $this->cacheDir,
@@ -116,6 +116,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => $debug,
             'kernel.bundles' => array(),
+            'assetic.cache_dir' => $this->cacheDir.'/assetic',
             'locale' => 'en',
         )));
 

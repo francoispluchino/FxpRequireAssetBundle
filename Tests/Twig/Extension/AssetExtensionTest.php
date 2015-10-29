@@ -64,7 +64,7 @@ class AssetExtensionTest extends \PHPUnit_Framework_TestCase
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.debug' => false,
             'kernel.environment' => 'test',
-            'kernel.name' => 'kernel_',
+            'kernel.name' => 'kernel',
             'kernel.root_dir' => __DIR__,
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
