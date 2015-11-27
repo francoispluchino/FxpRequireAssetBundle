@@ -80,13 +80,14 @@ class CompilerAssetsPass implements CompilerPassInterface
         $debug = (bool) $container->getParameter('assetic.debug');
         $cache = $this->getConfigAssetCache($container);
 
+        $this->addLocaleAssets($localeManagerDef, $ram->getLocaleManager()->getLocalizedAssets());
+
         if ($cache->hasResources()) {
             $resources = $cache->getResources();
             $currentCache = new ConfigAssetResourceCache($container->getParameter('assetic.cache_dir'));
             $currentCache->setResources($resources);
         } else {
             $configs = $ram->getAsseticConfigResources($debug);
-            $this->addLocaleAssets($localeManagerDef, $ram->getLocaleManager()->getLocalizedAssets());
             $resources = $configs->getResources();
             $cache->setResources($resources);
         }
