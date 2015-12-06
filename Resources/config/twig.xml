@@ -28,7 +28,7 @@
         <service id="fxp_require_asset.tag_renderer.require_asset" class="Fxp\Bundle\RequireAssetBundle\Tag\Renderer\RequireTagRenderer" public="false">
             <tag name="fxp_require_asset.tag_renderer" />
             <argument type="service" id="assetic.asset_manager" />
-            <argument type="service" id="templating.helper.assets" strict="false" />
+            <argument type="service" id="assets.packages" />
             <argument type="service" id="fxp_require_asset.assetic.config.locale_manager" />
             <argument>%fxp_require_asset.assetic.config.debug_common_assets%</argument>
         </service>

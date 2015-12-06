@@ -15,35 +15,35 @@ use Assetic\Asset\AssetInterface;
 use Assetic\Factory\LazyAssetManager;
 use Fxp\Component\RequireAsset\Assetic\Config\LocaleManagerInterface;
 use Fxp\Component\RequireAsset\Tag\Renderer\RequireTagRenderer as BaseRequireTagRenderer;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use Symfony\Component\Asset\Packages;
 
 /**
- * Require tag renderer with templating asset helper.
+ * Require tag renderer with templating asset packages.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
 class RequireTagRenderer extends BaseRequireTagRenderer
 {
     /**
-     * @var AssetsHelper
+     * @var Packages
      */
-    protected $helper;
+    protected $packages;
 
     /**
      * Constructor.
      *
      * @param LazyAssetManager            $manager           The assetic manager
-     * @param AssetsHelper                $helper            The assets helper
+     * @param Packages                    $packages          The asset packages
      * @param LocaleManagerInterface|null $localeManager     The require locale asset manager
      * @param array                       $debugCommonAssets The common assets for debug mode without assetic common parts
      */
-    public function __construct(LazyAssetManager $manager, AssetsHelper $helper,
+    public function __construct(LazyAssetManager $manager, Packages $packages,
                                 LocaleManagerInterface $localeManager = null,
                                 array $debugCommonAssets = array())
     {
         parent::__construct($manager, $localeManager, $debugCommonAssets);
 
-        $this->helper = $helper;
+        $this->packages = $packages;
     }
 
     /**
@@ -52,7 +52,7 @@ class RequireTagRenderer extends BaseRequireTagRenderer
     protected function getTargetPath(AssetInterface $asseticAsset)
     {
         $target = parent::getTargetPath($asseticAsset);
-        $target = $this->helper->getUrl($target);
+        $target = $this->packages->getUrl($target);
 
         return $target;
     }
