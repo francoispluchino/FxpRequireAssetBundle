@@ -113,7 +113,7 @@ class CustomAssetsPass implements CompilerPassInterface
     protected function validateArgument(array $arguments, $position, $type, $name, $serviceId)
     {
         if (!isset($arguments[$position]) || !$this->validateType($type, $arguments[$position])) {
-            $mess = sprintf('The argument %s "%s" is required and must be a %s for the "%s" service', $position + 1, $name, $type, $serviceId);
+            $mess = sprintf('The argument %s "%s" is required and must be a %s for the "%s" service', (int) $position + 1, $name, $type, $serviceId);
             throw new InvalidArgumentException($mess);
         }
     }
