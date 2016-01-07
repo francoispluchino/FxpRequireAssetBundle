@@ -36,6 +36,7 @@ class FxpRequireAssetExtension extends Extension
         $loader->load('twig.xml');
         $loader->load('assetic.xml');
         $loader->load('assetic_filter.xml');
+        $loader->load('exception_listener.xml');
 
         $this->prepareDebugCommonAssets($container, $config['common_assets']);
         $this->removeDisabledCommonAssets($config['common_assets']);
