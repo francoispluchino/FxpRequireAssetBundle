@@ -36,7 +36,7 @@ class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
         $packages = new Packages($defaultPackage);
         $renderer = new RequireTagRenderer($manager, $packages);
 
-        $asset = $this->getMock('Assetic\Asset\AssetInterface');
+        $asset = $this->getMockBuilder('Assetic\Asset\AssetInterface')->getMock();
         $asset->expects($this->any())
             ->method('getTargetPath')
             ->will($this->returnValue('foo/bar.js'));
@@ -49,7 +49,7 @@ class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
         /* @var AssetInterface $asset */
         $manager->set('foo_bar_js', $asset);
 
-        $tag = $this->getMock('Fxp\Component\RequireAsset\Tag\RequireTagInterface');
+        $tag = $this->getMockBuilder('Fxp\Component\RequireAsset\Tag\RequireTagInterface')->getMock();
         $tag->expects($this->any())
             ->method('getInputs')
             ->will($this->returnValue(array()));
