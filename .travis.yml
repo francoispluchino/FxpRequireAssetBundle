@@ -8,14 +8,14 @@ cache:
 
 matrix:
     include:
-        - php: hhvm
         - php: 5.5
         - php: 5.6
+        - php: 7.0
+        - php: hhvm
         - php: nightly
 
     allow_failures:
         - php: nightly
-        - php: hhvm
 
     fast_finish: true
 
@@ -23,8 +23,8 @@ before_script:
     - composer self-update
     - composer global require --prefer-source fxp/composer-asset-plugin:@beta
     - composer install --prefer-source
-    - composer require --dev --no-update phpunit/phpunit:@stable phpunit/php-code-coverage:@stable satooshi/php-coveralls:@dev
-    - composer update --prefer-source phpunit/php-code-coverage satooshi/php-coveralls
+    - composer require --dev --no-update satooshi/php-coveralls:@dev
+    - composer update --prefer-source satooshi/php-coveralls
     - mkdir -p ./build/logs
 
 script:
