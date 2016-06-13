@@ -23,11 +23,12 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
  */
 class RequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
+     * @expectedExceptionMessage You have requested a non-existent service "assetic.asset_manager".
+     */
     public function testContainerServiceWithoutContainerRenderers()
     {
-        $mess = 'The service definition "assetic.asset_manager" does not exist';
-        $this->setExpectedException('Symfony\Component\DependencyInjection\Exception\InvalidArgumentException', $mess);
-
         $ext = new RequireAssetExtension();
 
         $this->assertNull($ext->container);

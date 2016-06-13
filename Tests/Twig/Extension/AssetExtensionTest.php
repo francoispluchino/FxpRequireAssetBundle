@@ -24,11 +24,12 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class AssetExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
+     * @expectedExceptionMessage You have requested a non-existent service "twig.extension.fxp_require_asset.container_tag_renderers".
+     */
     public function testContainerServiceWithoutContainerRenderers()
     {
-        $mess = 'The service definition "twig.extension.fxp_require_asset.container_tag_renderers" does not exist';
-        $this->setExpectedException('Symfony\Component\DependencyInjection\Exception\InvalidArgumentException', $mess);
-
         $ext = new AssetExtension();
 
         $this->assertNull($ext->container);
