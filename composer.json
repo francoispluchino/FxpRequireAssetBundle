@@ -19,11 +19,19 @@
         "symfony/expression-language": "~2.8|~3.0",
         "fxp/require-asset": "1.0.*@dev"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8 || ^5.3.0"
+    },
     "suggest": {
         "fxp/composer-asset-plugin": "For manage NPM/Bower dependencies with Composer"
     },
     "autoload": {
         "psr-4": { "Fxp\\Bundle\\RequireAssetBundle\\": "" }
+    },
+    "config": {
+        "platform": {
+            "php": "5.5.0"
+        }
     },
     "extra": {
         "branch-alias": {
