@@ -2,16 +2,16 @@ Fxp RequireAssetBundle
 ======================
 
 [![Latest Version](https://img.shields.io/packagist/v/fxp/require-asset-bundle.svg)](https://packagist.org/packages/fxp/require-asset-bundle)
-[![Build Status](https://img.shields.io/travis/francoispluchino/FxpRequireAssetBundle/master.svg)](https://travis-ci.org/francoispluchino/FxpRequireAssetBundle)
-[![Coverage Status](https://img.shields.io/coveralls/francoispluchino/FxpRequireAssetBundle/master.svg)](https://coveralls.io/r/francoispluchino/FxpRequireAssetBundle?branch=master)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/francoispluchino/FxpRequireAssetBundle/master.svg)](https://scrutinizer-ci.com/g/francoispluchino/FxpRequireAssetBundle?branch=master)
+[![Build Status](https://img.shields.io/travis/fxpio/FxpRequireAssetBundle/master.svg)](https://travis-ci.org/fxpio/FxpRequireAssetBundle)
+[![Coverage Status](https://img.shields.io/coveralls/fxpio/FxpRequireAssetBundle/master.svg)](https://coveralls.io/r/fxpio/FxpRequireAssetBundle?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/fxpio/FxpRequireAssetBundle/master.svg)](https://scrutinizer-ci.com/g/fxpio/FxpRequireAssetBundle?branch=master)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/6819d453-7c5c-447f-ba5d-58e25409ac2d.svg)](https://insight.sensiolabs.com/projects/6819d453-7c5c-447f-ba5d-58e25409ac2d)
 
 The Fxp RequireAssetBundle is a helper for assetic and twig to manage automatically the
 required assets. It allows to define the required assets (script, style) directly in the
 Twig template and adds the HTML links of the assets automatically to the right place in
 the template, while removing duplicates. The bundle retrieves automatically asset dependencies
-defined by [fxp/composer-asset-plugin](https://github.com/francoispluchino/composer-asset-plugin),
+defined by [fxp/composer-asset-plugin](https://github.com/fxpio/composer-asset-plugin),
 or by natives NPM and Bower.
 and adds automatically the assets in the Assetic manager.
 
@@ -22,7 +22,7 @@ the correct URL of asset, without your having to overload the Twig template.
 
 ##### Features include:
 
-- All features of [Fxp Require Asset](https://github.com/francoispluchino/fxp-require-asset)
+- All features of [Fxp Require Asset](https://github.com/fxpio/fxp-require-asset)
 - Automatically copy all assets:
   - of NPM/Bower packages by Fxp Composer Asset Plugin or natives NPM and Bower in the assetic public directory
   - defined in resources section of a Symfony2 Bundle (except `config`, `doc`, `license(s)`, `meta`, `public`, `skeleton`, `views`)
@@ -51,7 +51,7 @@ The bulk of the documentation is located in the `Resources/doc/index.md`:
 
 [Read the Documentation](Resources/doc/index.md)
 
-[Read the Release Notes](https://github.com/francoispluchino/FxpRequireAssetBundle/releases)
+[Read the Release Notes](https://github.com/fxpio/FxpRequireAssetBundle/releases)
 
 Installation
 ------------
@@ -69,12 +69,12 @@ About
 -----
 
 Fxp RequireAssetBundle is a [François Pluchino](https://github.com/francoispluchino) initiative.
-See also the list of [contributors](https://github.com/francoispluchino/FxpRequireAssetBundle/contributors).
+See also the list of [contributors](https://github.com/fxpio/FxpRequireAssetBundle/contributors).
 
 Reporting an issue or a feature request
 ---------------------------------------
 
-Issues and feature requests are tracked in the [Github issue tracker](https://github.com/francoispluchino/FxpRequireAssetBundle/issues).
+Issues and feature requests are tracked in the [Github issue tracker](https://github.com/fxpio/FxpRequireAssetBundle/issues).
 
 When reporting a bug, it may be a good idea to reproduce it in a basic project
 built using the [Symfony Standard Edition](https://github.com/symfony/symfony-standard)
