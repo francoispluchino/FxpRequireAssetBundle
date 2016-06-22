@@ -4,7 +4,7 @@ Basic usage
 ### Usage with NPM/Bower Dependency Manager for Composer
 
 If you used the Composer plugin [fxp/composer-asset-plugin]
-(https://github.com/francoispluchino/composer-asset-plugin), you will have no configuration
+(https://github.com/fxpio/composer-asset-plugin), you will have no configuration
 to do, because all asset packages are automatically added to the Asset Manager with the
 default values.
 

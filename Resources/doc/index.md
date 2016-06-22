@@ -67,5 +67,5 @@ The following documents are available:
 
 - [Custom configuration](configuration.md)
 - [Basic usage](usage_basic.md)
-- [Require asset usage in Twig](https://github.com/francoispluchino/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset.md)
-- [Inline asset usage in Twig](https://github.com/francoispluchino/fxp-require-asset/blob/master/Resources/doc/usage_twig_inline_asset.md)
+- [Require asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset.md)
+- [Inline asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_inline_asset.md)
