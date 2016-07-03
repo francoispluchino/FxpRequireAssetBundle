@@ -13,10 +13,10 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "symfony/framework-bundle": "~2.8|~3.0",
-        "symfony/assetic-bundle": "~2.7",
-        "symfony/twig-bundle": "~2.8|~3.0",
-        "symfony/expression-language": "~2.8|~3.0",
+        "symfony/framework-bundle": "~3.0",
+        "symfony/assetic-bundle": "~2.8",
+        "symfony/twig-bundle": "~3.0",
+        "symfony/expression-language": "~3.0",
         "fxp/require-asset": "1.0.*@dev"
     },
     "suggest": {
