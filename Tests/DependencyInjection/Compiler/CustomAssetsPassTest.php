@@ -79,7 +79,7 @@ class CustomAssetsPassTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($container->hasParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables'));
 
         $file = $container->getParameter('kernel.cache_dir').'/fxp_require_asset/path.ext';
-        $valid = <<<EOF
+        $valid = <<<'EOF'
 @import "input_filename.ext";
 EOF;
 
@@ -112,7 +112,7 @@ EOF;
         $this->assertTrue($container->hasParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables'));
 
         $file = $container->getParameter('kernel.cache_dir').'/fxp_require_asset/path.ext';
-        $valid = <<<EOF
+        $valid = <<<'EOF'
 @import "input_filename.ext";
 EOF;
 
