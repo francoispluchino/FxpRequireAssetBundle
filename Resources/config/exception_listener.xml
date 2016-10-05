@@ -11,7 +11,7 @@
     <services>
         <service id="fxp_require_asset.exception.twig_asset" class="%fxp_require_asset.exception.twig_asset.class%">
             <tag name="kernel.event_subscriber" />
-            <argument type="expression">service('twig').getExtension('fxp_require_asset')</argument>
+            <argument type="expression">service('twig').getExtension('Fxp\\Bundle\\RequireAssetBundle\\Twig\\Extension\\AssetExtension')</argument>
         </service>
     </services>
 </container>
