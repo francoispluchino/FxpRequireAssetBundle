@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "67a6c6922fa4ff928874f968115632d7",
+    "hash": "a1815b52e53fb38f54163ff8762b2eab",
     "content-hash": "e2a82b23ec0b6295a7d35487b85a1ca2",
     "packages": [
         {
@@ -205,12 +205,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fxpio/fxp-require-asset.git",
-                "reference": "dd152182aa1226112776dcdb2785450b3d806abe"
+                "reference": "71537437626e8ff5c2f3e3a70755460973715588"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fxpio/fxp-require-asset/zipball/dd152182aa1226112776dcdb2785450b3d806abe",
-                "reference": "dd152182aa1226112776dcdb2785450b3d806abe",
+                "url": "https://api.github.com/repos/fxpio/fxp-require-asset/zipball/71537437626e8ff5c2f3e3a70755460973715588",
+                "reference": "71537437626e8ff5c2f3e3a70755460973715588",
                 "shasum": ""
             },
             "require": {
@@ -235,7 +235,10 @@
             "autoload": {
                 "psr-4": {
                     "Fxp\\Component\\RequireAsset\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -259,7 +262,7 @@
                 "ui",
                 "user interface"
             ],
-            "time": "2016-10-05 08:29:07"
+            "time": "2016-10-14 11:27:02"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -434,16 +437,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0"
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/5277094ed527a1c4477177d102fe4c53551953e0",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "shasum": ""
             },
             "require": {
@@ -477,7 +480,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-09-19 16:02:08"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "symfony/asset",
@@ -2238,16 +2241,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.26.0",
+            "version": "v1.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "81c2b5fd36581370c7731387f05dcdb577050513"
+                "reference": "a09d8ee17ac1cfea29ed60c83960ad685c6a898d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/81c2b5fd36581370c7731387f05dcdb577050513",
-                "reference": "81c2b5fd36581370c7731387f05dcdb577050513",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a09d8ee17ac1cfea29ed60c83960ad685c6a898d",
+                "reference": "a09d8ee17ac1cfea29ed60c83960ad685c6a898d",
                 "shasum": ""
             },
             "require": {
@@ -2295,7 +2298,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-10-02 16:19:13"
+            "time": "2016-10-05 18:57:41"
         }
     ],
     "packages-dev": [],
