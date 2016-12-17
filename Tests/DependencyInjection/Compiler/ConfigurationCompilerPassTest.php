@@ -110,10 +110,10 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
             'kernel.bundles' => array(),
         )));
 
-        $this->configureManager($container, 'file_extension_manager',    'file_extensions');
-        $this->configureManager($container, 'pattern_manager',           'patterns');
-        $this->configureManager($container, 'output_manager',            'output_rewrites');
-        $this->configureManager($container, 'package_manager',           'packages');
+        $this->configureManager($container, 'file_extension_manager', 'file_extensions');
+        $this->configureManager($container, 'pattern_manager', 'patterns');
+        $this->configureManager($container, 'output_manager', 'output_rewrites');
+        $this->configureManager($container, 'package_manager', 'packages');
         $this->configureManager($container, 'asset_replacement_manager', 'asset_replacement');
 
         return $container;

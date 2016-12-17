@@ -31,9 +31,9 @@ class ConfigurationCompilerPass implements CompilerPassInterface
         $pb = $container->getParameterBag();
 
         $this->configureManager($container, $pb, 'file_extension_manager', 'file_extensions', 'addDefaultExtensions');
-        $this->configureManager($container, $pb, 'pattern_manager',        'patterns',        'addDefaultPatterns');
-        $this->configureManager($container, $pb, 'output_manager',         'output_rewrites', 'addOutputPatterns');
-        $this->configureManager($container, $pb, 'package_manager',        'packages',        'addPackages');
+        $this->configureManager($container, $pb, 'pattern_manager', 'patterns', 'addDefaultPatterns');
+        $this->configureManager($container, $pb, 'output_manager', 'output_rewrites', 'addOutputPatterns');
+        $this->configureManager($container, $pb, 'package_manager', 'packages', 'addPackages');
         $this->configureReplacement($container);
     }
 
