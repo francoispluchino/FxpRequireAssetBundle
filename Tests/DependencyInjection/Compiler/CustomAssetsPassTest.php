@@ -83,7 +83,7 @@ class CustomAssetsPassTest extends \PHPUnit_Framework_TestCase
 @import "input_filename.ext";
 EOF;
 
-        $this->assertTrue(file_exists($file));
+        $this->assertFileExists($file);
         $this->assertSame($valid, file_get_contents($file));
     }
 
@@ -116,7 +116,7 @@ EOF;
 @import "input_filename.ext";
 EOF;
 
-        $this->assertTrue(file_exists($file));
+        $this->assertFileExists($file);
         $this->assertSame($valid, file_get_contents($file));
 
         $validVariables = array_merge($validVariables, array('variable-name' => $file));
