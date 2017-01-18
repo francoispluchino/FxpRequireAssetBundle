@@ -11,8 +11,8 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Processor;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Configuration;
+use Symfony\Component\Config\Definition\Processor;
 
 /**
  * Tests case for Configuration.

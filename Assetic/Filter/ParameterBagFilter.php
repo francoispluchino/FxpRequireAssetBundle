@@ -11,8 +11,8 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\Assetic\Filter;
 
-use Assetic\Filter\FilterInterface;
 use Assetic\Asset\AssetInterface;
+use Assetic\Filter\FilterInterface;
 use Assetic\Filter\HashableInterface;
 use Fxp\Bundle\RequireAssetBundle\Assetic\Util\ContainerUtils;
 use Symfony\Component\DependencyInjection\Container;

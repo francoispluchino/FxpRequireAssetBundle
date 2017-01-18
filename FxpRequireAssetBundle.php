@@ -12,14 +12,14 @@
 namespace Fxp\Bundle\RequireAssetBundle;
 
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\BowerAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CustomAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\NpmAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TagRendererPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\BundleAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CompilerAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ComposerAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationCompilerPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CustomAssetsPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\NpmAssetsPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TagRendererPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TwigCompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

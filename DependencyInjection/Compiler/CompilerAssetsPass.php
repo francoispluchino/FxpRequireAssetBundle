@@ -22,8 +22,8 @@ use Fxp\Component\RequireAsset\Assetic\Config\PatternManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\RequireAssetManager;
 use Fxp\Component\RequireAsset\Assetic\RequireAssetManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Util\PackageUtils;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
