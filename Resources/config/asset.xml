@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Asset Config Asset Replacement Manager -->
+        <service id="fxp_require_asset.config.asset_replacement_manager" class="Fxp\Component\RequireAsset\Asset\Config\AssetReplacementManager" public="false" />
+
+        <!-- Asset Config Locale Manager -->
+        <service id="fxp_require_asset.config.locale_manager" class="Fxp\Component\RequireAsset\Asset\Config\LocaleManager" public="true">
+            <argument>%fxp_require_asset.config.default_locale%</argument>
+            <argument>%fxp_require_asset.config.fallback_locale%</argument>
+        </service>
+
+        <!-- Chain Require Asset Manager -->
+        <service id="fxp_require_asset.chain_require_asset_manager" class="Fxp\Component\RequireAsset\Asset\ChainRequireAssetManager">
+            <argument type="collection"/>
+        </service>
+    </services>
+</container>

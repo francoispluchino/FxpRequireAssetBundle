@@ -14,14 +14,13 @@ namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 
 /**
- * Include the tag renderer into the twig extension.
+ * Include the require asset manager into the chain require asset manager.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class TagRendererPass implements CompilerPassInterface
+class RequireAssetManagerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
@@ -30,15 +29,12 @@ class TagRendererPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ($container->hasDefinition('twig.extension.fxp_require_asset')) {
-            $definition = new Definition('Fxp\Bundle\RequireAssetBundle\Twig\Extension\ContainerRenderers');
-            $definition->setPublic(true);
+        if ($container->hasDefinition('fxp_require_asset.chain_require_asset_manager')) {
+            $definition = $container->getDefinition('fxp_require_asset.chain_require_asset_manager');
 
-            foreach ($this->findAndSortTaggedServices('fxp_require_asset.tag_renderer', $container) as $service) {
-                $definition->addMethodCall('addRenderer', array($service));
+            foreach ($this->findAndSortTaggedServices('fxp_require_asset.require_asset_manager', $container) as $service) {
+                $definition->addMethodCall('addRequireAssetManager', array($service));
             }
-
-            $container->setDefinition('twig.extension.fxp_require_asset.container_tag_renderers', $definition);
         }
     }
 }

@@ -113,6 +113,7 @@ class ComposerAssetsPassTest extends \PHPUnit_Framework_TestCase
 
         $container->setParameter('fxp_require_asset.base_dir', $this->rootDir);
         $container->setParameter('fxp_require_asset.composer_installed_path', $this->rootDir.'/vendor/composer/installed.json');
+        $container->setParameter('fxp_require_asset.assetic', true);
 
         $pmDef = new Definition('Fxp\Component\RequireAsset\Assetic\Config\PackageManager');
         $container->setDefinition('fxp_require_asset.assetic.config.package_manager', $pmDef);

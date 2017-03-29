@@ -87,13 +87,30 @@ class BundleAssetsPassTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider getBundles
+     *
+     * @param array $bundles
+     */
+    public function testProcessWithoutAssetic(array $bundles)
+    {
+        $container = $this->getContainer($bundles, false);
+
+        $def = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
+
+        $this->assertCount(0, $def->getMethodCalls());
+        $this->pass->process($container);
+        $this->assertCount(0, $def->getMethodCalls());
+    }
+
+    /**
      * Gets the container.
      *
      * @param array $bundles
+     * @param bool  $assetic
      *
      * @return ContainerBuilder
      */
-    protected function getContainer(array $bundles)
+    protected function getContainer(array $bundles, $assetic = true)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => $this->rootDir.'/cache',
@@ -105,6 +122,7 @@ class BundleAssetsPassTest extends \PHPUnit_Framework_TestCase
             'assetic.debug' => false,
             'assetic.cache_dir' => $this->rootDir.'/cache/assetic',
             'kernel.bundles' => $bundles,
+            'fxp_require_asset.assetic' => $assetic,
         )));
 
         $pmDef = new Definition('Fxp\Component\RequireAsset\Assetic\Config\PackageManager');

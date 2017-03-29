@@ -9,23 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Fxp\Bundle\RequireAssetBundle\Tests\Tag\Renderer;
+namespace Fxp\Bundle\RequireAssetBundle\Tests\Assetic\Tag\Renderer;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Factory\AssetFactory;
 use Assetic\Factory\LazyAssetManager;
-use Fxp\Bundle\RequireAssetBundle\Tag\Renderer\RequireTagRenderer;
+use Fxp\Bundle\RequireAssetBundle\Assetic\Tag\Renderer\AsseticRequireTagRenderer;
 use Fxp\Component\RequireAsset\Tag\TagInterface;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
 
 /**
- * Require Tag Renderer Tests.
+ * Assetic Require Tag Renderer Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
+class AsseticRequireTagRendererTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetTargetPathWithTemplatingHelper()
     {
@@ -34,7 +34,7 @@ class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
         $versionStrategy = new StaticVersionStrategy('v2');
         $defaultPackage = new Package($versionStrategy);
         $packages = new Packages($defaultPackage);
-        $renderer = new RequireTagRenderer($manager, $packages);
+        $renderer = new AsseticRequireTagRenderer($manager, $packages);
 
         $asset = $this->getMockBuilder('Assetic\Asset\AssetInterface')->getMock();
         $asset->expects($this->any())
@@ -63,7 +63,7 @@ class RequireTagRendererTest extends \PHPUnit_Framework_TestCase
             ->method('shortEndTag')
             ->will($this->returnValue(false));
         $tag->expects($this->any())
-            ->method('getAsseticName')
+            ->method('getAssetName')
             ->will($this->returnValue('foo_bar_js'));
         $tag->expects($this->any())
             ->method('getPath')

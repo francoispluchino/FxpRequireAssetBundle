@@ -26,7 +26,7 @@ class NpmAssetsPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->getParameter('fxp_require_asset.native_npm')) {
+        if (!$container->getParameter('fxp_require_asset.native_npm') || !$container->getParameter('fxp_require_asset.assetic')) {
             return;
         }
 

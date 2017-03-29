@@ -12,15 +12,15 @@
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
 use Fxp\Bundle\RequireAssetBundle\Assetic\Cache\ConfigAssetResourceCache;
-use Fxp\Component\RequireAsset\Assetic\Config\AssetReplacementManagerInterface;
+use Fxp\Component\RequireAsset\Asset\Config\AssetReplacementManagerInterface;
+use Fxp\Component\RequireAsset\Asset\Config\LocaleManagerInterface;
+use Fxp\Component\RequireAsset\Assetic\AsseticAssetManager;
+use Fxp\Component\RequireAsset\Assetic\AsseticAssetManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\AssetResourceInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\FileExtensionManagerInterface;
-use Fxp\Component\RequireAsset\Assetic\Config\LocaleManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\OutputManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\PackageManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Config\PatternManagerInterface;
-use Fxp\Component\RequireAsset\Assetic\RequireAssetManager;
-use Fxp\Component\RequireAsset\Assetic\RequireAssetManagerInterface;
 use Fxp\Component\RequireAsset\Assetic\Util\PackageUtils;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -49,45 +49,59 @@ class CompilerAssetsPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $this->getAssetReplacementManager($container)->addReplacements($container->getParameter('fxp_require_asset.config.asset_replacement'));
+        $this->addConfigLocaleAssets($this->getLocaleManager($container), $container->getParameter('fxp_require_asset.config.locales'));
+        $this->processForAssetic($container);
+        $this->doProcessParameters($container);
+    }
+
+    /**
+     * Process for the assetic.
+     *
+     * @param ContainerBuilder $container The container service
+     */
+    protected function processForAssetic(ContainerBuilder $container)
+    {
+        if (!$container->getParameter('fxp_require_asset.assetic')) {
+            return;
+        }
+
+        $aam = $this->getAsseticAssetManager($container);
         $assetManagerDef = $container->getDefinition('assetic.asset_manager');
-        $ram = $this->getRequireAssetManager($container);
+        $this->addConfigCommonAssets($aam, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
 
-        $ram->getAssetReplacementManager()->addReplacements($container->getParameter('fxp_require_asset.assetic.config.asset_replacement'));
-        $this->addConfigCommonAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.common_assets'));
-        $this->addConfigLocaleAssets($ram, $container->getParameter('fxp_require_asset.assetic.config.locales'));
-
-        $resources = $this->getAssetResources($container, $ram);
+        $resources = $this->getAssetResources($container, $aam);
 
         foreach ($resources as $resource) {
             $assetDef = $this->createAssetDefinition($resource);
             $assetManagerDef->addMethodCall('addResource', array($assetDef, $resource->getLoader()));
         }
 
-        $this->doProcessParameters($container, $ram->getPackageManager());
+        $this->doProcessAsseticParameters($container, $aam->getPackageManager());
     }
 
     /**
      * Get the config asset resources.
      *
      * @param ContainerBuilder             $container The container service
-     * @param RequireAssetManagerInterface $ram       The require asset manager
+     * @param AsseticAssetManagerInterface $aam       The assetic asset manager
      *
      * @return AssetResourceInterface[]
      */
-    protected function getAssetResources(ContainerBuilder $container, RequireAssetManagerInterface $ram)
+    protected function getAssetResources(ContainerBuilder $container, AsseticAssetManagerInterface $aam)
     {
-        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.locale_manager');
+        $localeManagerDef = $container->getDefinition('fxp_require_asset.config.locale_manager');
         $debug = (bool) $container->getParameter('assetic.debug');
         $cache = $this->getConfigAssetCache($container);
 
-        $this->addLocaleAssets($localeManagerDef, $ram->getLocaleManager()->getLocalizedAssets());
+        $this->addLocaleAssets($localeManagerDef, $aam->getLocaleManager()->getLocalizedAssets());
 
         if ($cache->hasResources()) {
             $resources = $cache->getResources();
             $currentCache = new ConfigAssetResourceCache($container->getParameter('assetic.cache_dir'));
             $currentCache->setResources($resources);
         } else {
-            $configs = $ram->getAsseticConfigResources($debug);
+            $configs = $aam->getAsseticConfigResources($debug);
             $resources = $configs->getResources();
             $cache->setResources($resources);
         }
@@ -120,13 +134,13 @@ class CompilerAssetsPass implements CompilerPassInterface
     /**
      * Add the common asset config in require asset manager.
      *
-     * @param RequireAssetManagerInterface $ram          The require asset manager
+     * @param AsseticAssetManagerInterface $aam          The require asset manager
      * @param array                        $commonAssets The common asset configs
      */
-    protected function addConfigCommonAssets(RequireAssetManagerInterface $ram, array $commonAssets)
+    protected function addConfigCommonAssets(AsseticAssetManagerInterface $aam, array $commonAssets)
     {
         foreach ($commonAssets as $commonName => $commonConfig) {
-            $ram->addCommonAsset(
+            $aam->addCommonAsset(
                 $commonName,
                 $commonConfig['inputs'],
                 $commonConfig['output'],
@@ -139,16 +153,16 @@ class CompilerAssetsPass implements CompilerPassInterface
     /**
      * Add the localized assets in locale manager.
      *
-     * @param RequireAssetManagerInterface $ram The require asset manager
+     * @param LocaleManagerInterface $lm The locale manager
      * @param array
      */
-    protected function addConfigLocaleAssets(RequireAssetManagerInterface $ram, array $localConfigs)
+    protected function addConfigLocaleAssets(LocaleManagerInterface $lm, array $localConfigs)
     {
         /* @var array $assetConfigs */
         foreach ($localConfigs as $locale => $assetConfigs) {
             /* @var array $localizedAssets */
             foreach ($assetConfigs as $assetSource => $localizedAssets) {
-                $ram->getLocaleManager()->addLocalizedAsset($assetSource, $locale, $localizedAssets);
+                $lm->addLocalizedAsset($assetSource, $locale, $localizedAssets);
             }
         }
     }
@@ -190,33 +204,41 @@ class CompilerAssetsPass implements CompilerPassInterface
      *
      * @param ContainerBuilder $container The container builder
      *
-     * @return RequireAssetManager The require asset manager
+     * @return AsseticAssetManager The require asset manager
      */
-    protected function getRequireAssetManager(ContainerBuilder $container)
+    protected function getAsseticAssetManager(ContainerBuilder $container)
     {
-        $prefixId = 'fxp_require_asset.assetic.config.';
         /* @var FileExtensionManagerInterface $extManager */
-        $extManager = $container->get($prefixId.'file_extension_manager');
+        $extManager = $container->get('fxp_require_asset.assetic.config.file_extension_manager');
         /* @var PatternManagerInterface $patternManager */
-        $patternManager = $container->get($prefixId.'pattern_manager');
+        $patternManager = $container->get('fxp_require_asset.assetic.config.pattern_manager');
         /* @var OutputManagerInterface $outputManager */
-        $outputManager = $container->get($prefixId.'output_manager');
-        /* @var LocaleManagerInterface $localeManager */
-        $localeManager = $container->get($prefixId.'locale_manager');
+        $outputManager = $container->get('fxp_require_asset.assetic.config.output_manager');
         /* @var PackageManagerInterface $packageManager */
-        $packageManager = $container->get($prefixId.'package_manager');
-        /* @var AssetReplacementManagerInterface $replacementManager */
-        $replacementManager = $container->get($prefixId.'asset_replacement_manager');
+        $packageManager = $container->get('fxp_require_asset.assetic.config.package_manager');
 
-        $ram = new RequireAssetManager();
-        $ram->setFileExtensionManager($extManager)
+        $aam = new AsseticAssetManager();
+        $aam->setFileExtensionManager($extManager)
             ->setPatternManager($patternManager)
             ->setOutputManager($outputManager)
-            ->setLocaleManager($localeManager)
-            ->setAssetReplacementManager($replacementManager)
+            ->setLocaleManager($this->getLocaleManager($container))
+            ->setAssetReplacementManager($this->getAssetReplacementManager($container))
             ->setPackageManager($packageManager);
 
-        return $ram;
+        return $aam;
+    }
+
+    /**
+     * Process container parameters.
+     *
+     * @param ContainerBuilder $container The container service
+     */
+    protected function doProcessParameters(ContainerBuilder $container)
+    {
+        /* @var ParameterBag $pb */
+        $pb = $container->getParameterBag();
+        $pb->remove('fxp_require_asset.assetic.config.common_assets');
+        $pb->remove('fxp_require_asset.config.asset_replacement');
     }
 
     /**
@@ -225,13 +247,36 @@ class CompilerAssetsPass implements CompilerPassInterface
      * @param ContainerBuilder        $container The container service
      * @param PackageManagerInterface $manager   The package manager
      */
-    protected function doProcessParameters(ContainerBuilder $container, PackageManagerInterface $manager)
+    protected function doProcessAsseticParameters(ContainerBuilder $container, PackageManagerInterface $manager)
     {
         /* @var ParameterBag $pb */
         $pb = $container->getParameterBag();
-        $pb->remove('fxp_require_asset.assetic.config.locales');
         $pb->remove('fxp_require_asset.assetic.config.common_assets');
-        $pb->remove('fxp_require_asset.assetic.config.asset_replacement');
+        $pb->remove('fxp_require_asset.assetic');
         $pb->set('fxp_require_asset.package_dirs', PackageUtils::getPackagePaths($manager));
+    }
+
+    /**
+     * Get the locale manager.
+     *
+     * @param ContainerBuilder $container The container builder
+     *
+     * @return LocaleManagerInterface
+     */
+    protected function getLocaleManager(ContainerBuilder $container)
+    {
+        return $container->get('fxp_require_asset.config.locale_manager');
+    }
+
+    /**
+     * Get the asset replacement manager.
+     *
+     * @param ContainerBuilder $container The container builder
+     *
+     * @return AssetReplacementManagerInterface
+     */
+    protected function getAssetReplacementManager(ContainerBuilder $container)
+    {
+        return $container->get('fxp_require_asset.config.asset_replacement_manager');
     }
 }

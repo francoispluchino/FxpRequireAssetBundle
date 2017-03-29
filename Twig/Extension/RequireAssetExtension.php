@@ -15,7 +15,7 @@ use Fxp\Component\RequireAsset\Twig\Extension\RequireAssetExtension as BaseRequi
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Asset extension.
+ * Require asset extension.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
@@ -32,7 +32,7 @@ class RequireAssetExtension extends BaseRequireAssetExtension
     public function requireAsset($asset)
     {
         if (null !== $this->container) {
-            $managerId = 'assetic.asset_manager';
+            $managerId = 'fxp_require_asset.chain_require_asset_manager';
             $this->manager = $this->container->get($managerId);
             $this->container = null;
         }

@@ -19,6 +19,7 @@ use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationComp
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CustomAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\NpmAssetsPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\RequireAssetManagerPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TagRendererPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TwigCompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
@@ -37,6 +38,7 @@ class FxpRequireAssetBundle extends Bundle
     {
         parent::build($container);
 
+        $container->addCompilerPass(new RequireAssetManagerPass());
         $container->addCompilerPass(new TagRendererPass());
         $container->addCompilerPass(new ComposerAssetsPass());
         $container->addCompilerPass(new NpmAssetsPass());

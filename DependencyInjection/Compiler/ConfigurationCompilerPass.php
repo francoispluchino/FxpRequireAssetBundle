@@ -48,6 +48,10 @@ class ConfigurationCompilerPass implements CompilerPassInterface
      */
     protected function configureManager(ContainerBuilder $container, ParameterBag $pb, $idManager, $idParameters, $methodCall)
     {
+        if (!$container->hasDefinition('fxp_require_asset.assetic.config.'.$idManager)) {
+            return;
+        }
+
         $def = $container->getDefinition('fxp_require_asset.assetic.config.'.$idManager);
         $packages = $container->getParameter('fxp_require_asset.assetic.config.'.$idParameters);
 
@@ -62,8 +66,8 @@ class ConfigurationCompilerPass implements CompilerPassInterface
      */
     protected function configureReplacement(ContainerBuilder $container)
     {
-        $def = $container->getDefinition('fxp_require_asset.assetic.config.asset_replacement_manager');
-        $replacement = $container->getParameter('fxp_require_asset.assetic.config.asset_replacement');
+        $def = $container->getDefinition('fxp_require_asset.config.asset_replacement_manager');
+        $replacement = $container->getParameter('fxp_require_asset.config.asset_replacement');
         $def->addMethodCall('addReplacements', array($replacement));
     }
 }

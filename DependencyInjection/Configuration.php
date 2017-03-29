@@ -61,6 +61,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->booleanNode('twig')->defaultValue(class_exists('Twig_Environment'))->end()
+                ->booleanNode('assetic')->defaultValue(class_exists('Assetic\AssetManager'))->end()
                 ->scalarNode('output_prefix')->defaultValue('assets')->end()
                 ->scalarNode('output_prefix_debug')->defaultValue('assets-dev')->end()
                 ->scalarNode('composer_installed_path')
@@ -73,6 +75,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('fallback_locale')->defaultNull()->end()
                 ->booleanNode('auto_configuration')->defaultTrue()->end()
                 ->scalarNode('less_assetic_filter')->defaultValue('less')->end()
+
             ->end()
         ;
         $this->appendGlobalConfig($rootNode);

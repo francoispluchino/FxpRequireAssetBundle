@@ -37,7 +37,7 @@ class ComposerAssetsPass implements CompilerPassInterface
         $baseDir = $container->getParameter('fxp_require_asset.base_dir');
         $installedPath = $container->getParameter('fxp_require_asset.composer_installed_path');
 
-        if (!file_exists($baseDir.'/composer.json') || !file_exists($installedPath)) {
+        if (!file_exists($baseDir.'/composer.json') || !file_exists($installedPath) || !$container->getParameter('fxp_require_asset.assetic')) {
             return;
         }
 

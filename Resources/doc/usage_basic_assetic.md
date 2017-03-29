@@ -1,5 +1,9 @@
-Basic usage
-===========
+Basic usage with Assetic
+========================
+
+### Prerequisites
+
+This feature require the dependency `symfony/assetic-bundle`.
 
 ### Usage with NPM/Bower Dependency Manager for Composer
 

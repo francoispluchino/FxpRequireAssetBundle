@@ -27,6 +27,10 @@ class BundleAssetsPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->getParameter('fxp_require_asset.assetic')) {
+            return;
+        }
+
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
         $bundles = $container->getParameter('kernel.bundles');
 

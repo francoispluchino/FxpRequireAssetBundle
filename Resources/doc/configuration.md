@@ -8,6 +8,8 @@ more finely in each package.
 
 #### Edit the default extensions configuration
 
+> Assetic feature
+
 All default extensions must be added to the section `fxp_require_asset.default.extensions` with
 the name of the file extension as a key, and an associative array as a value.
 
@@ -32,6 +34,8 @@ fxp_require_asset:
 ```
 
 #### Override the default extensions configuration
+
+> Assetic feature
 
 The parameter `fxp_require_asset.default.replace_extensions` (`bool`) allows to override the
 default configuration of file extension by your custom configuration of file extension (not merged).
@@ -67,6 +71,8 @@ By default, Only files whose extension is compatible with the internet browsers 
 
 #### Edit the default patterns configuration
 
+> Assetic feature
+
 All the filter patterns for the assets (in addition to the file extensions allowed), must
 be added to the `fxp_require_asset.default.patterns` section.
 
@@ -87,6 +93,8 @@ This example will copy all files whose the file extension is allowed, but to exc
 `test`.
 
 ### Edit the configuration for one package
+
+> Assetic feature
 
 The package config must be added to the `fxp_require_asset.packages.{package_name}` section (see
 [Special Configuration](configuration.md#special-configuration) for formatting package names).
@@ -217,6 +225,8 @@ fxp_require_asset:
 
 ### Edit the localized common asset
 
+> Assetic feature
+
 By default, the localized common assets are automatically added. Each localized common
 asset is added for each local available for each input.
 
@@ -249,6 +259,8 @@ fxp_require_asset:
 ```
 
 ### Rewrite the output path of asset files
+
+> Assetic feature
 
 You can completely change the target path of each asset via a list of `Glob` pattern. In this way,
 you master the directory of the asset, but also his name, as her name of file extension.
@@ -286,6 +298,8 @@ In this example, the variable `$0` is the folder name, and the variable `$1` is 
 
 ### Rewrite the url reference in the CSS assets
 
+> Assetic feature
+
 By default, Assetic has the filter `cssrewrite` to do this work, but alas, it may not be compatible
 with the system of rewriting the public output of the asset.
 
@@ -301,6 +315,8 @@ fxp_require_asset:
 ```
 
 ### Replace the symfony parameters in assets
+
+> Assetic feature
 
 You can replace the symfony parameters in asset file.
 
@@ -323,6 +339,8 @@ In your asset file, use the `%` before et after the symfony parameter name.
 
 ### Using the asset package paths in LESS files
 
+> Assetic feature
+
 You can add the source paths of asset packages in variables to the beginning of the file.
 
 **Example of configuration for used the Less Variable Filter:**
@@ -335,6 +353,8 @@ fxp_require_asset:
 ```
 
 ### Change the output prefix
+
+> Assetic feature
 
 By default, the assets are copied to two different folders depending on the debug mode:
 
@@ -351,6 +371,8 @@ fxp_require_asset:
 
 ### Replace an asset by another asset
 
+> Assetic feature
+
 You can indicate to the require asset manager that an asset to be replaced by another asset:
 
 ```yaml
@@ -363,6 +385,8 @@ For this example, the `@asset1/path.ext` will be replace by the `acme_demo_bundl
 
 ### Change the composer installed path
 
+> Assetic feature
+
 You can manually define composer installed file with the parameter `fxp_require_asset.composer_installed_path`:
 
 ```yaml
@@ -371,6 +395,8 @@ fxp_require_asset:
 ```
 
 ### Change the project base directory
+
+> Assetic feature
 
 You can manually define the project root with the parameter `fxp_require_asset.base_dir`:
 
@@ -404,6 +430,8 @@ Special configuration
 
 ### Package provided by NPM/Bower Dependency Manager for Composer
 
+> Assetic feature
+
 The package name is formatted in this way:
 
 - **NPM:** `@npm/{npm-package-name}`
@@ -415,6 +443,8 @@ the name of the asset package.
 **Example:** `web/assets/{asset-package-name}/`
 
 ### Package provied by Symfony Bundle
+
+> Assetic feature
 
 The package name is formatted using the name of the complete name of bundle, separated by
 underscores, with the lowercase characters.

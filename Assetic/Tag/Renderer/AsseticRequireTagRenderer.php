@@ -9,20 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Fxp\Bundle\RequireAssetBundle\Tag\Renderer;
+namespace Fxp\Bundle\RequireAssetBundle\Assetic\Tag\Renderer;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Factory\LazyAssetManager;
-use Fxp\Component\RequireAsset\Assetic\Config\LocaleManagerInterface;
-use Fxp\Component\RequireAsset\Tag\Renderer\RequireTagRenderer as BaseRequireTagRenderer;
+use Fxp\Component\RequireAsset\Asset\Config\LocaleManagerInterface;
+use Fxp\Component\RequireAsset\Assetic\Tag\Renderer\AsseticRequireTagRenderer as BaseAsseticRequireTagRenderer;
 use Symfony\Component\Asset\Packages;
 
 /**
- * Require tag renderer with templating asset packages.
+ * Assetic require tag renderer with templating asset packages.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class RequireTagRenderer extends BaseRequireTagRenderer
+class AsseticRequireTagRenderer extends BaseAsseticRequireTagRenderer
 {
     /**
      * @var Packages

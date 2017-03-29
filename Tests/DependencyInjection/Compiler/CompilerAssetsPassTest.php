@@ -98,7 +98,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
         }
 
         // locale manager
-        $localeManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.locale_manager');
+        $localeManagerDef = $container->getDefinition('fxp_require_asset.config.locale_manager');
         $localeMethodCalls = $localeManagerDef->getMethodCalls();
 
         foreach ($localeMethodCalls as $methodCall) {
@@ -109,6 +109,21 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
             $this->assertInternalType('string', $methodCall[1][1]);
             $this->assertInternalType('array', $methodCall[1][2]);
         }
+    }
+
+    public function testProcessWithoutAssetic()
+    {
+        $this->createFixtures();
+        $container = $this->getContainer(false);
+        $this->includeAssetPackageDefinition($container);
+        $this->includeLocaleAssetDefinition($container);
+        $this->includeCommonAssetDefinition($container);
+
+        $managerDef = $container->getDefinition('assetic.asset_manager');
+
+        $this->assertCount(0, $managerDef->getMethodCalls());
+        $this->pass->process($container);
+        $this->assertCount(0, $managerDef->getMethodCalls());
     }
 
     protected function includeAssetPackageDefinition(ContainerBuilder $container)
@@ -143,7 +158,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $container->setParameter('fxp_require_asset.assetic.config.locales', $locales);
+        $container->setParameter('fxp_require_asset.config.locales', $locales);
     }
 
     protected function includeCommonAssetDefinition(ContainerBuilder $container)
@@ -174,9 +189,11 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
     /**
      * Gets the container.
      *
+     * @param bool $assetic
+     *
      * @return ContainerBuilder
      */
-    protected function getContainer()
+    protected function getContainer($assetic = true)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => $this->rootDir.'/cache',
@@ -197,6 +214,7 @@ class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
 
         $asseticManager = new Definition('Assetic\Factory\LazyAssetManager');
         $container->setDefinition('assetic.asset_manager', $asseticManager);
+        $container->setParameter('fxp_require_asset.assetic', $assetic);
 
         return $container;
     }

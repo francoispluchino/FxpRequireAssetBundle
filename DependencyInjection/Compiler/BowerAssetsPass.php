@@ -26,7 +26,7 @@ class BowerAssetsPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->getParameter('fxp_require_asset.native_bower')) {
+        if (!$container->getParameter('fxp_require_asset.native_bower') || !$container->getParameter('fxp_require_asset.assetic')) {
             return;
         }
 

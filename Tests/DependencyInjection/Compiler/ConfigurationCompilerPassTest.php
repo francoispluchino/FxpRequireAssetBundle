@@ -91,12 +91,37 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testProcessWithoutAssetic()
+    {
+        $container = $this->getContainer(false);
+        $configs = array(
+            array('file_extension_manager', 'file_extensions', 'addDefaultExtensions'),
+            array('pattern_manager',        'patterns',        'addDefaultPatterns'),
+            array('output_manager',         'output_rewrites', 'addOutputPatterns'),
+            array('package_manager',        'packages',        'addPackages'),
+        );
+
+        foreach ($configs as $config) {
+            $this->assertFalse($container->hasDefinition($this->servicePrefix.$config[0]));
+            $this->assertFalse($container->hasParameter($this->servicePrefix.$config[1]));
+        }
+
+        $this->pass->process($container);
+
+        foreach ($configs as $config) {
+            $this->assertFalse($container->hasDefinition($this->servicePrefix.$config[0]));
+            $this->assertFalse($container->hasParameter($this->servicePrefix.$config[1]));
+        }
+    }
+
     /**
      * Gets the container.
      *
+     * @param bool $managers
+     *
      * @return ContainerBuilder
      */
-    protected function getContainer()
+    protected function getContainer($managers = true)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
             'kernel.cache_dir' => $this->rootDir.'/cache',
@@ -110,11 +135,14 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
             'kernel.bundles' => array(),
         )));
 
-        $this->configureManager($container, 'file_extension_manager', 'file_extensions');
-        $this->configureManager($container, 'pattern_manager', 'patterns');
-        $this->configureManager($container, 'output_manager', 'output_rewrites');
-        $this->configureManager($container, 'package_manager', 'packages');
-        $this->configureManager($container, 'asset_replacement_manager', 'asset_replacement');
+        if ($managers) {
+            $this->configureManager($container, 'file_extension_manager', 'file_extensions');
+            $this->configureManager($container, 'pattern_manager', 'patterns');
+            $this->configureManager($container, 'output_manager', 'output_rewrites');
+            $this->configureManager($container, 'package_manager', 'packages');
+        }
+
+        $this->configureManager($container, 'asset_replacement_manager', 'asset_replacement', 'fxp_require_asset.config.');
 
         return $container;
     }
@@ -125,11 +153,13 @@ class ConfigurationCompilerPassTest extends \PHPUnit_Framework_TestCase
      * @param ContainerBuilder $container
      * @param string           $idManager
      * @param string           $idParameters
+     * @param string|null      $servicePrefix
      */
-    protected function configureManager(ContainerBuilder $container, $idManager, $idParameters)
+    protected function configureManager(ContainerBuilder $container, $idManager, $idParameters, $servicePrefix = null)
     {
+        $servicePrefix = null !== $servicePrefix ? $servicePrefix : $this->servicePrefix;
         $managerDef = new Definition('Foobar\Manager');
-        $container->setDefinition($this->servicePrefix.$idManager, $managerDef);
-        $container->setParameter($this->servicePrefix.$idParameters, array());
+        $container->setDefinition($servicePrefix.$idManager, $managerDef);
+        $container->setParameter($servicePrefix.$idParameters, array());
     }
 }

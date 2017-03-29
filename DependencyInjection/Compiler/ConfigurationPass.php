@@ -27,7 +27,7 @@ class ConfigurationPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ($container->getParameter('fxp_require_asset.config.auto_configuration')) {
+        if ($container->getParameter('fxp_require_asset.config.auto_configuration') && $container->hasDefinition('fxp_require_asset.assetic.config.file_extension_manager')) {
             $this->processDefault($container);
         }
 

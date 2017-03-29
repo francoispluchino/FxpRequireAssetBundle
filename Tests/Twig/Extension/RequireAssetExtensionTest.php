@@ -25,7 +25,7 @@ class RequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage You have requested a non-existent service "assetic.asset_manager".
+     * @expectedExceptionMessage You have requested a non-existent service "fxp_require_asset.chain_require_asset_manager".
      */
     public function testContainerServiceWithoutContainerRenderers()
     {
@@ -68,7 +68,7 @@ class RequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
 
         if ($useContainer) {
             $asseticManager = new Definition('Assetic\AssetManager');
-            $container->setDefinition('assetic.asset_manager', $asseticManager);
+            $container->setDefinition('fxp_require_asset.chain_require_asset_manager', $asseticManager);
         }
 
         $container->getCompilerPassConfig()->setOptimizationPasses(array());

@@ -55,6 +55,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'asset_replacement' => array(),
             'auto_configuration' => true,
             'less_assetic_filter' => 'less',
+            'assetic' => true,
+            'twig' => true,
         );
     }
 }

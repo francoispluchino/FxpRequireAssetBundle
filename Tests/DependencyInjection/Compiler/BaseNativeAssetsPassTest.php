@@ -94,6 +94,7 @@ abstract class BaseNativeAssetsPassTest extends \PHPUnit_Framework_TestCase
 
         $container->setParameter('fxp_require_asset.base_dir', $this->rootDir);
         $container->setParameter('fxp_require_asset.'.$this->getConfigOptionName(), $active);
+        $container->setParameter('fxp_require_asset.assetic', true);
 
         $pmDef = new Definition('Fxp\Component\RequireAsset\Assetic\Config\PackageManager');
         $container->setDefinition('fxp_require_asset.assetic.config.package_manager', $pmDef);

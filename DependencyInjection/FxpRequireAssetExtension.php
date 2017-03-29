@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection;
 
 use Fxp\Component\RequireAsset\Assetic\Util\FileExtensionUtils;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -31,18 +32,39 @@ class FxpRequireAssetExtension extends Extension
     {
         $configuration = new Configuration($container->getParameter('kernel.root_dir'), $container->getParameter('locale'));
         $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('twig.xml');
-        $loader->load('assetic.xml');
-        $loader->load('assetic_filter.xml');
-        $loader->load('exception_listener.xml');
 
+        $this->loadServices($loader, $config);
         $this->prepareDebugCommonAssets($container, $config['common_assets']);
         $this->removeDisabledCommonAssets($config['common_assets']);
-        $this->configureAssetic($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['native_npm'], $config['native_bower'], $config['base_dir']);
+        $this->configureAsset($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['native_npm'], $config['native_bower'], $config['base_dir']);
         $this->configureFileExtensionManager($container, $config['default']);
         $this->loadParameters($container, $config);
+    }
+
+    /**
+     * Load the services.
+     *
+     * @param LoaderInterface $loader The config loader
+     * @param array           $config The config
+     */
+    protected function loadServices(LoaderInterface $loader, array $config)
+    {
+        $loader->load('asset.xml');
+
+        if ($config['twig']) {
+            $loader->load('twig.xml');
+            $loader->load('exception_listener.xml');
+        }
+
+        if ($config['assetic']) {
+            $loader->load('assetic.xml');
+            $loader->load('assetic_filter.xml');
+
+            if ($config['twig']) {
+                $loader->load('twig_assetic.xml');
+            }
+        }
     }
 
     /**
@@ -54,21 +76,22 @@ class FxpRequireAssetExtension extends Extension
     protected function loadParameters(ContainerBuilder $container, array $config)
     {
         $default = $config['default'];
+        $container->setParameter('fxp_require_asset.assetic', $config['assetic']);
         $container->setParameter('fxp_require_asset.assetic.config.file_extensions', $default['extensions']);
         $container->setParameter('fxp_require_asset.assetic.config.patterns', $default['patterns']);
         $container->setParameter('fxp_require_asset.assetic.config.output_rewrites', $config['output_rewrites']);
         $container->setParameter('fxp_require_asset.assetic.config.packages', $config['packages']);
-        $container->setParameter('fxp_require_asset.assetic.config.asset_replacement', $config['asset_replacement']);
         $container->setParameter('fxp_require_asset.assetic.config.common_assets', $config['common_assets']);
-        $container->setParameter('fxp_require_asset.assetic.config.default_locale', $config['default_locale']);
-        $container->setParameter('fxp_require_asset.assetic.config.fallback_locale', $config['fallback_locale']);
-        $container->setParameter('fxp_require_asset.assetic.config.locales', $config['locales']);
-        $container->setParameter('fxp_require_asset.config.auto_configuration', $config['auto_configuration']);
         $container->setParameter('fxp_require_asset.assetic.config.less_filter', $config['less_assetic_filter']);
+        $container->setParameter('fxp_require_asset.config.default_locale', $config['default_locale']);
+        $container->setParameter('fxp_require_asset.config.fallback_locale', $config['fallback_locale']);
+        $container->setParameter('fxp_require_asset.config.locales', $config['locales']);
+        $container->setParameter('fxp_require_asset.config.asset_replacement', $config['asset_replacement']);
+        $container->setParameter('fxp_require_asset.config.auto_configuration', $config['auto_configuration']);
     }
 
     /**
-     * Configure assetic.
+     * Configure asset.
      *
      * @param ContainerBuilder $container
      * @param string           $output
@@ -78,9 +101,9 @@ class FxpRequireAssetExtension extends Extension
      * @param bool             $nativeBower
      * @param string           $baseDir
      */
-    protected function configureAssetic(ContainerBuilder $container, $output, $outputDebug, $composerInstalled, $nativeNpm, $nativeBower, $baseDir)
+    protected function configureAsset(ContainerBuilder $container, $output, $outputDebug, $composerInstalled, $nativeNpm, $nativeBower, $baseDir)
     {
-        $debug = $container->getParameter('assetic.debug');
+        $debug = !$container->hasParameter('assetic.debug') || $container->getParameter('assetic.debug');
         $output = $debug ? $outputDebug : $output;
 
         $container->setParameter('fxp_require_asset.output_prefix', (string) $output);
@@ -91,14 +114,14 @@ class FxpRequireAssetExtension extends Extension
     }
 
     /**
-     * Configure the default file extentions section.
+     * Configure the default file extensions section.
      *
      * @param ContainerBuilder $container
      * @param array            $default
      */
     protected function configureFileExtensionManager(ContainerBuilder $container, array $default)
     {
-        if (!$default['replace_extensions']) {
+        if (!$default['replace_extensions'] && $container->hasDefinition('fxp_require_asset.assetic.config.file_extension_manager')) {
             $def = $container->getDefinition('fxp_require_asset.assetic.config.file_extension_manager');
             $def->addMethodCall('addDefaultExtensions', array(FileExtensionUtils::getDefaultConfigs()));
         }
@@ -113,13 +136,14 @@ class FxpRequireAssetExtension extends Extension
     protected function prepareDebugCommonAssets(ContainerBuilder $container, array &$commonAssets)
     {
         $debugCommonAssets = array();
+        $asseticDebug = !$container->hasParameter('assetic.debug') || $container->getParameter('assetic.debug');
 
         foreach ($commonAssets as $name => &$config) {
             $isDebug = array_key_exists('require_debug', $config['options'])
                 ? (bool) $config['options']['require_debug']
                 : true;
 
-            if ($container->getParameter('assetic.debug') && $isDebug) {
+            if ($asseticDebug && $isDebug) {
                 $debugCommonAssets[$name] = $config['inputs'];
                 unset($commonAssets[$name]);
             }
