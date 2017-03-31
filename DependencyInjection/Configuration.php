@@ -75,7 +75,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('fallback_locale')->defaultNull()->end()
                 ->booleanNode('auto_configuration')->defaultTrue()->end()
                 ->scalarNode('less_assetic_filter')->defaultValue('less')->end()
-
+                ->append($this->getWebpackNode())
             ->end()
         ;
         $this->appendGlobalConfig($rootNode);
@@ -123,7 +123,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Get packages config node.
+     * Get output rewrites config node.
      *
      * @return NodeDefinition
      */
@@ -136,6 +136,35 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('name')
             ->normalizeKeys(false)
             ->prototype('variable')->end()
+        ;
+
+        return $node;
+    }
+
+    /**
+     * Get webpack config node.
+     *
+     * @return NodeDefinition
+     */
+    private function getWebpackNode()
+    {
+        $treeBuilder = new TreeBuilder();
+        $node = $treeBuilder->root('webpack');
+
+        $node
+            ->canBeDisabled()
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->booleanNode('assets_file')->defaultValue($this->rootDir.'/../assets.json')->end()
+                ->arrayNode('cache')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')->defaultValue(null)->end()
+                        ->booleanNode('key')->defaultValue('fxp_require_asset_webpack_assets')->end()
+                        ->scalarNode('service_id')->defaultValue('cache.app')->end()
+                    ->end()
+                ->end()
+            ->end()
         ;
 
         return $node;

@@ -67,5 +67,6 @@ The following documents are available:
 
 - [Custom configuration](configuration.md)
 - [Basic usage with Assetic](usage_basic_assetic.md)
+- [Require Webpack asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset_webpack.md)
 - [Require asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset.md)
 - [Inline asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_inline_asset.md)

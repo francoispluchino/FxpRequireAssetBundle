@@ -29,7 +29,7 @@ class RequireAssetExtension extends BaseRequireAssetExtension
     /**
      * {@inheritdoc}
      */
-    public function requireAsset($asset)
+    public function requireAsset($asset, $type = null)
     {
         if (null !== $this->container) {
             $managerId = 'fxp_require_asset.chain_require_asset_manager';
@@ -37,6 +37,6 @@ class RequireAssetExtension extends BaseRequireAssetExtension
             $this->container = null;
         }
 
-        return parent::requireAsset($asset);
+        return parent::requireAsset($asset, $type);
     }
 }

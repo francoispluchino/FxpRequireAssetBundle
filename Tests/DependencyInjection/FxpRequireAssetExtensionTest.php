@@ -87,6 +87,19 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
         $this->getContainer($config, true);
     }
 
+    public function testWebpackCache()
+    {
+        $config = array(
+            'webpack' => array(
+                'cache' => array(
+                    'enabled' => true,
+                ),
+            ),
+        );
+
+        $this->getContainer($config, true);
+    }
+
     public function testNotAddCompilerForKernelNameWithoutUnderscore()
     {
         $container = $this->getContainer(array(), false, 'kernel_');

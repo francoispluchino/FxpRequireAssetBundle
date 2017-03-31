@@ -40,6 +40,7 @@ class FxpRequireAssetExtension extends Extension
         $this->configureAsset($container, $config['output_prefix'], $config['output_prefix_debug'], $config['composer_installed_path'], $config['native_npm'], $config['native_bower'], $config['base_dir']);
         $this->configureFileExtensionManager($container, $config['default']);
         $this->loadParameters($container, $config);
+        $this->configureWebpack($loader, $container, $config['webpack'], $config['twig']);
     }
 
     /**
@@ -165,6 +166,39 @@ class FxpRequireAssetExtension extends Extension
             }
 
             unset($config['options']['disabled']);
+        }
+    }
+
+    /**
+     * Configure the webpack section.
+     *
+     * @param LoaderInterface  $loader    The service loader
+     * @param ContainerBuilder $container The container
+     * @param array            $config    The webpack config
+     * @param bool             $withTwig  Check if the twig feature must be used
+     */
+    protected function configureWebpack(LoaderInterface $loader, ContainerBuilder $container, array $config, $withTwig)
+    {
+        if ($config['enabled']) {
+            $assetsFile = $config['assets_file'];
+            $cacheId = $config['cache']['service_id'];
+            $cacheKey = $config['cache']['key'];
+            $cacheEnabled = $config['cache']['enabled'];
+            $cacheEnabled = null !== $cacheEnabled
+                ? $cacheEnabled
+                : !$container->getParameter('kernel.debug');
+
+            $loader->load('webpack.xml');
+            $container->setParameter('fxp_require_asset.require_asset_manager.webpack.assets_file', $assetsFile);
+            $container->setParameter('fxp_require_asset.require_asset_manager.webpack.cache_key', $cacheKey);
+
+            if ($cacheEnabled) {
+                $container->setAlias('fxp_require_asset.require_asset_manager.webpack.cache', $cacheId);
+            }
+
+            if ($withTwig) {
+                $loader->load('twig_webpack.xml');
+            }
         }
     }
 }

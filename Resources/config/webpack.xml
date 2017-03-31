@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Webpack Require Asset Manager -->
+        <service id="fxp_require_asset.require_asset_manager.webpack" class="Fxp\Component\RequireAsset\Webpack\WebpackRequireAssetManager">
+            <tag name="fxp_require_asset.require_asset_manager" priority="-250" />
+            <argument>%fxp_require_asset.require_asset_manager.webpack.assets_file%</argument>
+            <argument type="service" id="fxp_require_asset.require_asset_manager.webpack.cache" on-invalid="null" />
+            <argument>%fxp_require_asset.require_asset_manager.webpack.cache_key%</argument>
+        </service>
+    </services>
+</container>

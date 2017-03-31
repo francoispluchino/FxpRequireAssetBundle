@@ -425,6 +425,42 @@ fxp_require_asset:
     native_bower: false
 ```
 
+### Change the webpack assets file
+
+By default, the localisation of the webpack assets json file is in the root
+directory of your project and it's named `assets.json`.
+But you can edit the localisation:
+
+```yaml
+fxp_require_asset:
+    webpack:
+        assets_file: '%kernel.root_dir%/var/my_custom_assets.json'
+```
+
+### Disable Webpack
+
+By default, the Webpack require tag renderer is enabled, but you can disable it:
+
+```yaml
+fxp_require_asset:
+    webpack:
+        enabled: false
+```
+
+### Disable the assets cache of Webpack manager
+
+By default, the cache is enabled only in production, and use the `cache.app` cache service. However,
+you can enable manually the cache of the webpack manager or change the cache service:
+
+```yaml
+fxp_require_asset:
+    webpack:
+        cache:
+            enabled: true
+            service_id: 'cache.custom_service_id'
+            key: 'custom_key_used_in_cache'
+```
+
 Special configuration
 ---------------------
 

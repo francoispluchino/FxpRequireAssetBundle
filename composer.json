@@ -1,8 +1,8 @@
 {
     "name": "fxp/require-asset-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony Bundle for required assets helper for assetic manager and twig",
-    "keywords": ["asset", "require", "twig", "assetic", "javascript", "stylesheet", "user interface", "ui", "symfony", "bundle"],
+    "description": "Symfony bundle helper of required assets for Twig with Assetic or Webpack",
+    "keywords": ["asset", "require", "webpack", "twig", "assetic", "javascript", "stylesheet", "user interface", "ui", "symfony", "bundle"],
     "homepage": "https://github.com/fxpio/fxp-require-asset-bundle",
     "license": "MIT",
     "authors": [

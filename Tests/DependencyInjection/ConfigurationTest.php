@@ -57,6 +57,15 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'less_assetic_filter' => 'less',
             'assetic' => true,
             'twig' => true,
+            'webpack' => array(
+                'enabled' => true,
+                'assets_file' => 'ROOT_DIR/../assets.json',
+                'cache' => array(
+                    'enabled' => null,
+                    'key' => 'fxp_require_asset_webpack_assets',
+                    'service_id' => 'cache.app',
+                ),
+            ),
         );
     }
 }

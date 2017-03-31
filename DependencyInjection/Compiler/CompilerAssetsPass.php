@@ -52,6 +52,7 @@ class CompilerAssetsPass implements CompilerPassInterface
         $this->getAssetReplacementManager($container)->addReplacements($container->getParameter('fxp_require_asset.config.asset_replacement'));
         $this->addConfigLocaleAssets($this->getLocaleManager($container), $container->getParameter('fxp_require_asset.config.locales'));
         $this->processForAssetic($container);
+        $this->processLocales($container);
         $this->doProcessParameters($container);
     }
 
@@ -81,6 +82,17 @@ class CompilerAssetsPass implements CompilerPassInterface
     }
 
     /**
+     * Process the locales in the service definition of locale manager.
+     *
+     * @param ContainerBuilder $container
+     */
+    protected function processLocales(ContainerBuilder $container)
+    {
+        $localeManagerDef = $container->getDefinition('fxp_require_asset.config.locale_manager');
+        $this->addLocaleAssets($localeManagerDef, $this->getLocaleManager($container)->getLocalizedAssets());
+    }
+
+    /**
      * Get the config asset resources.
      *
      * @param ContainerBuilder             $container The container service
@@ -90,11 +102,8 @@ class CompilerAssetsPass implements CompilerPassInterface
      */
     protected function getAssetResources(ContainerBuilder $container, AsseticAssetManagerInterface $aam)
     {
-        $localeManagerDef = $container->getDefinition('fxp_require_asset.config.locale_manager');
         $debug = (bool) $container->getParameter('assetic.debug');
         $cache = $this->getConfigAssetCache($container);
-
-        $this->addLocaleAssets($localeManagerDef, $aam->getLocaleManager()->getLocalizedAssets());
 
         if ($cache->hasResources()) {
             $resources = $cache->getResources();
@@ -168,7 +177,7 @@ class CompilerAssetsPass implements CompilerPassInterface
     }
 
     /**
-     * Adds the common assets.
+     * Adds the locale assets.
      *
      * @param Definition $localeManagerDef The locale manager
      * @param array      $localeAssets     The config of locale assets

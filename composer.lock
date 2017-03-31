@@ -82,12 +82,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fxpio/fxp-require-asset.git",
-                "reference": "1f4105814614d5c14b829cd686c00f6fc1b48d91"
+                "reference": "a479f5cb23357aed94e4543912b50c10438014cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fxpio/fxp-require-asset/zipball/1f4105814614d5c14b829cd686c00f6fc1b48d91",
-                "reference": "1f4105814614d5c14b829cd686c00f6fc1b48d91",
+                "url": "https://api.github.com/repos/fxpio/fxp-require-asset/zipball/a479f5cb23357aed94e4543912b50c10438014cd",
+                "reference": "a479f5cb23357aed94e4543912b50c10438014cd",
                 "shasum": ""
             },
             "require": {
@@ -98,6 +98,7 @@
             },
             "require-dev": {
                 "kriswallsmith/assetic": "^1.3.0",
+                "psr/cache": "^1.0.0",
                 "twig/twig": "^2.0.0"
             },
             "suggest": {
@@ -127,7 +128,7 @@
                     "email": "francois.pluchino@gmail.com"
                 }
             ],
-            "description": "Required assets helper for assetic manager and twig",
+            "description": "Helper of required assets for Twig with Assetic or Webpack",
             "homepage": "https://github.com/fxpio/fxp-require-asset",
             "keywords": [
                 "asset",
@@ -137,9 +138,10 @@
                 "stylesheet",
                 "twig",
                 "ui",
-                "user interface"
+                "user interface",
+                "webpack"
             ],
-            "time": "2017-03-29T17:33:06+00:00"
+            "time": "2017-03-31T17:24:24+00:00"
         },
         {
             "name": "paragonie/random_compat",
