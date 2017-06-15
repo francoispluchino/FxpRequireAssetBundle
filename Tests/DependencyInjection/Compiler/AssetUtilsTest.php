@@ -12,6 +12,7 @@
 namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection\Compiler;
 
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\AssetUtils;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -19,7 +20,7 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class AssetUtilsTest extends \PHPUnit_Framework_TestCase
+class AssetUtilsTest extends TestCase
 {
     /**
      * @var string

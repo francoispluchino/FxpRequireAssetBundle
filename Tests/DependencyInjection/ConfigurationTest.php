@@ -12,6 +12,7 @@
 namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection;
 
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Configuration;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
@@ -19,7 +20,7 @@ use Symfony\Component\Config\Definition\Processor;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     public function testDefaultConfig()
     {

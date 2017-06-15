@@ -12,6 +12,7 @@
 namespace Fxp\Bundle\RequireAssetBundle\Tests\Assetic\Cache;
 
 use Fxp\Bundle\RequireAssetBundle\Assetic\Cache\ConfigAssetResourceCache;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -19,7 +20,7 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class ConfigAssetResourceCacheTest extends \PHPUnit_Framework_TestCase
+class ConfigAssetResourceCacheTest extends TestCase
 {
     /**
      * @var ConfigAssetResourceCache

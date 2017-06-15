@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\Tests\Assetic\Filter;
 
 use Assetic\Asset\StringAsset;
 use Fxp\Bundle\RequireAssetBundle\Assetic\Filter\ParameterBagFilter;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
@@ -21,7 +22,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class ParameterBagFilterTest extends \PHPUnit_Framework_TestCase
+class ParameterBagFilterTest extends TestCase
 {
     public function test()
     {
@@ -48,7 +49,7 @@ class ParameterBagFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new ParameterBagFilter();
         $filter->container = $this->getContainer();
 
-        $filter->hash();
+        $this->assertNotNull($filter->hash());
     }
 
     /**

@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection;
 
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\FxpRequireAssetExtension;
 use Fxp\Bundle\RequireAssetBundle\FxpRequireAssetBundle;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
@@ -23,7 +24,7 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
+class FxpRequireAssetExtensionTest extends TestCase
 {
     /**
      * @var string
@@ -64,7 +65,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->getContainer($config);
+        $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config));
     }
 
     public function testDebugCommonAssets()
@@ -84,7 +85,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->getContainer($config, true);
+        $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config, true));
     }
 
     public function testWebpackCache()
@@ -97,7 +98,7 @@ class FxpRequireAssetExtensionTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $this->getContainer($config, true);
+        $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config, true));
     }
 
     public function testNotAddCompilerForKernelNameWithoutUnderscore()

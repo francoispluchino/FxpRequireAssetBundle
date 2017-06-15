@@ -15,6 +15,7 @@ use Fxp\Bundle\RequireAssetBundle\Webpack\Tag\Renderer\WebpackRequireTagRenderer
 use Fxp\Component\RequireAsset\Tag\RequireTagInterface;
 use Fxp\Component\RequireAsset\Tag\TagInterface;
 use Fxp\Component\RequireAsset\Webpack\WebpackRequireAssetManager;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
@@ -24,7 +25,7 @@ use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class WebpackRequireTagRendererTest extends \PHPUnit_Framework_TestCase
+class WebpackRequireTagRendererTest extends TestCase
 {
     public function testGetTargetPathWithTemplatingHelper()
     {

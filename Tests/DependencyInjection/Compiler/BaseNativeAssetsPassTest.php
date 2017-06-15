@@ -11,6 +11,7 @@
 
 namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -22,7 +23,7 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-abstract class BaseNativeAssetsPassTest extends \PHPUnit_Framework_TestCase
+abstract class BaseNativeAssetsPassTest extends TestCase
 {
     /**
      * @var string

@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\Tests\Assetic\Filter;
 
 use Assetic\Asset\StringAsset;
 use Fxp\Bundle\RequireAssetBundle\Assetic\Filter\LessVariableFilter;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
@@ -21,7 +22,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class LessVariableFilterTest extends \PHPUnit_Framework_TestCase
+class LessVariableFilterTest extends TestCase
 {
     public function test()
     {

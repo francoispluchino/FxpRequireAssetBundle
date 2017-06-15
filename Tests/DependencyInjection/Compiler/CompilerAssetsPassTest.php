@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\Tests\DependencyInjection\Compiler;
 
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CompilerAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\FxpRequireAssetExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
@@ -23,7 +24,7 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class CompilerAssetsPassTest extends \PHPUnit_Framework_TestCase
+class CompilerAssetsPassTest extends TestCase
 {
     /**
      * @var string

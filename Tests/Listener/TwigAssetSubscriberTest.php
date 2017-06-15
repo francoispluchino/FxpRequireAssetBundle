@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\Tests\Listener;
 
 use Fxp\Bundle\RequireAssetBundle\Listener\TwigAssetSubscriber;
 use Fxp\Bundle\RequireAssetBundle\Twig\Extension\AssetExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -20,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class TwigAssetSubscriberTest extends \PHPUnit_Framework_TestCase
+class TwigAssetSubscriberTest extends TestCase
 {
     public function testResetTagPositionException()
     {

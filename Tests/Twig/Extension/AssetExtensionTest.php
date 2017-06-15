@@ -12,6 +12,7 @@
 namespace Fxp\Bundle\RequireAssetBundle\Tests\Twig\Extension;
 
 use Fxp\Bundle\RequireAssetBundle\Twig\Extension\AssetExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
@@ -22,7 +23,7 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class AssetExtensionTest extends \PHPUnit_Framework_TestCase
+class AssetExtensionTest extends TestCase
 {
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException

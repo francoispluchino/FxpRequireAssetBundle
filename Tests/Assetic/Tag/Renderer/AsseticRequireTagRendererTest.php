@@ -16,6 +16,7 @@ use Assetic\Factory\AssetFactory;
 use Assetic\Factory\LazyAssetManager;
 use Fxp\Bundle\RequireAssetBundle\Assetic\Tag\Renderer\AsseticRequireTagRenderer;
 use Fxp\Component\RequireAsset\Tag\TagInterface;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
@@ -25,7 +26,7 @@ use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
  */
-class AsseticRequireTagRendererTest extends \PHPUnit_Framework_TestCase
+class AsseticRequireTagRendererTest extends TestCase
 {
     public function testGetTargetPathWithTemplatingHelper()
     {
