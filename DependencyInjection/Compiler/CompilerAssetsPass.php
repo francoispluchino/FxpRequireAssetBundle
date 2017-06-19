@@ -149,8 +149,7 @@ class CompilerAssetsPass implements CompilerPassInterface
     protected function addConfigCommonAssets(AsseticAssetManagerInterface $aam, array $commonAssets)
     {
         foreach ($commonAssets as $commonName => $commonConfig) {
-            $aam->addCommonAsset(
-                $commonName,
+            $aam->addCommonAsset($commonName,
                 $commonConfig['inputs'],
                 $commonConfig['output'],
                 $commonConfig['filters'],
