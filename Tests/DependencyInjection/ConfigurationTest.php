@@ -25,7 +25,7 @@ class ConfigurationTest extends TestCase
     public function testDefaultConfig()
     {
         $processor = new Processor();
-        $config = $processor->processConfiguration(new Configuration('ROOT_DIR', 'en'), array(array()));
+        $config = $processor->processConfiguration(new Configuration('PROJECT_DIR', 'en'), array(array()));
 
         $this->assertEquals(
             array_merge(array(), self::getBundleDefaultConfig()),
@@ -38,10 +38,10 @@ class ConfigurationTest extends TestCase
         return array(
             'output_prefix' => 'assets',
             'output_prefix_debug' => 'assets-dev',
-            'composer_installed_path' => 'ROOT_DIR/../vendor/composer/installed.json',
+            'composer_installed_path' => 'PROJECT_DIR/vendor/composer/installed.json',
             'native_npm' => true,
             'native_bower' => true,
-            'base_dir' => 'ROOT_DIR/..',
+            'base_dir' => 'PROJECT_DIR',
             'default' => array(
                 'replace_extensions' => false,
                 'extensions' => array(),
@@ -60,7 +60,7 @@ class ConfigurationTest extends TestCase
             'twig' => true,
             'webpack' => array(
                 'enabled' => true,
-                'assets_file' => 'ROOT_DIR/../assets.json',
+                'assets_file' => 'PROJECT_DIR/assets.json',
                 'cache' => array(
                     'enabled' => null,
                     'key' => 'fxp_require_asset_webpack_assets',

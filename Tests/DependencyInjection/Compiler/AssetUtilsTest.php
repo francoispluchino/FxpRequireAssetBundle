@@ -25,7 +25,7 @@ class AssetUtilsTest extends TestCase
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var Filesystem
@@ -34,13 +34,13 @@ class AssetUtilsTest extends TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir().'/require_asset_asset_utils_tests';
+        $this->projectDir = sys_get_temp_dir().'/require_asset_asset_utils_tests';
         $this->fs = new Filesystem();
     }
 
     protected function tearDown()
     {
-        $this->fs->remove($this->rootDir);
+        $this->fs->remove($this->projectDir);
     }
 
     public function testLoadJsonFile()
@@ -50,23 +50,23 @@ class AssetUtilsTest extends TestCase
             'bar' => 'Foo',
         );
 
-        $this->fs->dumpFile($this->rootDir.'/foo.json', json_encode($content));
-        $json = AssetUtils::loadJsonFile($this->rootDir.'/foo.json');
+        $this->fs->dumpFile($this->projectDir.'/foo.json', json_encode($content));
+        $json = AssetUtils::loadJsonFile($this->projectDir.'/foo.json');
 
         $this->assertEquals($content, $json);
     }
 
     public function testLoadJsonFileWithNonExistentFile()
     {
-        $json = AssetUtils::loadJsonFile($this->rootDir.'/foo.json');
+        $json = AssetUtils::loadJsonFile($this->projectDir.'/foo.json');
 
         $this->assertEquals(array(), $json);
     }
 
     public function testLoadJsonFileWithInvalidContent()
     {
-        $this->fs->dumpFile($this->rootDir.'/foo.json', json_encode('INVALID'));
-        $json = AssetUtils::loadJsonFile($this->rootDir.'/foo.json');
+        $this->fs->dumpFile($this->projectDir.'/foo.json', json_encode('INVALID'));
+        $json = AssetUtils::loadJsonFile($this->projectDir.'/foo.json');
 
         $this->assertEquals(array(), $json);
     }

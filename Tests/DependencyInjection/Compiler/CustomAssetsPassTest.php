@@ -28,7 +28,7 @@ class CustomAssetsPassTest extends TestCase
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var Filesystem
@@ -42,14 +42,14 @@ class CustomAssetsPassTest extends TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir().'/require_asset_custom_assets_pass_tests';
+        $this->projectDir = sys_get_temp_dir().'/require_asset_custom_assets_pass_tests';
         $this->fs = new Filesystem();
         $this->pass = new CustomAssetsPass();
     }
 
     protected function tearDown()
     {
-        $this->fs->remove($this->rootDir);
+        $this->fs->remove($this->projectDir);
         $this->pass = null;
     }
 
@@ -169,14 +169,15 @@ EOF;
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
-            'kernel.root_dir' => $this->rootDir,
+            'kernel.project_dir' => $this->projectDir,
+            'kernel.root_dir' => $this->projectDir.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-            'assetic.cache_dir' => $this->rootDir.'/cache/assetic',
+            'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
             'kernel.bundles' => array(),
         )));
 

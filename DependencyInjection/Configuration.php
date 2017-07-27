@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var string
@@ -42,12 +42,12 @@ class Configuration implements ConfigurationInterface
     /**
      * Constructor.
      *
-     * @param string $rootDir
+     * @param string $projectDir
      * @param string $defaultLocale
      */
-    public function __construct($rootDir, $defaultLocale)
+    public function __construct($projectDir, $defaultLocale)
     {
-        $this->rootDir = $rootDir;
+        $this->projectDir = $projectDir;
         $this->defaultLocale = $defaultLocale;
     }
 
@@ -66,11 +66,11 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('output_prefix')->defaultValue('assets')->end()
                 ->scalarNode('output_prefix_debug')->defaultValue('assets-dev')->end()
                 ->scalarNode('composer_installed_path')
-                    ->defaultValue($this->rootDir.'/../vendor/composer/installed.json')
+                    ->defaultValue($this->projectDir.'/vendor/composer/installed.json')
                     ->end()
                 ->booleanNode('native_bower')->defaultTrue()->end()
                 ->booleanNode('native_npm')->defaultTrue()->end()
-                ->scalarNode('base_dir')->defaultValue($this->rootDir.'/..')->end()
+                ->scalarNode('base_dir')->defaultValue($this->projectDir)->end()
                 ->scalarNode('default_locale')->defaultValue($this->defaultLocale)->end()
                 ->scalarNode('fallback_locale')->defaultNull()->end()
                 ->booleanNode('auto_configuration')->defaultTrue()->end()
@@ -155,7 +155,7 @@ class Configuration implements ConfigurationInterface
             ->canBeDisabled()
             ->addDefaultsIfNotSet()
             ->children()
-                ->booleanNode('assets_file')->defaultValue($this->rootDir.'/../assets.json')->end()
+                ->booleanNode('assets_file')->defaultValue($this->projectDir.'/assets.json')->end()
                 ->arrayNode('cache')
                     ->addDefaultsIfNotSet()
                     ->children()

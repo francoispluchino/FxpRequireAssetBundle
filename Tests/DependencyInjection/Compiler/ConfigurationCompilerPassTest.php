@@ -28,7 +28,7 @@ class ConfigurationCompilerPassTest extends TestCase
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class ConfigurationCompilerPassTest extends TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir().'/require_asset_bundle_assets_pass_tests';
+        $this->projectDir = sys_get_temp_dir().'/require_asset_bundle_assets_pass_tests';
         $this->servicePrefix = 'fxp_require_asset.assetic.config.';
         $this->fs = new Filesystem();
         $this->pass = new ConfigurationCompilerPass();
@@ -55,8 +55,8 @@ class ConfigurationCompilerPassTest extends TestCase
 
     protected function tearDown()
     {
-        $this->fs->remove($this->rootDir);
-        $this->rootDir = null;
+        $this->fs->remove($this->projectDir);
+        $this->projectDir = null;
         $this->fs = null;
         $this->pass = null;
         $this->servicePrefix = null;
@@ -125,14 +125,15 @@ class ConfigurationCompilerPassTest extends TestCase
     protected function getContainer($managers = true)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
-            'kernel.root_dir' => $this->rootDir,
+            'kernel.project_dir' => $this->projectDir,
+            'kernel.root_dir' => $this->projectDir.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-            'assetic.cache_dir' => $this->rootDir.'/cache/assetic',
+            'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
             'kernel.bundles' => array(),
         )));
 

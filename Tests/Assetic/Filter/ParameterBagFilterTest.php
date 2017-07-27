@@ -38,7 +38,7 @@ class ParameterBagFilterTest extends TestCase
         $asset->dump();
 
         $validContent = '@param1 = "test";'.PHP_EOL
-            .'@param2 = "'.__DIR__.'/test/";'.PHP_EOL
+            .'@param2 = "'.__DIR__.'/src/test/";'.PHP_EOL
             .'@param3 = "kernel";'.PHP_EOL;
 
         $this->assertEquals($validContent, $asset->getContent());
@@ -63,7 +63,8 @@ class ParameterBagFilterTest extends TestCase
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
-            'kernel.root_dir' => __DIR__,
+            'kernel.project_dir' => __DIR__,
+            'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
         )));

@@ -29,7 +29,7 @@ class CompilerAssetsPassTest extends TestCase
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var Filesystem
@@ -43,17 +43,17 @@ class CompilerAssetsPassTest extends TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir().'/require_asset_compiler_assets_pass_tests';
+        $this->projectDir = sys_get_temp_dir().'/require_asset_compiler_assets_pass_tests';
         $this->fs = new Filesystem();
         $this->pass = new CompilerAssetsPass();
     }
 
     protected function tearDown()
     {
-        $this->fs->remove($this->rootDir);
+        $this->fs->remove($this->projectDir);
         $this->fs = null;
         $this->pass = null;
-        $this->rootDir = null;
+        $this->projectDir = null;
     }
 
     public function testProcess()
@@ -71,7 +71,7 @@ class CompilerAssetsPassTest extends TestCase
         $this->pass->process($container);
 
         $methodCalls = $managerDef->getMethodCalls();
-        $pkgSource = $this->rootDir.'/vendor/asset-asset/foobar/';
+        $pkgSource = $this->projectDir.'/vendor/asset-asset/foobar/';
         $valid = array(
             realpath($pkgSource.'dist/js/foobar.js'),
             realpath($pkgSource.'dist/css/foobar.css'),
@@ -132,7 +132,7 @@ class CompilerAssetsPassTest extends TestCase
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
         $package = array(
             'name' => 'acme_demo_package',
-            'source_path' => realpath($this->rootDir.'/vendor/asset-asset/foobar'),
+            'source_path' => realpath($this->projectDir.'/vendor/asset-asset/foobar'),
             'extensions' => array(
                 'js',
                 'css',
@@ -197,14 +197,15 @@ class CompilerAssetsPassTest extends TestCase
     protected function getContainer($assetic = true)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
-            'kernel.root_dir' => $this->rootDir,
+            'kernel.project_dir' => $this->projectDir,
+            'kernel.root_dir' => $this->projectDir.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-            'assetic.cache_dir' => $this->rootDir.'/cache/assetic',
+            'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
             'kernel.bundles' => array(),
             'locale' => 'en',
         )));
@@ -223,7 +224,7 @@ class CompilerAssetsPassTest extends TestCase
     protected function createFixtures()
     {
         foreach ($this->getFixtureFiles() as $filename) {
-            $this->fs->dumpFile($this->rootDir.'/vendor/asset-asset/'.$filename, '');
+            $this->fs->dumpFile($this->projectDir.'/vendor/asset-asset/'.$filename, '');
         }
     }
 

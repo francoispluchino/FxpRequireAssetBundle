@@ -30,7 +30,7 @@ class FxpRequireAssetExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration($container->getParameter('kernel.root_dir'), 'en');
+        $configuration = new Configuration($container->getParameter('kernel.project_dir'), 'en');
         $config = $this->processConfiguration($configuration, $configs);
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 

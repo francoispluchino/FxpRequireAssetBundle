@@ -67,7 +67,8 @@ class LessVariableFilterTest extends TestCase
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
-            'kernel.root_dir' => __DIR__,
+            'kernel.project_dir' => __DIR__,
+            'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
             'fxp_require_asset.package_dirs' => array(

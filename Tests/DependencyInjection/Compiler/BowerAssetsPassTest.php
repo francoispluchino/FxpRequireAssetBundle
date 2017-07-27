@@ -71,6 +71,6 @@ class BowerAssetsPassTest extends BaseNativeAssetsPassTest
             'directory' => $this->getInstallDir(),
         );
 
-        $this->fs->dumpFile($this->rootDir.'/.bowerrc', json_encode($bowerrc));
+        $this->fs->dumpFile($this->projectDir.'/.bowerrc', json_encode($bowerrc));
     }
 }

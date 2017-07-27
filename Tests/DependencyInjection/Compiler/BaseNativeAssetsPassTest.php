@@ -28,7 +28,7 @@ abstract class BaseNativeAssetsPassTest extends TestCase
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var Filesystem
@@ -42,14 +42,14 @@ abstract class BaseNativeAssetsPassTest extends TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir().$this->getTmpRootDir();
+        $this->projectDir = sys_get_temp_dir().$this->getTmpRootDir();
         $this->fs = new Filesystem();
         $this->pass = $this->getCompilerPass();
     }
 
     protected function tearDown()
     {
-        $this->fs->remove($this->rootDir);
+        $this->fs->remove($this->projectDir);
         $this->pass = null;
     }
 
@@ -82,18 +82,19 @@ abstract class BaseNativeAssetsPassTest extends TestCase
     protected function getContainer($active = true)
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
-            'kernel.root_dir' => $this->rootDir,
+            'kernel.project_dir' => $this->projectDir,
+            'kernel.root_dir' => $this->projectDir.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-            'assetic.cache_dir' => $this->rootDir.'/cache/assetic',
+            'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
             'kernel.bundles' => array(),
         )));
 
-        $container->setParameter('fxp_require_asset.base_dir', $this->rootDir);
+        $container->setParameter('fxp_require_asset.base_dir', $this->projectDir);
         $container->setParameter('fxp_require_asset.'.$this->getConfigOptionName(), $active);
         $container->setParameter('fxp_require_asset.assetic', true);
 
@@ -118,8 +119,8 @@ abstract class BaseNativeAssetsPassTest extends TestCase
             'name' => 'bar-foo',
         );
 
-        $this->fs->dumpFile($this->rootDir.'/'.$this->getInstallDir().'/foobar/'.$this->getPackageFilename(), json_encode($foobar));
-        $this->fs->dumpFile($this->rootDir.'/'.$this->getInstallDir().'/barfoo/'.$this->getPackageFilename(), json_encode($barfoo));
+        $this->fs->dumpFile($this->projectDir.'/'.$this->getInstallDir().'/foobar/'.$this->getPackageFilename(), json_encode($foobar));
+        $this->fs->dumpFile($this->projectDir.'/'.$this->getInstallDir().'/barfoo/'.$this->getPackageFilename(), json_encode($barfoo));
     }
 
     /**

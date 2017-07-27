@@ -28,7 +28,7 @@ class ComposerAssetsPassTest extends TestCase
     /**
      * @var string
      */
-    protected $rootDir;
+    protected $projectDir;
 
     /**
      * @var Filesystem
@@ -42,14 +42,14 @@ class ComposerAssetsPassTest extends TestCase
 
     protected function setUp()
     {
-        $this->rootDir = sys_get_temp_dir().'/require_asset_composer_assets_pass_tests';
+        $this->projectDir = sys_get_temp_dir().'/require_asset_composer_assets_pass_tests';
         $this->fs = new Filesystem();
         $this->pass = new ComposerAssetsPass();
     }
 
     protected function tearDown()
     {
-        $this->fs->remove($this->rootDir);
+        $this->fs->remove($this->projectDir);
         $this->pass = null;
     }
 
@@ -84,7 +84,7 @@ class ComposerAssetsPassTest extends TestCase
      */
     public function testProcessWithPackages(array $composer)
     {
-        $this->fs->dumpFile($this->rootDir.'/composer.json', json_encode($composer));
+        $this->fs->dumpFile($this->projectDir.'/composer.json', json_encode($composer));
         $this->createInstalledPackages();
         $container = $this->getContainer();
         $this->pass->process($container);
@@ -101,19 +101,20 @@ class ComposerAssetsPassTest extends TestCase
     protected function getContainer()
     {
         $container = new ContainerBuilder(new ParameterBag(array(
-            'kernel.cache_dir' => $this->rootDir.'/cache',
+            'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
-            'kernel.root_dir' => $this->rootDir,
+            'kernel.project_dir' => $this->projectDir,
+            'kernel.root_dir' => $this->projectDir.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-            'assetic.cache_dir' => $this->rootDir.'/cache/assetic',
+            'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
             'kernel.bundles' => array(),
         )));
 
-        $container->setParameter('fxp_require_asset.base_dir', $this->rootDir);
-        $container->setParameter('fxp_require_asset.composer_installed_path', $this->rootDir.'/vendor/composer/installed.json');
+        $container->setParameter('fxp_require_asset.base_dir', $this->projectDir);
+        $container->setParameter('fxp_require_asset.composer_installed_path', $this->projectDir.'/vendor/composer/installed.json');
         $container->setParameter('fxp_require_asset.assetic', true);
 
         $pmDef = new Definition('Fxp\Component\RequireAsset\Assetic\Config\PackageManager');
@@ -149,6 +150,6 @@ class ComposerAssetsPassTest extends TestCase
             ),
         );
 
-        $this->fs->dumpFile($this->rootDir.'/vendor/composer/installed.json', json_encode($installed));
+        $this->fs->dumpFile($this->projectDir.'/vendor/composer/installed.json', json_encode($installed));
     }
 }
