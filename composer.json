@@ -14,15 +14,15 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.0.0",
-        "symfony/framework-bundle": "^3.3.0",
-        "symfony/asset": "^3.3.0",
-        "symfony/expression-language": "^3.3.0",
+        "php": "^7.1.0",
+        "symfony/framework-bundle": "^3.4.0|^4.0.0",
+        "symfony/asset": "^3.4.0|^4.0.0",
+        "symfony/expression-language": "^3.4.0|^4.0.0",
         "fxp/require-asset": "^1.0.0"
     },
     "require-dev": {
         "symfony/assetic-bundle": "^2.8.0",
-        "symfony/twig-bundle": "^3.3.0"
+        "symfony/twig-bundle": "^3.4.0|^4.0.0"
     },
     "suggest": {
         "fxp/composer-asset-plugin": "For manage NPM/Bower dependencies with Composer"
