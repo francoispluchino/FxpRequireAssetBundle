@@ -58,7 +58,7 @@ class RequireAssetExtensionTest extends TestCase
      */
     protected function getContainer($useContainer = false)
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
@@ -66,15 +66,15 @@ class RequireAssetExtensionTest extends TestCase
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-        )));
+        ]));
 
         if ($useContainer) {
             $asseticManager = new Definition('Assetic\AssetManager');
             $container->setDefinition('fxp_require_asset.chain_require_asset_manager', $asseticManager);
         }
 
-        $container->getCompilerPassConfig()->setOptimizationPasses(array());
-        $container->getCompilerPassConfig()->setRemovingPasses(array());
+        $container->getCompilerPassConfig()->setOptimizationPasses([]);
+        $container->getCompilerPassConfig()->setRemovingPasses([]);
         $container->compile();
 
         return $container;

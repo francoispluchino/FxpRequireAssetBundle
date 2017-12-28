@@ -34,7 +34,7 @@ class ParameterBagFilterTest extends TestCase
         $this->assertNull($filter->container);
         $filter->container = $this->getContainer();
 
-        $asset = new StringAsset($content, array($filter));
+        $asset = new StringAsset($content, [$filter]);
         $asset->dump();
 
         $validContent = '@param1 = "test";'.PHP_EOL
@@ -59,7 +59,7 @@ class ParameterBagFilterTest extends TestCase
      */
     protected function getContainer()
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
@@ -67,10 +67,10 @@ class ParameterBagFilterTest extends TestCase
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-        )));
+        ]));
 
-        $container->getCompilerPassConfig()->setOptimizationPasses(array());
-        $container->getCompilerPassConfig()->setRemovingPasses(array());
+        $container->getCompilerPassConfig()->setOptimizationPasses([]);
+        $container->getCompilerPassConfig()->setRemovingPasses([]);
         $container->compile();
 
         return $container;

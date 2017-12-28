@@ -51,7 +51,7 @@ class ConfigAssetResourceCacheTest extends TestCase
     public function testBasic()
     {
         $this->assertFalse($this->cache->hasResources());
-        $this->assertSame(array(), $this->cache->getResources());
+        $this->assertSame([], $this->cache->getResources());
         $this->assertTrue($this->cache->hasResources());
 
         $this->cache->invalidate();
@@ -66,11 +66,11 @@ class ConfigAssetResourceCacheTest extends TestCase
         $mb = $this
             ->getMockBuilder('Fxp\Component\RequireAsset\Assetic\Config\AssetResourceInterface')
             ->disableOriginalConstructor();
-        $resources = array(
+        $resources = [
             $mb->getMock(),
             $mb->getMock(),
             $mb->getMock(),
-        );
+        ];
 
         $this->cache->setResources($resources);
 

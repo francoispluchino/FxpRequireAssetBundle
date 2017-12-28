@@ -32,7 +32,7 @@ class LessVariableFilterTest extends TestCase
         $this->assertNull($filter->container);
         $filter->container = $this->getContainer();
 
-        $asset = new StringAsset($content, array($filter));
+        $asset = new StringAsset($content, [$filter]);
         $asset->dump();
 
         $validContent = '@asset-package1-path: "path_to_package1";'.PHP_EOL
@@ -63,7 +63,7 @@ class LessVariableFilterTest extends TestCase
      */
     protected function getContainer()
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
@@ -71,19 +71,19 @@ class LessVariableFilterTest extends TestCase
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-            'fxp_require_asset.package_dirs' => array(
+            'fxp_require_asset.package_dirs' => [
                 '@asset/package1' => 'path_to_package1',
                 '@asset/package2' => 'path_to_package2',
                 'vendor_asset_bundle' => 'path_to_bundle',
-            ),
-            'fxp_require_asset.assetic_filter.lessvariable.custom_variables' => array(
+            ],
+            'fxp_require_asset.assetic_filter.lessvariable.custom_variables' => [
                 'custom-variable1' => 'value1',
                 'custom-variable2' => 'value2',
-            ),
-        )));
+            ],
+        ]));
 
-        $container->getCompilerPassConfig()->setOptimizationPasses(array());
-        $container->getCompilerPassConfig()->setRemovingPasses(array());
+        $container->getCompilerPassConfig()->setOptimizationPasses([]);
+        $container->getCompilerPassConfig()->setRemovingPasses([]);
         $container->compile();
 
         return $container;

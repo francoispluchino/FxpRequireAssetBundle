@@ -50,63 +50,63 @@ class FxpRequireAssetExtensionTest extends TestCase
 
     public function testRemoveDisabledCommonAssets()
     {
-        $config = array(
-            'common_assets' => array(
-                'common_css' => array(
+        $config = [
+            'common_assets' => [
+                'common_css' => [
                     'output' => '/js/common.js',
-                    'filters' => array(),
-                    'inputs' => array(
+                    'filters' => [],
+                    'inputs' => [
                         '@acme_demo/js/asset.js',
-                    ),
-                    'options' => array(
+                    ],
+                    'options' => [
                         'disabled' => true,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config));
     }
 
     public function testDebugCommonAssets()
     {
-        $config = array(
-            'common_assets' => array(
-                'common_css' => array(
+        $config = [
+            'common_assets' => [
+                'common_css' => [
                     'output' => '/js/common.js',
-                    'filters' => array(),
-                    'inputs' => array(
+                    'filters' => [],
+                    'inputs' => [
                         '@acme_demo/js/asset.js',
-                    ),
-                    'options' => array(
+                    ],
+                    'options' => [
                         'require_debug' => true,
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config, true));
     }
 
     public function testWebpackCache()
     {
-        $config = array(
-            'webpack' => array(
-                'cache' => array(
+        $config = [
+            'webpack' => [
+                'cache' => [
                     'enabled' => true,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config, true));
     }
 
     public function testNotAddCompilerForKernelNameWithoutUnderscore()
     {
-        $container = $this->getContainer(array(), false, 'kernel_');
+        $container = $this->getContainer([], false, 'kernel_');
         $this->assertGreaterThan(1, count($container->getCompilerPassConfig()->getPasses()));
 
-        $container = $this->getContainer(array(), false, 'kernel');
+        $container = $this->getContainer([], false, 'kernel');
         $this->assertGreaterThan(1, $container->getCompilerPassConfig()->getPasses());
     }
 
@@ -119,9 +119,9 @@ class FxpRequireAssetExtensionTest extends TestCase
      *
      * @return ContainerBuilder
      */
-    protected function getContainer(array $config = array(), $debug = false, $kernelName = 'kernel')
+    protected function getContainer(array $config = [], $debug = false, $kernelName = 'kernel')
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->cacheDir,
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -130,10 +130,10 @@ class FxpRequireAssetExtensionTest extends TestCase
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => $debug,
-            'kernel.bundles' => array(),
+            'kernel.bundles' => [],
             'assetic.cache_dir' => $this->cacheDir.'/assetic',
             'locale' => 'en',
-        )));
+        ]));
 
         $asseticManager = new Definition('Assetic\Factory\LazyAssetManager');
         $container->setDefinition('assetic.asset_manager', $asseticManager);
@@ -143,10 +143,10 @@ class FxpRequireAssetExtensionTest extends TestCase
 
         $extension = new FxpRequireAssetExtension();
         $container->registerExtension($extension);
-        $extension->load(array($config), $container);
+        $extension->load([$config], $container);
 
-        $container->getCompilerPassConfig()->setOptimizationPasses(array());
-        $container->getCompilerPassConfig()->setRemovingPasses(array());
+        $container->getCompilerPassConfig()->setOptimizationPasses([]);
+        $container->getCompilerPassConfig()->setRemovingPasses([]);
         $container->compile();
 
         return $container;

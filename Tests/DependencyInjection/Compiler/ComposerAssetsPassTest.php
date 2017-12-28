@@ -64,17 +64,17 @@ class ComposerAssetsPassTest extends TestCase
 
     public function getComposerConfig()
     {
-        return array(
-            array(array()),
-            array(array(
-                'extra' => array(
-                    'asset-installer-paths' => array(
+        return [
+            [[]],
+            [[
+                'extra' => [
+                    'asset-installer-paths' => [
                         'npm-asset-library' => 'custom',
                         'bower-asset-library' => 'custom',
-                    ),
-                ),
-            )),
-        );
+                    ],
+                ],
+            ]],
+        ];
     }
 
     /**
@@ -100,7 +100,7 @@ class ComposerAssetsPassTest extends TestCase
      */
     protected function getContainer()
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -110,8 +110,8 @@ class ComposerAssetsPassTest extends TestCase
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
             'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
-            'kernel.bundles' => array(),
-        )));
+            'kernel.bundles' => [],
+        ]));
 
         $container->setParameter('fxp_require_asset.base_dir', $this->projectDir);
         $container->setParameter('fxp_require_asset.composer_installed_path', $this->projectDir.'/vendor/composer/installed.json');
@@ -128,27 +128,27 @@ class ComposerAssetsPassTest extends TestCase
 
     protected function createInstalledPackages()
     {
-        $installed = array(
-            array(
+        $installed = [
+            [
                 'name' => 'acme/demo',
                 'version' => '0.1.0',
                 'type' => 'library',
-                'require' => array(
+                'require' => [
                     'bower-asset/foobar' => '1.0.0',
                     'npm-asset/barfoo' => '1.0.0',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'name' => 'bower-asset/foobar',
                 'version' => '1.0.0',
                 'type' => 'bower-asset-library',
-            ),
-            array(
+            ],
+            [
                 'name' => 'npm-asset/barfoo',
                 'version' => '2.3.0',
                 'type' => 'npm-asset-library',
-            ),
-        );
+            ],
+        ];
 
         $this->fs->dumpFile($this->projectDir.'/vendor/composer/installed.json', json_encode($installed));
     }

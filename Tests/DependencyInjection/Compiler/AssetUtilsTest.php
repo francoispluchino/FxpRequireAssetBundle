@@ -45,10 +45,10 @@ class AssetUtilsTest extends TestCase
 
     public function testLoadJsonFile()
     {
-        $content = array(
+        $content = [
             'foo' => 'Bar',
             'bar' => 'Foo',
-        );
+        ];
 
         $this->fs->dumpFile($this->projectDir.'/foo.json', json_encode($content));
         $json = AssetUtils::loadJsonFile($this->projectDir.'/foo.json');
@@ -60,7 +60,7 @@ class AssetUtilsTest extends TestCase
     {
         $json = AssetUtils::loadJsonFile($this->projectDir.'/foo.json');
 
-        $this->assertEquals(array(), $json);
+        $this->assertEquals([], $json);
     }
 
     public function testLoadJsonFileWithInvalidContent()
@@ -68,6 +68,6 @@ class AssetUtilsTest extends TestCase
         $this->fs->dumpFile($this->projectDir.'/foo.json', json_encode('INVALID'));
         $json = AssetUtils::loadJsonFile($this->projectDir.'/foo.json');
 
-        $this->assertEquals(array(), $json);
+        $this->assertEquals([], $json);
     }
 }

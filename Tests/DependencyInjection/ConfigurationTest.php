@@ -25,48 +25,48 @@ class ConfigurationTest extends TestCase
     public function testDefaultConfig()
     {
         $processor = new Processor();
-        $config = $processor->processConfiguration(new Configuration('PROJECT_DIR', 'en'), array(array()));
+        $config = $processor->processConfiguration(new Configuration('PROJECT_DIR', 'en'), [[]]);
 
         $this->assertEquals(
-            array_merge(array(), self::getBundleDefaultConfig()),
+            array_merge([], self::getBundleDefaultConfig()),
             $config
         );
     }
 
     protected static function getBundleDefaultConfig()
     {
-        return array(
+        return [
             'output_prefix' => 'assets',
             'output_prefix_debug' => 'assets-dev',
             'composer_installed_path' => 'PROJECT_DIR/vendor/composer/installed.json',
             'native_npm' => true,
             'native_bower' => true,
             'base_dir' => 'PROJECT_DIR',
-            'default' => array(
+            'default' => [
                 'replace_extensions' => false,
-                'extensions' => array(),
-                'patterns' => array(),
-            ),
-            'output_rewrites' => array(),
-            'packages' => array(),
-            'common_assets' => array(),
+                'extensions' => [],
+                'patterns' => [],
+            ],
+            'output_rewrites' => [],
+            'packages' => [],
+            'common_assets' => [],
             'default_locale' => 'en',
             'fallback_locale' => null,
-            'locales' => array(),
-            'asset_replacement' => array(),
+            'locales' => [],
+            'asset_replacement' => [],
             'auto_configuration' => true,
             'less_assetic_filter' => 'less',
             'assetic' => true,
             'twig' => true,
-            'webpack' => array(
+            'webpack' => [
                 'enabled' => true,
                 'assets_file' => 'PROJECT_DIR/assets.json',
-                'cache' => array(
+                'cache' => [
                     'enabled' => null,
                     'key' => 'fxp_require_asset_webpack_assets',
                     'service_id' => 'cache.app',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

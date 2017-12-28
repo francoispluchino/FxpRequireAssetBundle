@@ -57,7 +57,7 @@ class TwigCompilerPassTest extends TestCase
     {
         $container = $this->getContainer();
 
-        $definition = new Definition('Fxp\Component\RequireAsset\Tag\RequireStyleTag', array('test_require_tag'));
+        $definition = new Definition('Fxp\Component\RequireAsset\Tag\RequireStyleTag', ['test_require_tag']);
         $definition->setPublic(false);
         $definition->addTag('fxp_require_asset.require_tag');
         $container->setDefinition('twig.test_require_tag', $definition);
@@ -76,7 +76,7 @@ class TwigCompilerPassTest extends TestCase
      */
     protected function getContainer()
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -86,8 +86,8 @@ class TwigCompilerPassTest extends TestCase
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
             'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
-            'kernel.bundles' => array(),
-        )));
+            'kernel.bundles' => [],
+        ]));
 
         $aeDef = new Definition('Fxp\Component\RequireAsset\Twig\Extension\AssetExtension');
         $container->setDefinition('twig.extension.fxp_require_asset', $aeDef);

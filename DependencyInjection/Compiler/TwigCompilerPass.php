@@ -30,7 +30,7 @@ class TwigCompilerPass implements CompilerPassInterface
         $twigExtension = $container->getDefinition('twig.extension.fxp_require_asset');
 
         foreach ($container->findTaggedServiceIds('fxp_require_asset.require_tag') as $id => $attrs) {
-            $twigExtension->addMethodCall('addTag', array(new Reference($id)));
+            $twigExtension->addMethodCall('addTag', [new Reference($id)]);
         }
     }
 }

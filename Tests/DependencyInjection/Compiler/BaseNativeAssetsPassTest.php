@@ -81,7 +81,7 @@ abstract class BaseNativeAssetsPassTest extends TestCase
      */
     protected function getContainer($active = true)
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -91,8 +91,8 @@ abstract class BaseNativeAssetsPassTest extends TestCase
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
             'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
-            'kernel.bundles' => array(),
-        )));
+            'kernel.bundles' => [],
+        ]));
 
         $container->setParameter('fxp_require_asset.base_dir', $this->projectDir);
         $container->setParameter('fxp_require_asset.'.$this->getConfigOptionName(), $active);
@@ -112,12 +112,12 @@ abstract class BaseNativeAssetsPassTest extends TestCase
      */
     protected function createInstalledPackages()
     {
-        $foobar = array(
+        $foobar = [
             'name' => 'foobar',
-        );
-        $barfoo = array(
+        ];
+        $barfoo = [
             'name' => 'bar-foo',
-        );
+        ];
 
         $this->fs->dumpFile($this->projectDir.'/'.$this->getInstallDir().'/foobar/'.$this->getPackageFilename(), json_encode($foobar));
         $this->fs->dumpFile($this->projectDir.'/'.$this->getInstallDir().'/barfoo/'.$this->getPackageFilename(), json_encode($barfoo));

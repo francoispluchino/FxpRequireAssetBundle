@@ -31,12 +31,12 @@ abstract class AssetUtils
     public static function addPackages(Definition $packageManagerDef, array $packages)
     {
         foreach ($packages as $name => $path) {
-            $package = array(
+            $package = [
                 'name' => $name,
                 'source_path' => $path,
                 'source_base' => null,
-            );
-            $packageManagerDef->addMethodCall('addPackage', array($package));
+            ];
+            $packageManagerDef->addMethodCall('addPackage', [$package]);
         }
     }
 
@@ -55,7 +55,7 @@ abstract class AssetUtils
             }
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -82,7 +82,7 @@ abstract class AssetUtils
      */
     public static function findPackages($type, $filename, $directory)
     {
-        $packages = array();
+        $packages = [];
         $finder = Finder::create()->ignoreVCS(true)->ignoreDotFiles(false)->depth(1);
         $finder->name($filename);
 

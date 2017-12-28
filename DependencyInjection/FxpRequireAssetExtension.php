@@ -124,7 +124,7 @@ class FxpRequireAssetExtension extends Extension
     {
         if (!$default['replace_extensions'] && $container->hasDefinition('fxp_require_asset.assetic.config.file_extension_manager')) {
             $def = $container->getDefinition('fxp_require_asset.assetic.config.file_extension_manager');
-            $def->addMethodCall('addDefaultExtensions', array(FileExtensionUtils::getDefaultConfigs()));
+            $def->addMethodCall('addDefaultExtensions', [FileExtensionUtils::getDefaultConfigs()]);
         }
     }
 
@@ -136,7 +136,7 @@ class FxpRequireAssetExtension extends Extension
      */
     protected function prepareDebugCommonAssets(ContainerBuilder $container, array &$commonAssets)
     {
-        $debugCommonAssets = array();
+        $debugCommonAssets = [];
         $asseticDebug = !$container->hasParameter('assetic.debug') || $container->getParameter('assetic.debug');
 
         foreach ($commonAssets as $name => &$config) {

@@ -65,12 +65,12 @@ class ConfigurationCompilerPassTest extends TestCase
     public function testProcess()
     {
         $container = $this->getContainer();
-        $configs = array(
-            array('file_extension_manager', 'file_extensions', 'addDefaultExtensions'),
-            array('pattern_manager',        'patterns',        'addDefaultPatterns'),
-            array('output_manager',         'output_rewrites', 'addOutputPatterns'),
-            array('package_manager',        'packages',        'addPackages'),
-        );
+        $configs = [
+            ['file_extension_manager', 'file_extensions', 'addDefaultExtensions'],
+            ['pattern_manager',        'patterns',        'addDefaultPatterns'],
+            ['output_manager',         'output_rewrites', 'addOutputPatterns'],
+            ['package_manager',        'packages',        'addPackages'],
+        ];
 
         foreach ($configs as $config) {
             $this->assertTrue($container->hasDefinition($this->servicePrefix.$config[0]));
@@ -95,12 +95,12 @@ class ConfigurationCompilerPassTest extends TestCase
     public function testProcessWithoutAssetic()
     {
         $container = $this->getContainer(false);
-        $configs = array(
-            array('file_extension_manager', 'file_extensions', 'addDefaultExtensions'),
-            array('pattern_manager',        'patterns',        'addDefaultPatterns'),
-            array('output_manager',         'output_rewrites', 'addOutputPatterns'),
-            array('package_manager',        'packages',        'addPackages'),
-        );
+        $configs = [
+            ['file_extension_manager', 'file_extensions', 'addDefaultExtensions'],
+            ['pattern_manager',        'patterns',        'addDefaultPatterns'],
+            ['output_manager',         'output_rewrites', 'addOutputPatterns'],
+            ['package_manager',        'packages',        'addPackages'],
+        ];
 
         foreach ($configs as $config) {
             $this->assertFalse($container->hasDefinition($this->servicePrefix.$config[0]));
@@ -124,7 +124,7 @@ class ConfigurationCompilerPassTest extends TestCase
      */
     protected function getContainer($managers = true)
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -134,8 +134,8 @@ class ConfigurationCompilerPassTest extends TestCase
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
             'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
-            'kernel.bundles' => array(),
-        )));
+            'kernel.bundles' => [],
+        ]));
 
         if ($managers) {
             $this->configureManager($container, 'file_extension_manager', 'file_extensions');
@@ -162,6 +162,6 @@ class ConfigurationCompilerPassTest extends TestCase
         $servicePrefix = null !== $servicePrefix ? $servicePrefix : $this->servicePrefix;
         $managerDef = new Definition('Foobar\Manager');
         $container->setDefinition($servicePrefix.$idManager, $managerDef);
-        $container->setParameter($servicePrefix.$idParameters, array());
+        $container->setParameter($servicePrefix.$idParameters, []);
     }
 }

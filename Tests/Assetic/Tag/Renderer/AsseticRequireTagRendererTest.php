@@ -43,17 +43,17 @@ class AsseticRequireTagRendererTest extends TestCase
             ->will($this->returnValue('foo/bar.js'));
         $asset->expects($this->any())
             ->method('getVars')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
         $asset->expects($this->any())
             ->method('getValues')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
         /* @var AssetInterface $asset */
         $manager->set('foo_bar_js', $asset);
 
         $tag = $this->getMockBuilder('Fxp\Component\RequireAsset\Tag\RequireTagInterface')->getMock();
         $tag->expects($this->any())
             ->method('getInputs')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
         $tag->expects($this->any())
             ->method('getHtmlTag')
             ->will($this->returnValue('script'));

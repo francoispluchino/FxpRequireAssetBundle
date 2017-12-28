@@ -75,7 +75,7 @@ class CompilerAssetsPass implements CompilerPassInterface
 
         foreach ($resources as $resource) {
             $assetDef = $this->createAssetDefinition($resource);
-            $assetManagerDef->addMethodCall('addResource', array($assetDef, $resource->getLoader()));
+            $assetManagerDef->addMethodCall('addResource', [$assetDef, $resource->getLoader()]);
         }
 
         $this->doProcessAsseticParameters($container, $aam->getPackageManager());
@@ -187,7 +187,7 @@ class CompilerAssetsPass implements CompilerPassInterface
         foreach ($localeAssets as $locale => $assetConfigs) {
             /* @var array $localizedAssets */
             foreach ($assetConfigs as $assetSource => $localizedAssets) {
-                $localeManagerDef->addMethodCall('addLocalizedAsset', array($assetSource, $locale, $localizedAssets));
+                $localeManagerDef->addMethodCall('addLocalizedAsset', [$assetSource, $locale, $localizedAssets]);
             }
         }
     }

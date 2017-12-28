@@ -40,7 +40,7 @@ class BundleAssetsPass implements CompilerPassInterface
 
             if ($path) {
                 $package = $this->createPackageConfig($name, $path);
-                $packageManagerDef->addMethodCall('addPackage', array($package));
+                $packageManagerDef->addMethodCall('addPackage', [$package]);
             }
         }
     }
@@ -59,11 +59,11 @@ class BundleAssetsPass implements CompilerPassInterface
         $sourceBase = substr($id, 0, strrpos($id, '_bundle'));
         $sourceBase = str_replace('_', '', $sourceBase);
 
-        return array(
+        return [
             'name' => $id,
             'source_path' => $path,
             'source_base' => $sourceBase,
-            'patterns' => array(
+            'patterns' => [
                 '!config/*',
                 '!doc/*',
                 '!license/*',
@@ -71,7 +71,7 @@ class BundleAssetsPass implements CompilerPassInterface
                 '!meta/*',
                 '!public/*',
                 '!skeleton/*',
-            ),
-        );
+            ],
+        ];
     }
 }

@@ -31,9 +31,9 @@ class TwigAssetSubscriberTest extends TestCase
             ->method('resetTagPosition');
 
         $subscriber = new TwigAssetSubscriber($ext);
-        $validEvents = array(
+        $validEvents = [
             KernelEvents::EXCEPTION,
-        );
+        ];
 
         $this->assertSame($validEvents, array_keys($subscriber->getSubscribedEvents()));
 

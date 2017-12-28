@@ -23,7 +23,7 @@ class ContainerRenderers
     /**
      * @var array
      */
-    protected $renderers = array();
+    protected $renderers = [];
 
     /**
      * Add template tag renderer.

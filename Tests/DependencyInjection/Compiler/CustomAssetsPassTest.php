@@ -72,7 +72,7 @@ class CustomAssetsPassTest extends TestCase
             ->setSynthetic(true)
             ->addTag('fxp_require_asset.assetic.custom_asset')
             ->addArgument('path.ext')
-            ->addArgument(array('input_filename.ext'))
+            ->addArgument(['input_filename.ext'])
         ;
         $container->setDefinition('asset_test', $def);
 
@@ -92,10 +92,10 @@ EOF;
     {
         $container = $this->getContainer();
         $this->addCustomVariables($container);
-        $validVariables = array(
+        $validVariables = [
             'custom-variable1' => 'value1',
             'custom-variable2' => 'value2',
-        );
+        ];
         $this->assertTrue($container->hasParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables'));
         $this->assertSame($validVariables, $container->getParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables'));
 
@@ -104,7 +104,7 @@ EOF;
             ->setSynthetic(true)
             ->addTag('fxp_require_asset.assetic.custom_asset')
             ->addArgument('path.ext')
-            ->addArgument(array('input_filename.ext'))
+            ->addArgument(['input_filename.ext'])
             ->addArgument('variable-name')
         ;
         $container->setDefinition('asset_test', $def);
@@ -120,7 +120,7 @@ EOF;
         $this->assertFileExists($file);
         $this->assertSame($valid, file_get_contents($file));
 
-        $validVariables = array_merge($validVariables, array('variable-name' => $file));
+        $validVariables = array_merge($validVariables, ['variable-name' => $file]);
         $this->assertSame($validVariables, $container->getParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables'));
     }
 
@@ -168,7 +168,7 @@ EOF;
      */
     protected function getContainer()
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -178,8 +178,8 @@ EOF;
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
             'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
-            'kernel.bundles' => array(),
-        )));
+            'kernel.bundles' => [],
+        ]));
 
         return $container;
     }
@@ -189,10 +189,10 @@ EOF;
      */
     protected function addCustomVariables(ContainerBuilder $container)
     {
-        $variables = array(
+        $variables = [
             'custom-variable1' => 'value1',
             'custom-variable2' => 'value2',
-        );
+        ];
 
         $container->setParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables', $variables);
     }

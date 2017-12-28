@@ -55,12 +55,12 @@ class BundleAssetsPassTest extends TestCase
 
     public function getBundles()
     {
-        return array(
-            array(array()),
-            array(array(
+        return [
+            [[]],
+            [[
                 'FxpRequireAssetBundle' => 'Fxp\\Bundle\\RequireAssetBundle\\FxpRequireAssetBundle',
-            )),
-        );
+            ]],
+        ];
     }
 
     /**
@@ -113,7 +113,7 @@ class BundleAssetsPassTest extends TestCase
      */
     protected function getContainer(array $bundles, $assetic = true)
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -125,7 +125,7 @@ class BundleAssetsPassTest extends TestCase
             'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
             'kernel.bundles' => $bundles,
             'fxp_require_asset.assetic' => $assetic,
-        )));
+        ]));
 
         $pmDef = new Definition('Fxp\Component\RequireAsset\Assetic\Config\PackageManager');
         $container->setDefinition('fxp_require_asset.assetic.config.package_manager', $pmDef);

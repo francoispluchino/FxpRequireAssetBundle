@@ -50,7 +50,7 @@ class CustomAssetsPass implements CompilerPassInterface
      */
     protected function getCustomVariables(ContainerBuilder $container)
     {
-        $variables = array();
+        $variables = [];
 
         if ($container->hasParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables')) {
             $variables = (array) $container->getParameter('fxp_require_asset.assetic_filter.lessvariable.custom_variables');

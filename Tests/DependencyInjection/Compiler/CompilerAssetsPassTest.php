@@ -72,7 +72,7 @@ class CompilerAssetsPassTest extends TestCase
 
         $methodCalls = $managerDef->getMethodCalls();
         $pkgSource = $this->projectDir.'/vendor/asset-asset/foobar/';
-        $valid = array(
+        $valid = [
             realpath($pkgSource.'dist/js/foobar.js'),
             realpath($pkgSource.'dist/css/foobar.css'),
             realpath($pkgSource.'dist/css/foobar-theme.css'),
@@ -83,7 +83,7 @@ class CompilerAssetsPassTest extends TestCase
             'assets/common.js',
             'assets/common-fr.js',
             'assets/common-fr-fr.js',
-        );
+        ];
 
         $this->assertCount(count($valid), $methodCalls);
 
@@ -130,59 +130,59 @@ class CompilerAssetsPassTest extends TestCase
     protected function includeAssetPackageDefinition(ContainerBuilder $container)
     {
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
-        $package = array(
+        $package = [
             'name' => 'acme_demo_package',
             'source_path' => realpath($this->projectDir.'/vendor/asset-asset/foobar'),
-            'extensions' => array(
+            'extensions' => [
                 'js',
                 'css',
                 'eot',
                 'svg',
                 'ttf',
                 'woff',
-            ),
-            'patterns' => array(
+            ],
+            'patterns' => [
                 'dist/*',
                 '!*.min.js',
                 '!*.min.css',
-            ),
-        );
+            ],
+        ];
 
-        $packageManagerDef->addMethodCall('addPackage', array($package));
+        $packageManagerDef->addMethodCall('addPackage', [$package]);
     }
 
     protected function includeLocaleAssetDefinition(ContainerBuilder $container)
     {
-        $locales = array(
-            'fr' => array(
-                '@foobar/js/component-a.js' => array('@foobar/js/component-a-fr.js'),
-            ),
-        );
+        $locales = [
+            'fr' => [
+                '@foobar/js/component-a.js' => ['@foobar/js/component-a-fr.js'],
+            ],
+        ];
 
         $container->setParameter('fxp_require_asset.config.locales', $locales);
     }
 
     protected function includeCommonAssetDefinition(ContainerBuilder $container)
     {
-        $commons = array(
-            'common_js' => array(
+        $commons = [
+            'common_js' => [
                 'output' => 'common.js',
-                'filters' => array(),
-                'options' => array(),
-                'inputs' => array(
+                'filters' => [],
+                'options' => [],
+                'inputs' => [
                     '@foobar/js/component-a.js',
                     '@foobar/js/component-b.js',
-                ),
-            ),
-            'common_js__fr_fr' => array(
+                ],
+            ],
+            'common_js__fr_fr' => [
                 'output' => 'common-fr-fr.js',
-                'filters' => array(),
-                'options' => array(),
-                'inputs' => array(
+                'filters' => [],
+                'options' => [],
+                'inputs' => [
                     '@foobar/js/component-a-fr.js',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $container->setParameter('fxp_require_asset.assetic.config.common_assets', $commons);
     }
@@ -196,7 +196,7 @@ class CompilerAssetsPassTest extends TestCase
      */
     protected function getContainer($assetic = true)
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
             'kernel.environment' => 'test',
@@ -206,13 +206,13 @@ class CompilerAssetsPassTest extends TestCase
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
             'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
-            'kernel.bundles' => array(),
+            'kernel.bundles' => [],
             'locale' => 'en',
-        )));
+        ]));
 
         $extension = new FxpRequireAssetExtension();
         $container->registerExtension($extension);
-        $extension->load(array(array()), $container);
+        $extension->load([[]], $container);
 
         $asseticManager = new Definition('Assetic\Factory\LazyAssetManager');
         $container->setDefinition('assetic.asset_manager', $asseticManager);
@@ -233,7 +233,7 @@ class CompilerAssetsPassTest extends TestCase
      */
     protected function getFixtureFiles()
     {
-        return array(
+        return [
             'foobar/bower.json',
             'foobar/package.json',
             'foobar/README.md',
@@ -272,6 +272,6 @@ class CompilerAssetsPassTest extends TestCase
             'foobar/less/mixins.less',
             'foobar/less/component-a.less',
             'foobar/less/component-b.less',
-        );
+        ];
     }
 }

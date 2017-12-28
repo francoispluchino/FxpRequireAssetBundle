@@ -24,10 +24,10 @@ class ComposerAssetsPass implements CompilerPassInterface
     /**
      * @var array
      */
-    protected $types = array(
+    protected $types = [
         'npm' => 'package.json',
         'bower' => 'bower.json',
-    );
+    ];
 
     /**
      * {@inheritdoc}
@@ -43,7 +43,7 @@ class ComposerAssetsPass implements CompilerPassInterface
 
         $composerInstalled = $this->getComposerInstalled($installedPath);
         $packageManagerDef = $container->getDefinition('fxp_require_asset.assetic.config.package_manager');
-        $packages = array();
+        $packages = [];
 
         foreach ($this->types as $type => $filename) {
             $path = $this->getAssetBasePath($type, $baseDir);
@@ -99,7 +99,7 @@ class ComposerAssetsPass implements CompilerPassInterface
      */
     protected function findAssetPackages($type, $filename, $path, array $installed)
     {
-        $packages = array();
+        $packages = [];
 
         foreach ($installed as $package) {
             $name = $package['name'];
@@ -107,7 +107,7 @@ class ComposerAssetsPass implements CompilerPassInterface
 
             if (0 === strpos($name, $prefix)) {
                 $name = substr($name, strlen($prefix));
-                $name = str_replace(array('[', ']'), '-', $name);
+                $name = str_replace(['[', ']'], '-', $name);
                 $assetPath = $path.'/'.$name;
                 $assetName = AssetUtils::getPackageName($type, $assetPath.'/'.$filename);
 

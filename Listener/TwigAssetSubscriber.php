@@ -42,11 +42,11 @@ class TwigAssetSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            KernelEvents::EXCEPTION => array(
-                array('resetTagPositionException', 10),
-            ),
-        );
+        return [
+            KernelEvents::EXCEPTION => [
+                ['resetTagPositionException', 10],
+            ],
+        ];
     }
 
     /**

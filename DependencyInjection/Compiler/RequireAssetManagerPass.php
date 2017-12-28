@@ -33,7 +33,7 @@ class RequireAssetManagerPass implements CompilerPassInterface
             $definition = $container->getDefinition('fxp_require_asset.chain_require_asset_manager');
 
             foreach ($this->findAndSortTaggedServices('fxp_require_asset.require_asset_manager', $container) as $service) {
-                $definition->addMethodCall('addRequireAssetManager', array($service));
+                $definition->addMethodCall('addRequireAssetManager', [$service]);
             }
         }
     }

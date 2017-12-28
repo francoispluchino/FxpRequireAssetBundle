@@ -39,7 +39,7 @@ class AsseticRequireTagRenderer extends BaseAsseticRequireTagRenderer
      */
     public function __construct(LazyAssetManager $manager, Packages $packages,
                                 LocaleManagerInterface $localeManager = null,
-                                array $debugCommonAssets = array())
+                                array $debugCommonAssets = [])
     {
         parent::__construct($manager, $localeManager, $debugCommonAssets);
 

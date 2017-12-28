@@ -35,7 +35,7 @@ class TagRendererPass implements CompilerPassInterface
             $definition->setPublic(true);
 
             foreach ($this->findAndSortTaggedServices('fxp_require_asset.tag_renderer', $container) as $service) {
-                $definition->addMethodCall('addRenderer', array($service));
+                $definition->addMethodCall('addRenderer', [$service]);
             }
 
             $container->setDefinition('twig.extension.fxp_require_asset.container_tag_renderers', $definition);

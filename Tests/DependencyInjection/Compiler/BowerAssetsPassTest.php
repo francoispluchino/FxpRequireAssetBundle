@@ -67,9 +67,9 @@ class BowerAssetsPassTest extends BaseNativeAssetsPassTest
     {
         parent::createInstalledPackages();
 
-        $bowerrc = array(
+        $bowerrc = [
             'directory' => $this->getInstallDir(),
-        );
+        ];
 
         $this->fs->dumpFile($this->projectDir.'/.bowerrc', json_encode($bowerrc));
     }

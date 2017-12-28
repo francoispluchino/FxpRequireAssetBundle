@@ -63,7 +63,7 @@ class AssetExtensionTest extends TestCase
      */
     protected function getContainer($useContainerRenderers = false)
     {
-        $container = new ContainerBuilder(new ParameterBag(array(
+        $container = new ContainerBuilder(new ParameterBag([
             'kernel.debug' => false,
             'kernel.environment' => 'test',
             'kernel.name' => 'kernel',
@@ -71,19 +71,19 @@ class AssetExtensionTest extends TestCase
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
             'assetic.debug' => false,
-        )));
+        ]));
 
         if ($useContainerRenderers) {
             $renderer = new Definition($this->getMockClass('Fxp\Component\RequireAsset\Tag\Renderer\TagRendererInterface'));
             $container->setDefinition('fxp_require_asset_test.twig.mock_renderer', $renderer);
 
             $renderers = new Definition('Fxp\Bundle\RequireAssetBundle\Twig\Extension\ContainerRenderers');
-            $renderers->addMethodCall('addRenderer', array(new Reference('fxp_require_asset_test.twig.mock_renderer')));
+            $renderers->addMethodCall('addRenderer', [new Reference('fxp_require_asset_test.twig.mock_renderer')]);
             $container->setDefinition('twig.extension.fxp_require_asset.container_tag_renderers', $renderers);
         }
 
-        $container->getCompilerPassConfig()->setOptimizationPasses(array());
-        $container->getCompilerPassConfig()->setRemovingPasses(array());
+        $container->getCompilerPassConfig()->setOptimizationPasses([]);
+        $container->getCompilerPassConfig()->setRemovingPasses([]);
         $container->compile();
 
         return $container;
