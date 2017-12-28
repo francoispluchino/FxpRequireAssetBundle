@@ -4,24 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="fxp_require_asset.assetic.filter.requirecssrewrite.class">Fxp\Component\RequireAsset\Assetic\Filter\RequireCssRewriteFilter</parameter>
-        <parameter key="fxp_require_asset.assetic.filter.parameter_bag.class">Fxp\Bundle\RequireAssetBundle\Assetic\Filter\ParameterBagFilter</parameter>
-        <parameter key="fxp_require_asset.assetic.filter.less_variable.class">Fxp\Bundle\RequireAssetBundle\Assetic\Filter\LessVariableFilter</parameter>
-    </parameters>
-
     <services>
-        <service id="fxp_require_asset.assetic.filter.requirecssrewrite" class="%fxp_require_asset.assetic.filter.requirecssrewrite.class%">
+        <service id="fxp_require_asset.assetic.filter.requirecssrewrite" class="Fxp\Component\RequireAsset\Assetic\Filter\RequireCssRewriteFilter">
             <tag name="assetic.filter" alias="requirecssrewrite" />
             <argument type="service" id="assetic.asset_manager" />
         </service>
 
-        <service id="fxp_require_asset.assetic.filter.parameter_bag" class="%fxp_require_asset.assetic.filter.parameter_bag.class%">
+        <service id="fxp_require_asset.assetic.filter.parameter_bag" class="Fxp\Bundle\RequireAssetBundle\Assetic\Filter\ParameterBagFilter">
             <tag name="assetic.filter" alias="parameterbag" />
             <property name="container" type="service" id="service_container" />
         </service>
 
-        <service id="fxp_require_asset.assetic.filter.less_variable" class="%fxp_require_asset.assetic.filter.less_variable.class%">
+        <service id="fxp_require_asset.assetic.filter.less_variable" class="Fxp\Bundle\RequireAssetBundle\Assetic\Filter\LessVariableFilter">
             <tag name="assetic.filter" alias="lessvariable" />
             <property name="container" type="service" id="service_container" />
         </service>

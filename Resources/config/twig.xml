@@ -4,19 +4,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="twig.extension.fxp_require_asset.class">Fxp\Bundle\RequireAssetBundle\Twig\Extension\AssetExtension</parameter>
-        <parameter key="twig.extension.fxp_require_asset.require_asset.class">Fxp\Bundle\RequireAssetBundle\Twig\Extension\RequireAssetExtension</parameter>
-    </parameters>
-
     <services>
-        <service id="twig.extension.fxp_require_asset" class="%twig.extension.fxp_require_asset.class%" public="false">
+        <service id="twig.extension.fxp_require_asset" class="Fxp\Bundle\RequireAssetBundle\Twig\Extension\AssetExtension" public="false">
             <tag name="twig.extension" />
             <property name="container" type="service" id="service_container" />
             <argument type="service" id="fxp_require_asset.config.asset_replacement_manager" />
         </service>
 
-        <service id="twig.extension.fxp_require_asset.require_asset" class="%twig.extension.fxp_require_asset.require_asset.class%" public="false">
+        <service id="twig.extension.fxp_require_asset.require_asset" class="Fxp\Bundle\RequireAssetBundle\Twig\Extension\RequireAssetExtension" public="false">
             <tag name="twig.extension" />
         </service>
 
