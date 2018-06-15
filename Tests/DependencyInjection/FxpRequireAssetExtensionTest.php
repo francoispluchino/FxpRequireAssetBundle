@@ -88,12 +88,14 @@ class FxpRequireAssetExtensionTest extends TestCase
         $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config, true));
     }
 
-    public function testWebpackCache()
+    public function testWebpackAssetCache()
     {
         $config = [
             'webpack' => [
-                'cache' => [
-                    'enabled' => true,
+                'assets_adapter' => [
+                    'cache' => [
+                        'enabled' => true,
+                    ],
                 ],
             ],
         ];

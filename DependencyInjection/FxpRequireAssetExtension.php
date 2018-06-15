@@ -180,25 +180,50 @@ class FxpRequireAssetExtension extends Extension
     protected function configureWebpack(LoaderInterface $loader, ContainerBuilder $container, array $config, $withTwig)
     {
         if ($config['enabled']) {
-            $assetsFile = $config['assets_file'];
-            $cacheId = $config['cache']['service_id'];
-            $cacheKey = $config['cache']['key'];
-            $cacheEnabled = $config['cache']['enabled'];
-            $cacheEnabled = null !== $cacheEnabled
-                ? $cacheEnabled
-                : !$container->getParameter('kernel.debug');
-
             $loader->load('webpack.xml');
-            $container->setParameter('fxp_require_asset.require_asset_manager.webpack.assets_file', $assetsFile);
-            $container->setParameter('fxp_require_asset.require_asset_manager.webpack.cache_key', $cacheKey);
 
-            if ($cacheEnabled) {
-                $container->setAlias('fxp_require_asset.require_asset_manager.webpack.cache', $cacheId);
-            }
+            $container->setParameter('fxp_require_asset.webpack.adapter', $config['adapter']);
+            $this->configureWebpackManifest($container, $config['manifest_adapter']);
+            $this->configureWebpackAssets($container, $config['assets_adapter']);
 
             if ($withTwig) {
                 $loader->load('twig_webpack.xml');
             }
+        }
+    }
+
+    /**
+     * Configure the webpack manifest adapter.
+     *
+     * @param ContainerBuilder $container The container
+     * @param array            $config    The webpack config
+     */
+    private function configureWebpackManifest(ContainerBuilder $container, array $config)
+    {
+        $container->setParameter('fxp_require_asset.webpack.adapter.manifest.file', $config['file']);
+    }
+
+    /**
+     * Configure the webpack assets adapter.
+     *
+     * @param ContainerBuilder $container The container
+     * @param array            $config    The webpack config
+     */
+    private function configureWebpackAssets(ContainerBuilder $container, array $config)
+    {
+        $assetsFile = $config['file'];
+        $cacheId = $config['cache']['service_id'];
+        $cacheKey = $config['cache']['key'];
+        $cacheEnabled = $config['cache']['enabled'];
+        $cacheEnabled = null !== $cacheEnabled
+            ? $cacheEnabled
+            : !$container->getParameter('kernel.debug');
+
+        $container->setParameter('fxp_require_asset.webpack.adapter.assets.file', $assetsFile);
+        $container->setParameter('fxp_require_asset.webpack.adapter.assets.cache_key', $cacheKey);
+
+        if ($cacheEnabled) {
+            $container->setAlias('fxp_require_asset.webpack.adapter.assets.cache', $cacheId);
         }
     }
 }

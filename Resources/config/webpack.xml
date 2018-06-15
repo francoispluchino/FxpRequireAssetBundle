@@ -8,9 +8,22 @@
         <!-- Webpack Require Asset Manager -->
         <service id="fxp_require_asset.require_asset_manager.webpack" class="Fxp\Component\RequireAsset\Webpack\WebpackRequireAssetManager">
             <tag name="fxp_require_asset.require_asset_manager" priority="-250" />
-            <argument>%fxp_require_asset.require_asset_manager.webpack.assets_file%</argument>
-            <argument type="service" id="fxp_require_asset.require_asset_manager.webpack.cache" on-invalid="null" />
-            <argument>%fxp_require_asset.require_asset_manager.webpack.cache_key%</argument>
+            <argument type="service" id="fxp_require_asset.webpack.adapter.default" />
         </service>
+
+        <!-- Manifest Adapter -->
+        <service id="fxp_require_asset.webpack.adapter.manifest" class="Fxp\Component\RequireAsset\Webpack\Adapter\ManifestAdapter" public="false">
+            <argument>%fxp_require_asset.webpack.adapter.manifest.file%</argument>
+        </service>
+
+        <!-- Assets Adapter -->
+        <service id="fxp_require_asset.webpack.adapter.assets" class="Fxp\Component\RequireAsset\Webpack\Adapter\AssetsAdapter" public="false">
+            <argument>%fxp_require_asset.webpack.adapter.assets.file%</argument>
+            <argument type="service" id="fxp_require_asset.webpack.adapter.assets.cache" on-invalid="null" />
+            <argument>%fxp_require_asset.webpack.adapter.assets.cache_key%</argument>
+        </service>
+
+        <!-- Adapter alias -->
+        <service id="fxp_require_asset.webpack.adapter.default" alias="fxp_require_asset.webpack.adapter.assets" />
     </services>
 </container>

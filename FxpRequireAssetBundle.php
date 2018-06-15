@@ -22,6 +22,7 @@ use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\NpmAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\RequireAssetManagerPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TagRendererPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TwigCompilerPass;
+use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\WebpackAdapterPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -46,6 +47,7 @@ class FxpRequireAssetBundle extends Bundle
         $container->addCompilerPass(new BundleAssetsPass());
         $container->addCompilerPass(new ConfigurationPass());
         $container->addCompilerPass(new TwigCompilerPass());
+        $container->addCompilerPass(new WebpackAdapterPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, -200);
         $container->addCompilerPass(new CustomAssetsPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new ConfigurationCompilerPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new CompilerAssetsPass(), PassConfig::TYPE_BEFORE_REMOVING);

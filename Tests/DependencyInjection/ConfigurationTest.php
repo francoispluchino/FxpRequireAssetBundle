@@ -60,11 +60,17 @@ class ConfigurationTest extends TestCase
             'twig' => true,
             'webpack' => [
                 'enabled' => true,
-                'assets_file' => 'PROJECT_DIR/assets.json',
-                'cache' => [
-                    'enabled' => null,
-                    'key' => 'fxp_require_asset_webpack_assets',
-                    'service_id' => 'cache.app',
+                'adapter' => 'auto',
+                'manifest_adapter' => [
+                    'file' => null,
+                ],
+                'assets_adapter' => [
+                    'file' => 'PROJECT_DIR/assets.json',
+                    'cache' => [
+                        'enabled' => null,
+                        'key' => 'fxp_require_asset_webpack_assets',
+                        'service_id' => 'cache.app',
+                    ],
                 ],
             ],
         ];
