@@ -12,10 +12,14 @@
 namespace Fxp\Bundle\RequireAssetBundle\Tests\Twig\Extension;
 
 use Fxp\Bundle\RequireAssetBundle\Twig\Extension\RequireAssetExtension;
+use Fxp\Component\RequireAsset\Asset\ChainRequireAssetManager;
+use Fxp\Component\RequireAsset\Webpack\Adapter\ManifestAdapter;
+use Fxp\Component\RequireAsset\Webpack\WebpackRequireAssetManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Asset Extension Tests.
@@ -65,12 +69,21 @@ class RequireAssetExtensionTest extends TestCase
             'kernel.project_dir' => __DIR__,
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
-            'assetic.debug' => false,
         ]));
 
         if ($useContainer) {
-            $asseticManager = new Definition('Assetic\AssetManager');
-            $container->setDefinition('fxp_require_asset.chain_require_asset_manager', $asseticManager);
+            $assetAdapter = new Definition(ManifestAdapter::class);
+            $assetAdapter->setArguments([__DIR__.'/../../../vendor/fxp/require-asset/Tests/Fixtures/Webpack/manifest.json']);
+            $container->setDefinition('fxp_require_asset.require_asset_manager.adapter', $assetAdapter);
+
+            $assetManager = new Definition(WebpackRequireAssetManager::class);
+            $assetManager->setArguments([new Reference('fxp_require_asset.require_asset_manager.adapter')]);
+            $container->setDefinition('fxp_require_asset.require_asset_manager', $assetManager);
+
+            $chainAssetManager = new Definition(ChainRequireAssetManager::class);
+            $chainAssetManager->setArguments([[new Reference('fxp_require_asset.require_asset_manager')]]);
+            $chainAssetManager->setPublic(true);
+            $container->setDefinition('fxp_require_asset.chain_require_asset_manager', $chainAssetManager);
         }
 
         $container->getCompilerPassConfig()->setOptimizationPasses([]);

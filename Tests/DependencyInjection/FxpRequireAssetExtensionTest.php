@@ -15,7 +15,6 @@ use Fxp\Bundle\RequireAssetBundle\DependencyInjection\FxpRequireAssetExtension;
 use Fxp\Bundle\RequireAssetBundle\FxpRequireAssetBundle;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -48,46 +47,6 @@ class FxpRequireAssetExtensionTest extends TestCase
         $this->assertTrue($container->hasDefinition('twig.extension.fxp_require_asset'));
     }
 
-    public function testRemoveDisabledCommonAssets()
-    {
-        $config = [
-            'common_assets' => [
-                'common_css' => [
-                    'output' => '/js/common.js',
-                    'filters' => [],
-                    'inputs' => [
-                        '@acme_demo/js/asset.js',
-                    ],
-                    'options' => [
-                        'disabled' => true,
-                    ],
-                ],
-            ],
-        ];
-
-        $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config));
-    }
-
-    public function testDebugCommonAssets()
-    {
-        $config = [
-            'common_assets' => [
-                'common_css' => [
-                    'output' => '/js/common.js',
-                    'filters' => [],
-                    'inputs' => [
-                        '@acme_demo/js/asset.js',
-                    ],
-                    'options' => [
-                        'require_debug' => true,
-                    ],
-                ],
-            ],
-        ];
-
-        $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config, true));
-    }
-
     public function testWebpackAssetCache()
     {
         $config = [
@@ -100,15 +59,15 @@ class FxpRequireAssetExtensionTest extends TestCase
             ],
         ];
 
-        $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config, true));
+        $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config));
     }
 
     public function testNotAddCompilerForKernelNameWithoutUnderscore()
     {
-        $container = $this->getContainer([], false, 'kernel_');
+        $container = $this->getContainer([], 'kernel_');
         $this->assertGreaterThan(1, count($container->getCompilerPassConfig()->getPasses()));
 
-        $container = $this->getContainer([], false, 'kernel');
+        $container = $this->getContainer([], 'kernel');
         $this->assertGreaterThan(1, $container->getCompilerPassConfig()->getPasses());
     }
 
@@ -116,12 +75,11 @@ class FxpRequireAssetExtensionTest extends TestCase
      * Gets the container.
      *
      * @param array  $config     The container config
-     * @param bool   $debug      The debug mode
      * @param string $kernelName The name of kernel
      *
      * @return ContainerBuilder
      */
-    protected function getContainer(array $config = [], $debug = false, $kernelName = 'kernel')
+    protected function getContainer(array $config = [], $kernelName = 'kernel')
     {
         $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->cacheDir,
@@ -131,14 +89,9 @@ class FxpRequireAssetExtensionTest extends TestCase
             'kernel.project_dir' => __DIR__,
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
-            'assetic.debug' => $debug,
             'kernel.bundles' => [],
-            'assetic.cache_dir' => $this->cacheDir.'/assetic',
             'locale' => 'en',
         ]));
-
-        $asseticManager = new Definition('Assetic\Factory\LazyAssetManager');
-        $container->setDefinition('assetic.asset_manager', $asseticManager);
 
         $bundle = new FxpRequireAssetBundle();
         $bundle->build($container); // Attach all default factories

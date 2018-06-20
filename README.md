@@ -8,41 +8,21 @@ Fxp RequireAssetBundle
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/6819d453-7c5c-447f-ba5d-58e25409ac2d.svg)](https://insight.sensiolabs.com/projects/6819d453-7c5c-447f-ba5d-58e25409ac2d)
 
 The Fxp RequireAssetBundle is a helper for twig to manage automatically the required assets
-with Assetic or Webpack. It allows to define the required assets (script, style) directly in the
-Twig template and adds the HTML links of the assets automatically to the right place in
-the template, while removing duplicates. The bundle retrieves automatically asset dependencies
-defined by [fxp/composer-asset-plugin](https://github.com/fxpio/composer-asset-plugin),
-or by natives NPM and Bower and adds automatically the assets in the Assetic manager.
-
-The configuration included in the bundles can be overloaded in the global configuration,
-in this way, even if a Twig template uses a specific asset, and your global config changes
-the URL output of assets (output rewriting), the Twig template will automatically include
-the correct URL of asset, without your having to overload the Twig template.
+with Webpack. It allows to define the required assets (script, style) directly
+in the Twig template and adds the HTML links of the assets automatically to the
+right place in the template, while removing duplicates.
 
 ##### Features include:
 
 - All features of [Fxp Require Asset](https://github.com/fxpio/fxp-require-asset)
-- Compatible with [Webpack](https://webpack.js.org) and source maps (require the plugin [assets-webpack-plugin](https://github.com/kossnocorp/assets-webpack-plugin))
-- Automatically copy all assets:
-  - of NPM/Bower packages by Fxp Composer Asset Plugin or natives NPM and Bower in the assetic public directory
-  - defined in resources section of a Symfony2 Bundle (except `config`, `doc`, `license(s)`, `meta`, `public`, `skeleton`, `views`)
-- Automatic addition of localized commons assets
-- Compiling the final list of asset in cache for increase performance
-- Updating the list of assets when the source files requires a cache refresh (`dev` mode)
-- Native support of the assetic manager (command `assetic:dump` and controller)
-- Native support of the symfony templating (base URL and version)
-- Assetic filters:
-  - `parameterbag`: for replace the symfony parameters in assets
-  - `lessvariable`: for inject the asset package paths as variables
+- Compatible with [Webpack](https://webpack.js.org) and source maps (require the plugin
+  [webpack-manifest-plugin](https://github.com/danethurber/webpack-manifest-plugin) or
+  [assets-webpack-plugin](https://github.com/kossnocorp/assets-webpack-plugin))
 - Configure (in global config or in container compiler pass):
-  - the assetic filters of asset package by the extensions
-  - the assetic filters for all asset packages
-  - the custom asset package
-  - the rewrite output path of asset
-  - the common assets (assetic formulae dedicated to the require assets)
-  - the locale asset defined by each asset and/or common assets
-  - the locale common assets (automatic, but can be overridden)
+  - the locale asset defined by each entry
   - the replacement of assets by other assets
+- Compiling the final list of asset in cache to increase performance for `assets-webpack-plugin`
+- Native support of the symfony templating (base URL and version)
 
 Documentation
 -------------

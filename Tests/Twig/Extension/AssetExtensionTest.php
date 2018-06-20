@@ -70,7 +70,6 @@ class AssetExtensionTest extends TestCase
             'kernel.project_dir' => __DIR__,
             'kernel.root_dir' => __DIR__.'/src',
             'kernel.charset' => 'UTF-8',
-            'assetic.debug' => false,
         ]));
 
         if ($useContainerRenderers) {
@@ -79,6 +78,7 @@ class AssetExtensionTest extends TestCase
 
             $renderers = new Definition('Fxp\Bundle\RequireAssetBundle\Twig\Extension\ContainerRenderers');
             $renderers->addMethodCall('addRenderer', [new Reference('fxp_require_asset_test.twig.mock_renderer')]);
+            $renderers->setPublic(true);
             $container->setDefinition('twig.extension.fxp_require_asset.container_tag_renderers', $renderers);
         }
 

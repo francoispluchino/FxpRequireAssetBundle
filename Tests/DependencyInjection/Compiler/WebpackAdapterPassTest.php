@@ -204,8 +204,6 @@ class WebpackAdapterPassTest extends TestCase
             'kernel.project_dir' => $this->projectDir,
             'kernel.root_dir' => $this->projectDir.'/src',
             'kernel.charset' => 'UTF-8',
-            'assetic.debug' => false,
-            'assetic.cache_dir' => $this->projectDir.'/cache/assetic',
             'kernel.bundles' => [],
         ]));
 

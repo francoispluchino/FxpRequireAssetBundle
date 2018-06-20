@@ -36,27 +36,10 @@ class ConfigurationTest extends TestCase
     protected static function getBundleDefaultConfig()
     {
         return [
-            'output_prefix' => 'assets',
-            'output_prefix_debug' => 'assets-dev',
-            'composer_installed_path' => 'PROJECT_DIR/vendor/composer/installed.json',
-            'native_npm' => true,
-            'native_bower' => true,
-            'base_dir' => 'PROJECT_DIR',
-            'default' => [
-                'replace_extensions' => false,
-                'extensions' => [],
-                'patterns' => [],
-            ],
-            'output_rewrites' => [],
-            'packages' => [],
-            'common_assets' => [],
             'default_locale' => 'en',
             'fallback_locale' => null,
             'locales' => [],
             'asset_replacement' => [],
-            'auto_configuration' => true,
-            'less_assetic_filter' => 'less',
-            'assetic' => true,
             'twig' => true,
             'webpack' => [
                 'enabled' => true,

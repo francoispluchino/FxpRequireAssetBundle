@@ -11,14 +11,6 @@
 
 namespace Fxp\Bundle\RequireAssetBundle;
 
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\BowerAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\BundleAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CompilerAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ComposerAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationCompilerPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\ConfigurationPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\CustomAssetsPass;
-use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\NpmAssetsPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\RequireAssetManagerPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TagRendererPass;
 use Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler\TwigCompilerPass;
@@ -41,15 +33,7 @@ class FxpRequireAssetBundle extends Bundle
 
         $container->addCompilerPass(new RequireAssetManagerPass());
         $container->addCompilerPass(new TagRendererPass());
-        $container->addCompilerPass(new ComposerAssetsPass());
-        $container->addCompilerPass(new NpmAssetsPass());
-        $container->addCompilerPass(new BowerAssetsPass());
-        $container->addCompilerPass(new BundleAssetsPass());
-        $container->addCompilerPass(new ConfigurationPass());
         $container->addCompilerPass(new TwigCompilerPass());
         $container->addCompilerPass(new WebpackAdapterPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, -200);
-        $container->addCompilerPass(new CustomAssetsPass(), PassConfig::TYPE_OPTIMIZE);
-        $container->addCompilerPass(new ConfigurationCompilerPass(), PassConfig::TYPE_OPTIMIZE);
-        $container->addCompilerPass(new CompilerAssetsPass(), PassConfig::TYPE_BEFORE_REMOVING);
     }
 }

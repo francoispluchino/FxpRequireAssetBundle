@@ -17,10 +17,10 @@ Installation is a quick, 2 step process:
 
 Add Fxp RequireAssetBundle in your composer.json:
 
-```js
+```json
 {
     "require": {
-        "fxp/require-asset-bundle": "1.0@dev"
+        "fxp/require-asset-bundle": "^1.0.0"
     }
 }
 ```
@@ -28,7 +28,7 @@ Add Fxp RequireAssetBundle in your composer.json:
 Or tell composer to download the bundle by running the command:
 
 ```bash
-$ php composer.phar require fxp/require-asset-bundle:1.0@dev
+$ php composer.phar require fxp/require-asset-bundle:"^1.0.0"
 ```
 
 Composer will install the bundle to your project's `vendor/fxp` directory.
@@ -66,7 +66,6 @@ Fxp RequireAssetBundle, you are ready to learn about usages of the bundle.
 The following documents are available:
 
 - [Custom configuration](configuration.md)
-- [Basic usage with Assetic](usage_basic_assetic.md)
-- [Require Webpack asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset_webpack.md)
-- [Require asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset.md)
 - [Inline asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_inline_asset.md)
+- [Require asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset.md)
+- [Require Webpack asset usage in Twig](https://github.com/fxpio/fxp-require-asset/blob/master/Resources/doc/usage_twig_require_asset.md)
