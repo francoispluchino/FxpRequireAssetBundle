@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9125502e3b3542793e0b1f274c2538d3",
+    "content-hash": "b74fdd3974b64dbea7d18eaa6f8bbb0a",
     "packages": [
         {
             "name": "fxp/require-asset",
