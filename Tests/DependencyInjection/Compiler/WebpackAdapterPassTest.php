@@ -119,6 +119,28 @@ class WebpackAdapterPassTest extends TestCase
         $this->assertTrue($container->hasParameter('fxp_require_asset.webpack.adapter.manifest.file'));
     }
 
+    public function testProcessMockAdapterForTestEnv()
+    {
+        $container = $this->getContainer('manifest', '%kernel.project_dir%/manifest.json', 'test');
+
+        $this->assertFalse($container->hasAlias('fxp_require_asset.webpack.adapter.default'));
+
+        $this->pass->process($container);
+
+        $this->assertFalse($container->hasParameter('fxp_require_asset.webpack.adapter'));
+        $this->assertTrue($container->hasAlias('fxp_require_asset.webpack.adapter.default'));
+
+        $this->assertFalse($container->hasDefinition('fxp_require_asset.webpack.adapter.assets'));
+        $this->assertFalse($container->hasParameter('fxp_require_asset.webpack.adapter.assets.file'));
+        $this->assertFalse($container->hasParameter('fxp_require_asset.webpack.adapter.assets.cache_key'));
+        $this->assertFalse($container->hasAlias('fxp_require_asset.webpack.adapter.assets.cache'));
+
+        $this->assertFalse($container->hasDefinition('fxp_require_asset.webpack.adapter.manifest'));
+        $this->assertFalse($container->hasParameter('fxp_require_asset.webpack.adapter.manifest.file'));
+
+        $this->assertTrue($container->hasDefinition('fxp_require_asset.webpack.adapter.mock'));
+    }
+
     public function testProcessManifestAdapterManual()
     {
         $container = $this->getContainer('manifest', '%kernel.project_dir%/manifest.json');
@@ -191,15 +213,16 @@ class WebpackAdapterPassTest extends TestCase
      *
      * @param string      $adapter
      * @param string|null $manifestFile
+     * @param string      $env
      *
      * @return ContainerBuilder
      */
-    protected function getContainer($adapter = 'auto', $manifestFile = null)
+    protected function getContainer($adapter = 'auto', $manifestFile = null, $env = 'dev')
     {
         $container = new ContainerBuilder(new ParameterBag([
             'kernel.cache_dir' => $this->projectDir.'/cache',
             'kernel.debug' => false,
-            'kernel.environment' => 'test',
+            'kernel.environment' => $env,
             'kernel.name' => 'kernel',
             'kernel.project_dir' => $this->projectDir,
             'kernel.root_dir' => $this->projectDir.'/src',

@@ -12,9 +12,11 @@
 namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection\Compiler;
 
 use Fxp\Component\RequireAsset\Exception\InvalidConfigurationException;
+use Fxp\Component\RequireAsset\Webpack\Adapter\MockAdapter;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * Select the webpack plugin adapter.
@@ -36,7 +38,9 @@ class WebpackAdapterPass implements CompilerPassInterface
             $adapter = null !== $this->findManifestPath($container) ? 'manifest' : 'assets';
         }
 
-        if ('manifest' === $adapter) {
+        if ('test' === $container->getParameter('kernel.environment')) {
+            $adapter = $this->configureMockAdapter($container);
+        } elseif ('manifest' === $adapter) {
             $this->configureManifestAdapter($container);
         } elseif ('assets' === $adapter) {
             $this->configureAssetsAdapter($container);
@@ -44,6 +48,27 @@ class WebpackAdapterPass implements CompilerPassInterface
 
         $container->getParameterBag()->remove('fxp_require_asset.webpack.adapter');
         $container->setAlias('fxp_require_asset.webpack.adapter.default', 'fxp_require_asset.webpack.adapter.'.$adapter);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     *
+     * @return string
+     */
+    private function configureMockAdapter(ContainerBuilder $container)
+    {
+        $adapter = 'mock';
+        $container->setDefinition('fxp_require_asset.webpack.adapter.'.$adapter, new Definition(MockAdapter::class));
+
+        $container->removeDefinition('fxp_require_asset.webpack.adapter.assets');
+        $container->getParameterBag()->remove('fxp_require_asset.webpack.adapter.assets.file');
+        $container->getParameterBag()->remove('fxp_require_asset.webpack.adapter.assets.cache_key');
+        $container->removeAlias('fxp_require_asset.webpack.adapter.assets.cache');
+
+        $container->removeDefinition('fxp_require_asset.webpack.adapter.manifest');
+        $container->getParameterBag()->remove('fxp_require_asset.webpack.adapter.manifest.file');
+
+        return $adapter;
     }
 
     /**
