@@ -109,7 +109,7 @@ class WebpackAdapterPass implements CompilerPassInterface
         if (null === $manifestPath && $container->hasDefinition('assets._version__default')) {
             $def = $container->getDefinition('assets._version__default');
 
-            if (count($def->getArguments()) > 0) {
+            if (\count($def->getArguments()) > 0) {
                 $manifestPath = $def->getArgument(0);
                 $container->setParameter('fxp_require_asset.webpack.adapter.manifest.file', $manifestPath);
             }

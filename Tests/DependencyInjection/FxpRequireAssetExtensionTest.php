@@ -65,7 +65,7 @@ class FxpRequireAssetExtensionTest extends TestCase
     public function testNotAddCompilerForKernelNameWithoutUnderscore()
     {
         $container = $this->getContainer([], 'kernel_');
-        $this->assertGreaterThan(1, count($container->getCompilerPassConfig()->getPasses()));
+        $this->assertGreaterThan(1, \count($container->getCompilerPassConfig()->getPasses()));
 
         $container = $this->getContainer([], 'kernel');
         $this->assertGreaterThan(1, $container->getCompilerPassConfig()->getPasses());
