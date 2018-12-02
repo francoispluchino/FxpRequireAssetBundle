@@ -13,6 +13,7 @@ namespace Fxp\Bundle\RequireAssetBundle\DependencyInjection;
 
 use Fxp\Component\RequireAsset\Config\AssetReplacementConfiguration;
 use Fxp\Component\RequireAsset\Config\LocaleConfiguration;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -51,8 +52,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fxp_require_asset');
+        $treeBuilder = new TreeBuilder('fxp_require_asset');
+        /* @var ArrayNodeDefinition $rootNode */
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
@@ -75,8 +77,9 @@ class Configuration implements ConfigurationInterface
      */
     private function getWebpackNode()
     {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('webpack');
+        $treeBuilder = new TreeBuilder('webpack');
+        /* @var ArrayNodeDefinition $node */
+        $node = $treeBuilder->getRootNode();
 
         $node
             ->canBeDisabled()
