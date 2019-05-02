@@ -22,8 +22,10 @@ use Symfony\Component\Filesystem\Filesystem;
  * Webpack Adapter Pass Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
+ *
+ * @internal
  */
-class WebpackAdapterPassTest extends TestCase
+final class WebpackAdapterPassTest extends TestCase
 {
     /**
      * @var string
@@ -40,20 +42,20 @@ class WebpackAdapterPassTest extends TestCase
      */
     protected $pass;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->projectDir = sys_get_temp_dir().'/require_asset_webpack_adapter_pass_tests';
         $this->fs = new Filesystem();
         $this->pass = new WebpackAdapterPass();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->fs->remove($this->projectDir);
         $this->pass = null;
     }
 
-    public function testProcessAutoManifestAdapter()
+    public function testProcessAutoManifestAdapter(): void
     {
         $container = $this->getContainer();
 
@@ -76,7 +78,7 @@ class WebpackAdapterPassTest extends TestCase
         $this->assertTrue($container->hasParameter('fxp_require_asset.webpack.adapter.manifest.file'));
     }
 
-    public function testProcessAutoAssetsAdapter()
+    public function testProcessAutoAssetsAdapter(): void
     {
         $container = $this->getContainer();
 
@@ -96,7 +98,7 @@ class WebpackAdapterPassTest extends TestCase
         $this->assertFalse($container->hasParameter('fxp_require_asset.webpack.adapter.manifest.file'));
     }
 
-    public function testProcessManifestAdapter()
+    public function testProcessManifestAdapter(): void
     {
         $container = $this->getContainer('manifest');
 
@@ -119,7 +121,7 @@ class WebpackAdapterPassTest extends TestCase
         $this->assertTrue($container->hasParameter('fxp_require_asset.webpack.adapter.manifest.file'));
     }
 
-    public function testProcessMockAdapterForTestEnv()
+    public function testProcessMockAdapterForTestEnv(): void
     {
         $container = $this->getContainer('manifest', '%kernel.project_dir%/manifest.json', 'test');
 
@@ -141,7 +143,7 @@ class WebpackAdapterPassTest extends TestCase
         $this->assertTrue($container->hasDefinition('fxp_require_asset.webpack.adapter.mock'));
     }
 
-    public function testProcessManifestAdapterManual()
+    public function testProcessManifestAdapterManual(): void
     {
         $container = $this->getContainer('manifest', '%kernel.project_dir%/manifest.json');
 
@@ -161,12 +163,11 @@ class WebpackAdapterPassTest extends TestCase
         $this->assertTrue($container->hasParameter('fxp_require_asset.webpack.adapter.manifest.file'));
     }
 
-    /**
-     * @expectedException \Fxp\Component\RequireAsset\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage The "fxp_require_asset.webpack.manifest_adapter.file" option or "framework.assets.json_manifest_path" is required to use the webpack manifest adapter
-     */
-    public function testProcessManifestAdapterWithoutFile()
+    public function testProcessManifestAdapterWithoutFile(): void
     {
+        $this->expectException(\Fxp\Component\RequireAsset\Exception\InvalidConfigurationException::class);
+        $this->expectExceptionMessage('The "fxp_require_asset.webpack.manifest_adapter.file" option or "framework.assets.json_manifest_path" is required to use the webpack manifest adapter');
+
         $container = $this->getContainer('manifest');
 
         $this->assertFalse($container->hasAlias('fxp_require_asset.webpack.adapter.default'));
@@ -185,7 +186,7 @@ class WebpackAdapterPassTest extends TestCase
         $this->assertTrue($container->hasParameter('fxp_require_asset.webpack.adapter.manifest.file'));
     }
 
-    public function testProcessAssetsAdapter()
+    public function testProcessAssetsAdapter(): void
     {
         $container = $this->getContainer('assets');
 
@@ -212,7 +213,7 @@ class WebpackAdapterPassTest extends TestCase
      * Gets the container.
      *
      * @param string      $adapter
-     * @param string|null $manifestFile
+     * @param null|string $manifestFile
      * @param string      $env
      *
      * @return ContainerBuilder

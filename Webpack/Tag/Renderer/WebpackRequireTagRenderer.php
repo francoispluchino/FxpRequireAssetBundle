@@ -33,12 +33,13 @@ class WebpackRequireTagRenderer extends BaseWebpackRequireTagRenderer
      *
      * @param WebpackRequireAssetManager  $manager       The webpack require asset manager
      * @param Packages                    $packages      The asset packages
-     * @param LocaleManagerInterface|null $localeManager The require locale asset manager
+     * @param null|LocaleManagerInterface $localeManager The require locale asset manager
      */
-    public function __construct(WebpackRequireAssetManager $manager,
-                                Packages $packages,
-                                LocaleManagerInterface $localeManager = null)
-    {
+    public function __construct(
+        WebpackRequireAssetManager $manager,
+        Packages $packages,
+        LocaleManagerInterface $localeManager = null
+    ) {
         parent::__construct($manager, $localeManager);
 
         $this->packages = $packages;

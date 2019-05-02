@@ -30,7 +30,7 @@ class WebpackAdapterPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $adapter = $container->getParameter('fxp_require_asset.webpack.adapter');
 
@@ -74,7 +74,7 @@ class WebpackAdapterPass implements CompilerPassInterface
     /**
      * @param ContainerBuilder $container
      */
-    private function configureManifestAdapter(ContainerBuilder $container)
+    private function configureManifestAdapter(ContainerBuilder $container): void
     {
         $manifestPath = $this->findManifestPath($container);
 
@@ -91,7 +91,7 @@ class WebpackAdapterPass implements CompilerPassInterface
     /**
      * @param ContainerBuilder $container
      */
-    private function configureAssetsAdapter(ContainerBuilder $container)
+    private function configureAssetsAdapter(ContainerBuilder $container): void
     {
         $container->removeDefinition('fxp_require_asset.webpack.adapter.manifest');
         $container->getParameterBag()->remove('fxp_require_asset.webpack.adapter.manifest.file');
@@ -100,7 +100,7 @@ class WebpackAdapterPass implements CompilerPassInterface
     /**
      * @param ContainerBuilder $container
      *
-     * @return string|null
+     * @return null|string
      */
     private function findManifestPath(ContainerBuilder $container)
     {

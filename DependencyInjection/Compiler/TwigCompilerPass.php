@@ -25,7 +25,7 @@ class TwigCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $twigExtension = $container->getDefinition('twig.extension.fxp_require_asset');
 

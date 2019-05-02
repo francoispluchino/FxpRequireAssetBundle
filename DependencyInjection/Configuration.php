@@ -53,17 +53,17 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('fxp_require_asset');
-        /* @var ArrayNodeDefinition $rootNode */
+        /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
-                ->booleanNode('twig')->defaultValue(class_exists('Twig_Environment'))->end()
-                ->scalarNode('default_locale')->defaultValue($this->defaultLocale)->end()
-                ->scalarNode('fallback_locale')->defaultNull()->end()
-                ->append(AssetReplacementConfiguration::getNodeDefinition())
-                ->append(LocaleConfiguration::getNodeDefinition())
-                ->append($this->getWebpackNode())
+            ->booleanNode('twig')->defaultValue(class_exists('Twig_Environment'))->end()
+            ->scalarNode('default_locale')->defaultValue($this->defaultLocale)->end()
+            ->scalarNode('fallback_locale')->defaultNull()->end()
+            ->append(AssetReplacementConfiguration::getNodeDefinition())
+            ->append(LocaleConfiguration::getNodeDefinition())
+            ->append($this->getWebpackNode())
             ->end()
         ;
 
@@ -78,38 +78,38 @@ class Configuration implements ConfigurationInterface
     private function getWebpackNode()
     {
         $treeBuilder = new TreeBuilder('webpack');
-        /* @var ArrayNodeDefinition $node */
+        /** @var ArrayNodeDefinition $node */
         $node = $treeBuilder->getRootNode();
 
         $node
             ->canBeDisabled()
             ->addDefaultsIfNotSet()
             ->children()
-                ->enumNode('adapter')
-                    ->values(['auto', 'manifest', 'assets'])
-                    ->defaultValue('auto')
-                    ->cannotBeEmpty()
-                ->end()
-                ->arrayNode('manifest_adapter')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('file')->defaultNull()->end()
-                    ->end()
-                ->end()
-                ->arrayNode('assets_adapter')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('file')->defaultValue($this->projectDir.'/assets.json')->end()
-                        ->arrayNode('cache')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')->defaultValue(null)->end()
-                                ->booleanNode('key')->defaultValue('fxp_require_asset_webpack_assets')->end()
-                                ->scalarNode('service_id')->defaultValue('cache.app')->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
+            ->enumNode('adapter')
+            ->values(['auto', 'manifest', 'assets'])
+            ->defaultValue('auto')
+            ->cannotBeEmpty()
+            ->end()
+            ->arrayNode('manifest_adapter')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('file')->defaultNull()->end()
+            ->end()
+            ->end()
+            ->arrayNode('assets_adapter')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('file')->defaultValue($this->projectDir.'/assets.json')->end()
+            ->arrayNode('cache')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->booleanNode('enabled')->defaultValue(null)->end()
+            ->booleanNode('key')->defaultValue('fxp_require_asset_webpack_assets')->end()
+            ->scalarNode('service_id')->defaultValue('cache.app')->end()
+            ->end()
+            ->end()
+            ->end()
+            ->end()
             ->end()
         ;
 

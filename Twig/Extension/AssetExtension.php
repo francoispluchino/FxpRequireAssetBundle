@@ -29,7 +29,7 @@ class AssetExtension extends BaseAssetExtension
     /**
      * {@inheritdoc}
      */
-    public function renderTags($allPosition = true)
+    public function renderTags($allPosition = true): void
     {
         if (null !== $this->container) {
             $id = 'twig.extension.fxp_require_asset.container_tag_renderers';

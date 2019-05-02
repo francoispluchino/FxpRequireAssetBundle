@@ -22,15 +22,16 @@ use Symfony\Component\DependencyInjection\Reference;
  * Asset Extension Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
+ *
+ * @internal
  */
-class AssetExtensionTest extends TestCase
+final class AssetExtensionTest extends TestCase
 {
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage You have requested a non-existent service "twig.extension.fxp_require_asset.container_tag_renderers".
-     */
-    public function testContainerServiceWithoutContainerRenderers()
+    public function testContainerServiceWithoutContainerRenderers(): void
     {
+        $this->expectException(\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('You have requested a non-existent service "twig.extension.fxp_require_asset.container_tag_renderers".');
+
         $ext = new AssetExtension();
 
         $this->assertNull($ext->container);
@@ -40,7 +41,7 @@ class AssetExtensionTest extends TestCase
         $ext->renderTags();
     }
 
-    public function testContainerService()
+    public function testContainerService(): void
     {
         $ext = new AssetExtension();
 

@@ -22,32 +22,34 @@ use Symfony\Component\Filesystem\Filesystem;
  * Bundle Extension Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
+ *
+ * @internal
  */
-class FxpRequireAssetExtensionTest extends TestCase
+final class FxpRequireAssetExtensionTest extends TestCase
 {
     /**
      * @var string
      */
     protected $cacheDir;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cacheDir = sys_get_temp_dir().'/require_asset_tests';
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $fs = new Filesystem();
         $fs->remove($this->cacheDir);
     }
 
-    public function testCompileContainerWithExtension()
+    public function testCompileContainerWithExtension(): void
     {
         $container = $this->getContainer();
         $this->assertTrue($container->hasDefinition('twig.extension.fxp_require_asset'));
     }
 
-    public function testWebpackAssetCache()
+    public function testWebpackAssetCache(): void
     {
         $config = [
             'webpack' => [
@@ -62,7 +64,7 @@ class FxpRequireAssetExtensionTest extends TestCase
         $this->assertInstanceOf(ContainerBuilder::class, $this->getContainer($config));
     }
 
-    public function testNotAddCompilerForKernelNameWithoutUnderscore()
+    public function testNotAddCompilerForKernelNameWithoutUnderscore(): void
     {
         $container = $this->getContainer([], 'kernel_');
         $this->assertGreaterThan(1, \count($container->getCompilerPassConfig()->getPasses()));

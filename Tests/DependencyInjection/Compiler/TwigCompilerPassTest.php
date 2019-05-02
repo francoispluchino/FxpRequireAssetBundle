@@ -22,8 +22,10 @@ use Symfony\Component\Filesystem\Filesystem;
  * Bundle Assets Pass Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
+ *
+ * @internal
  */
-class TwigCompilerPassTest extends TestCase
+final class TwigCompilerPassTest extends TestCase
 {
     /**
      * @var string
@@ -40,20 +42,20 @@ class TwigCompilerPassTest extends TestCase
      */
     protected $pass;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->projectDir = sys_get_temp_dir().'/require_asset_bundle_twig_tag_pass_tests';
         $this->fs = new Filesystem();
         $this->pass = new TwigCompilerPass();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->fs->remove($this->projectDir);
         $this->pass = null;
     }
 
-    public function testProcess()
+    public function testProcess(): void
     {
         $container = $this->getContainer();
 

@@ -20,15 +20,18 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Tests for twig asset subscriber.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
+ *
+ * @internal
  */
-class TwigAssetSubscriberTest extends TestCase
+final class TwigAssetSubscriberTest extends TestCase
 {
-    public function testResetTagPositionException()
+    public function testResetTagPositionException(): void
     {
-        /* @var AssetExtension|\PHPUnit_Framework_MockObject_MockObject $ext  */
+        /** @var AssetExtension|\PHPUnit_Framework_MockObject_MockObject $ext */
         $ext = $this->getMockBuilder(AssetExtension::class)->disableOriginalConstructor()->getMock();
         $ext->expects($this->once())
-            ->method('resetTagPosition');
+            ->method('resetTagPosition')
+        ;
 
         $subscriber = new TwigAssetSubscriber($ext);
         $validEvents = [

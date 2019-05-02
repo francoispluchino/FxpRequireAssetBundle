@@ -27,7 +27,7 @@ class FxpRequireAssetExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration($container->getParameter('kernel.project_dir'), 'en');
         $config = $this->processConfiguration($configuration, $configs);
@@ -50,7 +50,7 @@ class FxpRequireAssetExtension extends Extension
      * @param ContainerBuilder $container
      * @param array            $config
      */
-    protected function loadParameters(ContainerBuilder $container, array $config)
+    protected function loadParameters(ContainerBuilder $container, array $config): void
     {
         $container->setParameter('fxp_require_asset.config.default_locale', $config['default_locale']);
         $container->setParameter('fxp_require_asset.config.fallback_locale', $config['fallback_locale']);
@@ -65,7 +65,7 @@ class FxpRequireAssetExtension extends Extension
      * @param array            $config    The webpack config
      * @param bool             $withTwig  Check if the twig feature must be used
      */
-    protected function configureWebpack(LoaderInterface $loader, ContainerBuilder $container, array $config, $withTwig)
+    protected function configureWebpack(LoaderInterface $loader, ContainerBuilder $container, array $config, $withTwig): void
     {
         if ($config['enabled']) {
             $loader->load('webpack.xml');
@@ -86,7 +86,7 @@ class FxpRequireAssetExtension extends Extension
      * @param ContainerBuilder $container The container
      * @param array            $config    The webpack config
      */
-    private function configureWebpackManifest(ContainerBuilder $container, array $config)
+    private function configureWebpackManifest(ContainerBuilder $container, array $config): void
     {
         $container->setParameter('fxp_require_asset.webpack.adapter.manifest.file', $config['file']);
     }
@@ -97,7 +97,7 @@ class FxpRequireAssetExtension extends Extension
      * @param ContainerBuilder $container The container
      * @param array            $config    The webpack config
      */
-    private function configureWebpackAssets(ContainerBuilder $container, array $config)
+    private function configureWebpackAssets(ContainerBuilder $container, array $config): void
     {
         $assetsFile = $config['file'];
         $cacheId = $config['cache']['service_id'];

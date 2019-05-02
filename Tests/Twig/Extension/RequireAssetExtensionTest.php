@@ -25,15 +25,16 @@ use Symfony\Component\DependencyInjection\Reference;
  * Asset Extension Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
+ *
+ * @internal
  */
-class RequireAssetExtensionTest extends TestCase
+final class RequireAssetExtensionTest extends TestCase
 {
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage You have requested a non-existent service "fxp_require_asset.chain_require_asset_manager".
-     */
-    public function testContainerServiceWithoutContainerRenderers()
+    public function testContainerServiceWithoutContainerRenderers(): void
     {
+        $this->expectException(\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('You have requested a non-existent service "fxp_require_asset.chain_require_asset_manager".');
+
         $ext = new RequireAssetExtension();
 
         $this->assertNull($ext->container);
@@ -42,7 +43,7 @@ class RequireAssetExtensionTest extends TestCase
         $this->assertSame('@acme_demo/js/asset2.js', $ext->requireAsset('@acme_demo/js/asset2.js'));
     }
 
-    public function testContainerService()
+    public function testContainerService(): void
     {
         $ext = new RequireAssetExtension();
 

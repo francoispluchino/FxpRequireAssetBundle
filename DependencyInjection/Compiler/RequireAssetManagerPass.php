@@ -27,7 +27,7 @@ class RequireAssetManagerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if ($container->hasDefinition('fxp_require_asset.chain_require_asset_manager')) {
             $definition = $container->getDefinition('fxp_require_asset.chain_require_asset_manager');

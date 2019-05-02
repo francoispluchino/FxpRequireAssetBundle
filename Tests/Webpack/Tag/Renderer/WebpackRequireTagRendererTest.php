@@ -24,12 +24,14 @@ use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
  * Webpack Require Tag Renderer Tests.
  *
  * @author François Pluchino <francois.pluchino@gmail.com>
+ *
+ * @internal
  */
-class WebpackRequireTagRendererTest extends TestCase
+final class WebpackRequireTagRendererTest extends TestCase
 {
-    public function testGetTargetPathWithTemplatingHelper()
+    public function testGetTargetPathWithTemplatingHelper(): void
     {
-        /* @var WebpackRequireAssetManager|\PHPUnit_Framework_MockObject_MockObject $manager */
+        /** @var \PHPUnit_Framework_MockObject_MockObject|WebpackRequireAssetManager $manager */
         $manager = $this->getMockBuilder(WebpackRequireAssetManager::class)->disableOriginalConstructor()->getMock();
         $versionStrategy = new StaticVersionStrategy('v2');
         $defaultPackage = new Package($versionStrategy);
@@ -42,28 +44,34 @@ class WebpackRequireTagRendererTest extends TestCase
         $manager->expects($this->any())
             ->method('has')
             ->with($asset)
-            ->willReturn(true);
+            ->willReturn(true)
+        ;
 
         $manager->expects($this->any())
             ->method('getPath')
             ->with($asset)
-            ->willReturn($assetPath);
+            ->willReturn($assetPath)
+        ;
 
         $tag = $this->getMockBuilder(RequireTagInterface::class)->getMock();
         $tag->expects($this->any())
             ->method('getHtmlTag')
-            ->will($this->returnValue('script'));
+            ->will($this->returnValue('script'))
+        ;
         $tag->expects($this->any())
             ->method('getLinkAttribute')
-            ->will($this->returnValue('src'));
+            ->will($this->returnValue('src'))
+        ;
         $tag->expects($this->any())
             ->method('shortEndTag')
-            ->will($this->returnValue(false));
+            ->will($this->returnValue(false))
+        ;
         $tag->expects($this->any())
             ->method('getPath')
-            ->will($this->returnValue($asset));
+            ->will($this->returnValue($asset))
+        ;
 
-        /* @var TagInterface $tag */
+        /** @var TagInterface $tag */
         $output = $renderer->render($tag);
 
         $this->assertSame('<script src="/assets/foo_bar_js.js?v2"></script>', $output);

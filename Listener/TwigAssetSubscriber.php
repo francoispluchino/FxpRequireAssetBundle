@@ -52,7 +52,7 @@ class TwigAssetSubscriber implements EventSubscriberInterface
     /**
      * Reset the tag positions of require asset.
      */
-    public function resetTagPositionException()
+    public function resetTagPositionException(): void
     {
         $this->assetExtension->resetTagPosition();
     }

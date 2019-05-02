@@ -28,7 +28,7 @@ class TagRendererPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if ($container->hasDefinition('twig.extension.fxp_require_asset')) {
             $definition = new Definition('Fxp\Bundle\RequireAssetBundle\Twig\Extension\ContainerRenderers');
